@@ -38,12 +38,13 @@ class RobustnessProperty:
         # fill input consraints
         for input_idx in range(self.input_size):
             for id, op in enumerate([operator.ge, operator.le]):
-                if id == 0:
-                    self.delta = - self.delta
-                else:
-                    self.delta = - self.delta
+                delta_sign = 1
+                if op == operator.ge:
+                    delta_sign = -1
+                elif op == operator.le:
+                    delta_sign = 1
                 key = 'input_%d' % (input_idx + 1)
-                prop_elem = PropertyElement(self.variables_dict[key], self.coordinate[input_idx] + self.delta, op)
+                prop_elem = PropertyElement(self.variables_dict[key], self.coordinate[input_idx] + delta_sign*self.delta, op)
                 self.input_property_placeholder.append(prop_elem.return_property_element())
 
     def _set_output_propety(self):

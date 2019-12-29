@@ -3,6 +3,9 @@ import argparse
 
 class ArgumentsParser:
     parser = argparse.ArgumentParser(description='NN Synthesizer.')
+    # general args
+    parser.add_argument('-rs', '--random_seed', default=42, type=int,
+                        help='Random seed for creating/splitting dataset, and for training the net')
     # xor dataset args
     parser.add_argument('-d', '--dataset_size', default=1000, type=int,
                         help='Number of instances for data generation')
@@ -20,4 +23,14 @@ class ArgumentsParser:
                         help='Neural net training learning rate')
     parser.add_argument('-e', '--epochs', default=10, type=int,
                         help='Number of epochs for training the net')
-    # TODO: paramterize random seed (data generation/pytorch)
+    # goal args
+    parser.add_argument('-dw', '--ws_delta', default=0.5, type=float,
+                        help='Delta value for bounding the free weights in their original neighbourhood')
+    # robustness property args
+    parser.add_argument('-pd', '--pr_delta', default=1, type=float,
+                        help='Delta value for robustness property')
+    parser.add_argument('-pc', '--pr_coordinate', nargs='+', default=(10, 10),
+                        help='Property coordinates, e.g., for x1=10 x2=10: python main.py -pc 10 10')
+    # evaluation args
+    parser.add_argument('-ms', '--meshgrid_stepsize', default=0.1, type=float,
+                        help='Step size for dividing input space in generated meshgrid for contour plot')

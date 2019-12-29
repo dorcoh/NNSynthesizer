@@ -2,10 +2,12 @@ from nnsynth.common.formats import Formats
 
 
 class WeightsSelector:
-    def __init__(self, input_size: int, hidden_size: tuple, output_size: int):
+    def __init__(self, input_size: int, hidden_size: tuple, output_size: int, delta: float = None):
         self.input_size = input_size
         self.hidden_size = hidden_size
         self.output_size = output_size
+        # whether to add constraints for bounding the variable in a delta neighbourhood
+        self.delta = delta
 
         # unify layers size [input, hidden1, hidden2..., output]
         self.hidden_sizes = [i for i in self.hidden_size]
@@ -20,6 +22,11 @@ class WeightsSelector:
     def get_selected_weights(self):
         """Return unique selected weights, in addition removes duplicate keys"""
         return sorted(set(self.selected_weights))
+
+    def get_delta(self):
+        """Returns None if no bounding is wanted; otherwise add bounds for each
+        free weight as follows: original_value - delta <= variable <= original_value + delta"""
+        return self.delta
 
     def select_layer(self, layer: int):
         """Layer == 1 means the first hidden layer"""

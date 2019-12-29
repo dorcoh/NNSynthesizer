@@ -68,8 +68,9 @@ class FormulaGenerator:
         # keep original weights (before overriding them)
         self.weight_values_copy = deepcopy(self.weight_values)
 
-        free_weight_format = weights_selector.get_selected_weights()
-        self.add_weights_to_search(free_weight_format)
+        selected_weights = weights_selector.get_selected_weights()
+        weights_delta = weights_selector.get_delta()
+        self.add_weights_to_search(selected_weights, weights_delta)
 
         # define neurons constraints
         for cur_layer, weights_layers in enumerate(self.coefs, start=1):
@@ -133,10 +134,11 @@ class FormulaGenerator:
             self.variables[weight_format] = Const(weight_format, RealSort())
 
             # add constraint to keep new variable (weight) close to new one
-            lower_bound = self.weight_values[weight_format] - delta
-            upper_bound = self.weight_values[weight_format] + delta
-            self.constraints[weight_format] = [self.variables[weight_format] >= lower_bound,
-                                                  self.variables[weight_format] <= upper_bound]
+            if delta is not None:
+                lower_bound = self.weight_values[weight_format] - delta
+                upper_bound = self.weight_values[weight_format] + delta
+                self.constraints[weight_format] = [self.variables[weight_format] >= lower_bound,
+                                                      self.variables[weight_format] <= upper_bound]
 
             # override the weight values dictionary
             self.weight_values[weight_format] = self.variables[weight_format]

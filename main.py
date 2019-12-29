@@ -21,19 +21,19 @@ def main():
 
     # generate data and split
     dataset = XorDataset(center=args.center, std=args.std, samples=args.dataset_size,
-                         test_size=args.split_size)
+                         test_size=args.split_size, random_seed=args.random_seed)
     X_train, y_train, _, _ = dataset.get_splitted_data()
     input_size = dataset.get_input_size()
     num_classes = dataset.get_output_size()
     # train NN
     net = create_skorch_net(input_size=input_size, hidden_size=args.hidden_size,
                             num_classes=num_classes, learning_rate=args.learning_rate,
-                            epochs=args.epochs)
+                            epochs=args.epochs, random_seed=args.random_seed)
     num_layers = get_num_layers(net)
     net.fit(X_train, y_train)
 
     # plot decision boundary
-    evaluator = EvaluateDecisionBoundary(net, dataset)
+    evaluator = EvaluateDecisionBoundary(net, dataset, args.meshgrid_stepsize)
     evaluator.plot()
     print_params(net)
 
@@ -43,12 +43,13 @@ def main():
                                  output_size=num_classes, num_layers=num_layers)
     checked_property = [
         RobustnessProperty(input_size=input_size, output_size=num_classes, desired_output=1,
-                           coordinate=(10, 10), delta=1, output_constraint_type=OutputConstraint.Max)
+                           coordinate=args.pr_coordinate, delta=args.pr_delta,
+                           output_constraint_type=OutputConstraint.Max)
         ]
 
     # TODO: change hidden size type
     weights_selector = WeightsSelector(input_size=input_size, hidden_size=(8,),
-                                       output_size=num_classes)
+                                       output_size=num_classes, delta=args.ws_delta)
     weights_selector.select_neuron(layer=2, neuron=1)
     weights_selector.select_bias(layer=2, neuron=2)
 
@@ -68,7 +69,7 @@ def main():
 
     fixed_net = set_params(net, model_mapping)
     # plot decision boundary
-    evaluator = EvaluateDecisionBoundary(fixed_net, dataset)
+    evaluator = EvaluateDecisionBoundary(fixed_net, dataset, meshgrid_stepsize=args.meshgrid_stepsize)
     evaluator.plot('fixed_decision_boundary')
 
 

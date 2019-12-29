@@ -32,12 +32,13 @@ class Dataset(ABC):
 
 
 class XorDataset(Dataset):
-    def __init__(self, center=10, std=1, samples=1000, test_size=0.4):
+    def __init__(self, center=10, std=1, samples=1000, test_size=0.4, random_seed=42):
         super().__init__()
         self.ctr = center
         self.std = std
         self.samples = samples
         self.test_size = test_size
+        self.random_seed = random_seed
         self.scaler = StandardScaler()
         self.make()
 
@@ -50,7 +51,7 @@ class XorDataset(Dataset):
         ctr = self.ctr
         std = self.std
         samples = self.samples
-        np.random.seed(42)
+        np.random.seed(self.random_seed)
         # prepare data points
         pos_a = (np.random.normal(ctr, std, size=samples), np.random.normal(ctr, std, size=samples))
         neg_a = (np.random.normal(-ctr, std, size=samples), np.random.normal(ctr, std, size=samples))
@@ -69,7 +70,7 @@ class XorDataset(Dataset):
 
         # split data
         self.X_train, self.X_test, self.y_train, self.y_test = \
-            train_test_split(self.X, self.y, test_size=self.test_size, random_state=42)
+            train_test_split(self.X, self.y, test_size=self.test_size, random_state=self.random_seed)
 
     def get_data(self):
         return self.X, self.y

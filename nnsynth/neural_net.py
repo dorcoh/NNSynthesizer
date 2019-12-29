@@ -22,8 +22,8 @@ class ClassificationNet(nn.Module):
         return out
 
 
-def create_skorch_net(input_size, hidden_size, num_classes, epochs, learning_rate):
-    torch.manual_seed(42)
+def create_skorch_net(input_size, hidden_size, num_classes, epochs, learning_rate, random_seed=42):
+    torch.manual_seed(random_seed)
     net = skorch.NeuralNetClassifier(
         ClassificationNet(input_size, hidden_size, num_classes),
         max_epochs=epochs,

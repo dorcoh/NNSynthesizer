@@ -8,7 +8,7 @@ from matplotlib.colors import ListedColormap
 
 
 class EvaluateDecisionBoundary:
-    def __init__(self, clf, dataset):
+    def __init__(self, clf, dataset, meshgrid_stepsize):
         """
         required: dataset object `make` function has already been called
         """
@@ -18,7 +18,7 @@ class EvaluateDecisionBoundary:
         # get data and grid params
         self.X_train, self.y_train, self.X_test, self.y_test = self.dataset.get_splitted_data()
         # self.X, self.y = self.dataset.get_data()
-        self.xx, self.yy = self.dataset.get_grid_params()
+        self.xx, self.yy = self.dataset.get_grid_params(meshgrid_stepsize)
         pass
 
     def plot(self, name='decision_boundary'):
@@ -34,7 +34,6 @@ class EvaluateDecisionBoundary:
         # Put the result into a color plot
         Z = Z.reshape(self.xx.shape)
         # score = self.clf.score(self.X_test, self.y_test)
-
         ax.contourf(self.xx, self.yy, Z, cmap=cm, alpha=.8)
 
         # Plot the training points
