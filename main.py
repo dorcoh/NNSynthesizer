@@ -15,6 +15,7 @@ from nnsynth.weights_selector import WeightsSelector
 def main():
     # get args
     args = ArgumentsParser.parser.parse_args()
+    print(args)
 
     # main flow
 
@@ -39,8 +40,7 @@ def main():
     # formulate in SMT via z3py
     coefs, intercepts = get_params(net)
     generator = FormulaGenerator(coefs=coefs, intercepts=intercepts, input_size=input_size,
-                                 output_size=num_classes, hidden_size=args.hidden_size,
-                                 num_layers=num_layers)
+                                 output_size=num_classes, num_layers=num_layers)
     checked_property = [
         RobustnessProperty(input_size=input_size, output_size=num_classes, desired_output=1,
                            coordinate=(10, 10), delta=1, output_constraint_type=OutputConstraint.Max)

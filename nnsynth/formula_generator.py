@@ -12,12 +12,11 @@ from nnsynth.common.models import InputImpliesOutputProperty
 
 
 class FormulaGenerator:
-    def __init__(self, coefs, intercepts, input_size, output_size, hidden_size, num_layers):
+    def __init__(self, coefs, intercepts, input_size, output_size, num_layers):
         self.coefs = coefs
         self.intercepts = intercepts
         self.input_size = input_size
         self.output_size = output_size
-        self.hidden_size = hidden_size  # TODO: change to tuple (e.g., (100,50,)) to support multiple layers
         self.num_layers = num_layers
 
         self.variables = OrderedDict()
@@ -67,9 +66,9 @@ class FormulaGenerator:
                         self.variables[out_format] = Real(out_format)
 
         # keep original weights (before overriding them)
-        # TODO: paramtetrize
-        free_weight_format = weights_selector.get_selected_weights()
         self.weight_values_copy = deepcopy(self.weight_values)
+
+        free_weight_format = weights_selector.get_selected_weights()
         self.add_weights_to_search(free_weight_format)
 
         # define neurons constraints
