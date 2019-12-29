@@ -19,7 +19,7 @@ class WeightsSelector:
 
     def get_selected_weights(self):
         """Return unique selected weights, in addition removes duplicate keys"""
-        return list(set(self.selected_weights))
+        return sorted(set(self.selected_weights))
 
     def select_layer(self, layer: int):
         """Layer == 1 means the first hidden layer"""

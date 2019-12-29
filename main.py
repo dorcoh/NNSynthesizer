@@ -1,4 +1,3 @@
-import argparse
 
 from z3 import sat
 
@@ -44,7 +43,7 @@ def main():
                                  num_layers=num_layers)
     checked_property = [
         RobustnessProperty(input_size=input_size, output_size=num_classes, desired_output=1,
-                           coordinate=(10, 10), delta=9.99, output_constraint_type=OutputConstraint.Max)
+                           coordinate=(10, 10), delta=1, output_constraint_type=OutputConstraint.Max)
         ]
 
     # TODO: change hidden size type
@@ -64,7 +63,8 @@ def main():
 
     model_mapping = generator.return_model_mapping(res)
     if model_mapping is not None:
-        print(model_mapping)
+        with open('model_mapping', 'w') as handle:
+            handle.write(str(model_mapping))
 
     fixed_net = set_params(net, model_mapping)
     # plot decision boundary
