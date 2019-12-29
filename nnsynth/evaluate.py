@@ -24,7 +24,7 @@ class EvaluateDecisionBoundary:
     def plot(self, name='decision_boundary'):
         cm = plt.cm.RdBu
         cm_bright = ListedColormap(['#FF0000', '#0000FF'])
-        ax = plt.subplot(1, 1, 1)
+        ax = plt.axes()
 
         if hasattr(self.clf, "decision_function"):
             Z = self.clf.decision_function(np.c_[self.xx.ravel(), self.yy.ravel()])
@@ -59,3 +59,6 @@ class EvaluateDecisionBoundary:
 
         plt.tight_layout()
         plt.savefig(name + '.png')
+
+        # clean
+        plt.delaxes(ax)

@@ -68,8 +68,7 @@ class FormulaGenerator:
 
         # keep original weights (before overriding them)
         # TODO: paramtetrize
-        free_weight_format = [key for key in self.weight_values.keys() if ('weight_2_1' in key or 'bias_2' in key)]
-        # free_weight_format = weights_selector.get_selected_weights()
+        free_weight_format = weights_selector.get_selected_weights()
         self.weight_values_copy = deepcopy(self.weight_values)
         self.add_weights_to_search(free_weight_format)
 
@@ -128,7 +127,7 @@ class FormulaGenerator:
             # output
             self.variables[neuron_format] = Sum(neuron_var)
 
-    def add_weights_to_search(self, weight_formats, delta=1):
+    def add_weights_to_search(self, weight_formats, delta=0.5):
         """Adds weight to variables dict and overrides weight_values dict with z3 variable,
         in addition this method adds constraints to keep the searched weights in a certain range"""
         for weight_format in weight_formats:

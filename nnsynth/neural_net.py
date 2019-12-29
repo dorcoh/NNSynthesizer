@@ -79,3 +79,13 @@ def set_params(net, model_mapping):
                 param.data[key[1]-1] = value[0]
 
     return net
+
+
+def get_num_layers(net):
+    params = net.module.named_parameters()
+    holder = []
+    for name, param in params:
+        if 'layer' in name:
+            holder.append(name.split('.')[0])
+
+    return len(list(set(holder)))

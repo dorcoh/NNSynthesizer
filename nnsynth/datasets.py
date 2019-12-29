@@ -77,3 +77,10 @@ class XorDataset(Dataset):
     def get_splitted_data(self):
         """Returns processed and splitted data"""
         return self.X_train, self.y_train, self.X_test, self.y_test
+
+    def get_input_size(self):
+        return self.X_train.shape[1]
+
+    def get_output_size(self):
+        # TODO
+        return 2
