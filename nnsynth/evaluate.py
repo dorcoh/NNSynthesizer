@@ -5,6 +5,7 @@ a Dataset and trained NeuralNet objects are required
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
+from sklearn.metrics import accuracy_score
 
 
 class EvaluateDecisionBoundary:
@@ -21,7 +22,7 @@ class EvaluateDecisionBoundary:
         self.xx, self.yy = self.dataset.get_grid_params(meshgrid_stepsize)
         pass
 
-    def plot(self, name='decision_boundary'):
+    def plot(self, X_test, y_test, name='decision_boundary'):
         cm = plt.cm.RdBu
         cm_bright = ListedColormap(['#FF0000', '#0000FF'])
         ax = plt.axes()
@@ -33,7 +34,7 @@ class EvaluateDecisionBoundary:
 
         # Put the result into a color plot
         Z = Z.reshape(self.xx.shape)
-        ax.contourf(self.xx, self.yy, Z, self.contourf_levels, cmap=cm, alpha=0.8)
+        ax.contourf(self.xx, self.yy, Z, self.contourf_levels, vmin=0, vmax=1, cmap=cm, alpha=0.8)
 
         # Plot the training points
         # TODO: set inverse scaling (currently no scaling)
@@ -48,6 +49,12 @@ class EvaluateDecisionBoundary:
 
         ax.set_aspect('equal')
         # ax.grid(True, which='both')
+
+        # plot accuracy score
+        y_true = self.clf.predict(X_test)
+        acc_score = accuracy_score(y_true, y_test)
+        ax.text(self.xx.max() - .3, self.yy.min() + .3, ('%.2f' % acc_score).lstrip('0'),
+                size=15, horizontalalignment='right')
 
         ax.axhline(y=0, color='k')
         ax.axvline(x=0, color='k')
