@@ -4,7 +4,7 @@ from copy import deepcopy
 from typing import List
 
 from z3 import Real, Product, Sum, And, Goal, Solver, ForAll, sat, If, Const, \
-    RealSort, unsat
+    RealSort, unsat, Implies
 
 from nnsynth.common.formats import Formats
 from nnsynth.weights_selector import WeightsSelector
@@ -12,7 +12,7 @@ from nnsynth.common.models import InputImpliesOutputProperty
 
 
 class FormulaGenerator:
-    def __init__(self, coefs, intercepts, input_size, output_size, num_layers):
+    def __init__(self, coefs, intercepts, input_size, output_size, num_layers, test_set):
         self.coefs = coefs
         self.intercepts = intercepts
         self.input_size = input_size
@@ -25,6 +25,7 @@ class FormulaGenerator:
         self.weight_values_copy = OrderedDict()
         self.optimize_weights = {}
         self.model_mapping = {}
+        self.X_test, self.y_test = test_set
 
         # z3 goal
         self.goal = Goal()
@@ -86,6 +87,17 @@ class FormulaGenerator:
         for property_constraint in checked_property:
             property_constraint.set_variables_dict(self.variables)
             constraints.append(property_constraint.get_property_constraint())
+
+        # add sample constraints
+        for x, y in zip(self.X_test, self.y_test):
+            if y == 0.0:
+                out_constraint = self.variables['out_1'] > self.variables['out_2']
+            else:
+                out_constraint = self.variables['out_2'] > self.variables['out_1']
+            curr_constraint = Implies(
+                And(self.variables['input_1'] == x[0], self.variables['input_2'] == x[1]),
+                out_constraint)
+            constraints.append(curr_constraint)
 
         input_vars = [value for key, value in self.variables.items() if self.input_id_fmt in key]
 

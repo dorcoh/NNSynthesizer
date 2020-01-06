@@ -1,3 +1,4 @@
+from copy import deepcopy
 
 from z3 import sat
 
@@ -17,12 +18,16 @@ def main():
     args = ArgumentsParser.parser.parse_args()
     print(args)
 
+    num_test_samples = 10
+
     # main flow
 
     # generate data and split
     dataset = XorDataset(center=args.center, std=args.std, samples=args.dataset_size,
                          test_size=args.split_size, random_seed=args.random_seed)
-    X_train, y_train, _, _ = dataset.get_splitted_data()
+    X_train, y_train, X_test, y_test = dataset.get_splitted_data()
+    test_set = (X_test[:num_test_samples, :], y_test[:num_test_samples])
+
     input_size = dataset.get_input_size()
     num_classes = dataset.get_output_size()
     # train NN
@@ -34,13 +39,13 @@ def main():
 
     # plot decision boundary
     evaluator = EvaluateDecisionBoundary(net, dataset, args.meshgrid_stepsize, args.contourf_levels)
-    evaluator.plot()
+    evaluator.plot(X_test, y_test)
     print_params(net)
 
     # formulate in SMT via z3py
     coefs, intercepts = get_params(net)
     generator = FormulaGenerator(coefs=coefs, intercepts=intercepts, input_size=input_size,
-                                 output_size=num_classes, num_layers=num_layers)
+                                 output_size=num_classes, num_layers=num_layers, test_set=test_set)
     checked_property = [
         RobustnessProperty(input_size=input_size, output_size=num_classes, desired_output=1,
                            coordinate=args.pr_coordinate, delta=args.pr_delta,
@@ -71,7 +76,7 @@ def main():
     # plot decision boundary
     evaluator = EvaluateDecisionBoundary(fixed_net, dataset, meshgrid_stepsize=args.meshgrid_stepsize,
                                          contourf_levels=args.contourf_levels)
-    evaluator.plot('fixed_decision_boundary')
+    evaluator.plot(X_test, y_test, 'fixed_decision_boundary')
 
 
 if __name__ == '__main__':
