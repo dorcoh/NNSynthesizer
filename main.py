@@ -33,7 +33,7 @@ def main():
     net.fit(X_train, y_train)
 
     # plot decision boundary
-    evaluator = EvaluateDecisionBoundary(net, dataset, args.meshgrid_stepsize)
+    evaluator = EvaluateDecisionBoundary(net, dataset, args.meshgrid_stepsize, args.contourf_levels)
     evaluator.plot()
     print_params(net)
 
@@ -69,7 +69,8 @@ def main():
 
     fixed_net = set_params(net, model_mapping)
     # plot decision boundary
-    evaluator = EvaluateDecisionBoundary(fixed_net, dataset, meshgrid_stepsize=args.meshgrid_stepsize)
+    evaluator = EvaluateDecisionBoundary(fixed_net, dataset, meshgrid_stepsize=args.meshgrid_stepsize,
+                                         contourf_levels=args.contourf_levels)
     evaluator.plot('fixed_decision_boundary')
 
 

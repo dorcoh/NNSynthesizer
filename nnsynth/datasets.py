@@ -66,7 +66,7 @@ class XorDataset(Dataset):
         self.X = self.X.astype(np.float32)
         self.y = self.y.astype(np.long)
 
-        self.process()
+        # self.process()
 
         # split data
         self.X_train, self.X_test, self.y_train, self.y_test = \

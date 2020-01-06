@@ -8,16 +8,16 @@ from matplotlib.colors import ListedColormap
 
 
 class EvaluateDecisionBoundary:
-    def __init__(self, clf, dataset, meshgrid_stepsize):
+    def __init__(self, clf, dataset, meshgrid_stepsize, contourf_levels):
         """
         required: dataset object `make` function has already been called
         """
         self.clf = clf
         self.dataset = dataset
+        self.contourf_levels = contourf_levels
 
         # get data and grid params
         self.X_train, self.y_train, self.X_test, self.y_test = self.dataset.get_splitted_data()
-        # self.X, self.y = self.dataset.get_data()
         self.xx, self.yy = self.dataset.get_grid_params(meshgrid_stepsize)
         pass
 
@@ -33,10 +33,10 @@ class EvaluateDecisionBoundary:
 
         # Put the result into a color plot
         Z = Z.reshape(self.xx.shape)
-        # score = self.clf.score(self.X_test, self.y_test)
-        ax.contourf(self.xx, self.yy, Z, cmap=cm, alpha=.8)
+        ax.contourf(self.xx, self.yy, Z, self.contourf_levels, cmap=cm, alpha=0.8)
 
         # Plot the training points
+        # TODO: set inverse scaling (currently no scaling)
         ax.scatter(self.X_train[:, 0], self.X_train[:, 1], c=self.y_train, cmap=cm_bright,
                    edgecolors='k')
         # Plot the testing points
@@ -45,13 +45,9 @@ class EvaluateDecisionBoundary:
 
         ax.set_xlim(self.xx.min(), self.xx.max())
         ax.set_ylim(self.yy.min(), self.yy.max())
-        ax.set_xticks(())
-        ax.set_yticks(())
 
-        # ax.text(self.xx.max() - .3, self.yy.min() + .3, ('%.2f' % score).lstrip('0'),
-        #         size=15, horizontalalignment='right')
         ax.set_aspect('equal')
-        ax.grid(True, which='both')
+        # ax.grid(True, which='both')
 
         ax.axhline(y=0, color='k')
         ax.axvline(x=0, color='k')

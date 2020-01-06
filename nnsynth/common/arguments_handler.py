@@ -32,5 +32,7 @@ class ArgumentsParser:
     parser.add_argument('-pc', '--pr_coordinate', nargs='+', default=(10, 10),
                         help='Property coordinates, e.g., for x1=10 x2=10: python main.py -pc 10 10')
     # evaluation args
-    parser.add_argument('-ms', '--meshgrid_stepsize', default=0.1, type=float,
+    parser.add_argument('-ms', '--meshgrid_stepsize', default=0.05, type=float,
                         help='Step size for dividing input space in generated meshgrid for contour plot')
+    parser.add_argument('-cl', '--contourf_levels', default=50, type=int,
+                        help='Number of different regions for contour lines')
