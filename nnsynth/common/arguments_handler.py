@@ -42,3 +42,5 @@ class ArgumentsParser:
                         help='Step size for dividing input space in generated meshgrid for contour plot')
     parser.add_argument('-cl', '--contourf_levels', default=50, type=int,
                         help='Number of different regions for contour lines')
+    parser.add_argument('-spl', '--save_plot', default=False, type=bool,
+                        help='Whether to save plots (True) or return it to calling class (False)')

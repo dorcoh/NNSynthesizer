@@ -9,20 +9,22 @@ from sklearn.metrics import accuracy_score
 
 
 class EvaluateDecisionBoundary:
-    def __init__(self, clf, dataset, meshgrid_stepsize, contourf_levels):
+    def __init__(self, clf, fixed_clf, dataset, meshgrid_stepsize, contourf_levels, save_plot):
         """
         required: dataset object `make` function has already been called
         """
         self.clf = clf
+        self.fixed_clf = fixed_clf
         self.dataset = dataset
         self.contourf_levels = contourf_levels
+        self.save_plot = save_plot
 
         # get data and grid params
         self.X_train, self.y_train, self.X_test, self.y_test = self.dataset.get_splitted_data()
         self.xx, self.yy = self.dataset.get_grid_params(meshgrid_stepsize)
         pass
 
-    def plot(self, X_test, y_test, name='decision_boundary'):
+    def plot(self, name='decision_boundary'):
         cm = plt.cm.RdBu
         cm_bright = ListedColormap(['#FF0000', '#0000FF'])
         ax = plt.axes()
@@ -51,16 +53,22 @@ class EvaluateDecisionBoundary:
         # ax.grid(True, which='both')
 
         # plot accuracy score
-        y_true = self.clf.predict(X_test)
-        acc_score = accuracy_score(y_true, y_test)
+        y_true = self.clf.predict(self.X_test)
+        acc_score = accuracy_score(y_true, self.y_test)
         ax.text(self.xx.max() - .3, self.yy.min() + .3, ('%.2f' % acc_score).lstrip('0'),
                 size=15, horizontalalignment='right')
 
         ax.axhline(y=0, color='k')
         ax.axvline(x=0, color='k')
 
+        ax.set_title(name)
+
         plt.tight_layout()
-        plt.savefig(name + '.png')
+
+        if self.save_plot:
+            plt.savefig(name + '.png')
+        elif not self.save_plot:
+            plt.show()
 
         # clean
         plt.delaxes(ax)

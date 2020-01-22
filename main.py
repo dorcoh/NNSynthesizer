@@ -17,9 +17,7 @@ from nnsynth.weights_selector import WeightsSelector
 #  TODO: cast as an optimization problem: add simple metric first to understand z3 capabilities
 
 
-def main():
-    # get args
-    args = ArgumentsParser.parser.parse_args()
+def main(args):
 
     # main flow
 
@@ -40,8 +38,9 @@ def main():
     net.fit(X_train, y_train)
 
     # plot decision boundary
-    evaluator = EvaluateDecisionBoundary(net, dataset, args.meshgrid_stepsize, args.contourf_levels)
-    evaluator.plot(X_test, y_test)
+    evaluator = EvaluateDecisionBoundary(net, net, dataset, args.meshgrid_stepsize, args.contourf_levels,
+                                         args.save_plot)
+    evaluator.plot()
     print_params(net)
 
     # formulate in SMT via z3py
@@ -68,7 +67,7 @@ def main():
     res = generator.solve_in_z3()
 
     # exit if not sat
-    if res is not sat:
+    if not (res == sat):
         print("Stopped with result: " + str(res))
         return 1
 
@@ -81,12 +80,14 @@ def main():
 
     # set new params and plot decision boundary
     fixed_net = set_params(net, model_mapping)
-    evaluator = EvaluateDecisionBoundary(fixed_net, dataset, meshgrid_stepsize=args.meshgrid_stepsize,
-                                         contourf_levels=args.contourf_levels)
-    evaluator.plot(X_test, y_test, 'fixed_decision_boundary')
+    evaluator = EvaluateDecisionBoundary(net, fixed_net, dataset, meshgrid_stepsize=args.meshgrid_stepsize,
+                                         contourf_levels=args.contourf_levels, save_plot=args.save_plot)
+    evaluator.plot('fixed_decision_boundary')
 
     print(xor_dataset_sanity_check(fixed_net))
 
 
 if __name__ == '__main__':
-    main()
+    # get args
+    args = ArgumentsParser.parser.parse_args()
+    main(args)
