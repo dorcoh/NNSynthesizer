@@ -1,10 +1,9 @@
-import operator
 from collections import OrderedDict
 from copy import deepcopy
-from typing import List, Tuple
+from typing import List
 
 from z3 import Real, Product, Sum, And, Goal, Solver, ForAll, sat, If, Const, \
-    RealSort, unsat, Implies, Optimize, unknown
+    RealSort, unsat, Implies, unknown
 
 from nnsynth.common.formats import Formats
 from nnsynth.weights_selector import WeightsSelector

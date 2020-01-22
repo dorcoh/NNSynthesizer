@@ -1,5 +1,3 @@
-from copy import deepcopy
-
 from z3 import sat
 
 from nnsynth.common.arguments_handler import ArgumentsParser
@@ -9,12 +7,9 @@ from nnsynth.common.sanity import xor_dataset_sanity_check
 from nnsynth.datasets import XorDataset
 from nnsynth.evaluate import EvaluateDecisionBoundary
 from nnsynth.formula_generator import FormulaGenerator
-from nnsynth.neural_net import create_skorch_net, print_params, get_params, set_params, get_num_layers, \
-    get_predicted_tuple
-
+from nnsynth.neural_net import create_skorch_net, print_params, get_params, set_params, get_num_layers
 from nnsynth.weights_selector import WeightsSelector
 
-import torch
 
 # TODO: complete all inner todos, get parameters out of classes,
 #  make some more generic robustness proeprties (multiple quarters, etc.),
