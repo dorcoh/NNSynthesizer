@@ -4,7 +4,7 @@ from typing import Dict
 from nnsynth.common.models import InputImpliesOutputProperty, OutputConstraint, PropertyElement, Property
 
 
-class RobustnessProperty:
+class DeltaRobustnessProperty:
     def __init__(self, input_size, output_size, desired_output, coordinate=(10, 10),
                  delta: float = 1e-3, output_constraint_type: OutputConstraint = OutputConstraint.Min):
         self.input_size = input_size
@@ -52,8 +52,10 @@ class RobustnessProperty:
         op_sign = None
         if self.output_constraint_type == OutputConstraint.Min:
             op_sign = operator.le
+            op_sign = operator.lt
         elif self.output_constraint_type == OutputConstraint.Max:
             op_sign = operator.ge
+            op_sign = operator.gt
         output_key = 'out_%d' % self.desired_output
         range_ = [i for i in range(1, self.output_size+1) if i is not self.desired_output]
         for output_idx in range_:

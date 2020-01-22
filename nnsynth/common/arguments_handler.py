@@ -31,6 +31,12 @@ class ArgumentsParser:
                         help='Delta value for robustness property')
     parser.add_argument('-pc', '--pr_coordinate', nargs='+', default=(10, 10),
                         help='Property coordinates, e.g., for x1=10 x2=10: python main.py -pc 10 10')
+    parser.add_argument('-ev', '--eval_set', default='train', type=str,
+                        help='Add as a constraint an evaluation set (X, y), '
+                             'could take: `train`, `test` or None')
+    parser.add_argument('-evt', '--eval_set_type', default='ground_truth', type=str,
+                        help='In case of evaluation set (eval_set != None), which target values to evaluate'
+                             'Could take `ground_truth` or `predicted` ')
     # evaluation args
     parser.add_argument('-ms', '--meshgrid_stepsize', default=0.05, type=float,
                         help='Step size for dividing input space in generated meshgrid for contour plot')

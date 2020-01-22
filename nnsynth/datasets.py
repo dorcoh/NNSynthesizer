@@ -8,6 +8,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import numpy as np
 
+from nnsynth.neural_net import get_predicted_tuple
+
 
 class Dataset(ABC):
     def __init__(self):
@@ -85,3 +87,26 @@ class XorDataset(Dataset):
     def get_output_size(self):
         # TODO
         return 2
+
+    def get_test_subset(self, num_test_samples=None):
+        return self.X_test[:num_test_samples, :], self.y_test[:num_test_samples]
+
+    def get_train_subset(self, num_train_samples=None):
+        return self.X_train[:num_train_samples, :], self.y_train[:num_train_samples]
+
+    def get_evaluate_set(self, net, eval_set, eval_set_type):
+        """Get evaluation set X, y to add later as constraints,
+        In case eval_set_type is `predicted` we also need the NN object (param: net),
+        if eval_set_type is `ground_truth` then net parameter is not used"""
+        ret_eval_set = None
+        eval_set_mapping = {'train': (self.X_train, self.get_train_subset),
+                            'test': (self.X_test, self.get_test_subset)}
+        if eval_set is not None:
+            if eval_set_type == 'predicted':
+                X = eval_set_mapping[eval_set][0]
+                ret_eval_set = get_predicted_tuple(net, X)
+            elif eval_set_type == 'ground_truth':
+                func = eval_set_mapping[eval_set][1]
+                ret_eval_set = func()
+
+        return ret_eval_set

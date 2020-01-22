@@ -89,3 +89,9 @@ def get_num_layers(net):
             holder.append(name.split('.')[0])
 
     return len(list(set(holder)))
+
+
+def get_predicted_tuple(net, X):
+    """Returns (X, y_pred)"""
+    y_pred = net.predict(X)
+    return X, y_pred
