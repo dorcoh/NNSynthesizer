@@ -14,7 +14,7 @@ class ArgumentsParser:
     parser.add_argument('-c', '--center', default=10, type=int,
                         help='Center coordinates, for example c=10 corresponds to genrating data '
                              'with the reference point (x,y)=(10,10)')
-    parser.add_argument('-sp', '--split_size', default=0.4, type=float,
+    parser.add_argument('-sp', '--test_size', default=0, type=float,
                         help='Test set percentage of generated data')
     # nn args
     parser.add_argument('-hs', '--hidden_size', default=8, type=int,

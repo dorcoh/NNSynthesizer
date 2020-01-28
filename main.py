@@ -14,6 +14,8 @@ from nnsynth.weights_selector import WeightsSelector
 # TODO: complete all inner todos, get parameters out of classes,
 #  make some more generic robustness proeprties (multiple quarters, etc.),
 #  define some algorithm or method for choosing weights,
+from nnsynth.z3_context_manager import Z3ContextManager
+
 
 def main(args):
 
@@ -64,15 +66,19 @@ def main(args):
     keep_ctx_property = KeepContextProperty(eval_set)
 
     generator.generate_formula(weights_selector, checked_property, keep_ctx_property)
-    generator.add_to_z3()
-    res = generator.solve_in_z3()
+
+    z3_mgr = Z3ContextManager(generator.get_optimize_weights(), generator.get_weight_values(),
+                              generator.get_variables())
+    z3_mgr.add_formula_to_z3(generator.get_goal())
+    z3_mgr.solve()
+    res = z3_mgr.get_result()
 
     # exit if not sat
     if not (res == sat):
         print("Stopped with result: " + str(res))
         return 1
 
-    model_mapping = generator.return_model_mapping(res)
+    model_mapping = z3_mgr.get_model_mapping()
     if model_mapping is not None:
         with open('model_mapping', 'w') as handle:
             handle.write(str(model_mapping))

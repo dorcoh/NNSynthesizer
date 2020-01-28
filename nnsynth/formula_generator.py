@@ -149,45 +149,26 @@ class FormulaGenerator:
             # another helper dict (contains only the weights to optimize)
             self.optimize_weights[weight_format] = self.variables[weight_format]
 
-    # TODO: put this as another class outside (z3 handler)
-    def add_to_z3(self):
-        self.solver = Solver()
-        self.solver.add(self.goal)
-        with open('check.smt2', 'w') as handle:
-            handle.write(self.solver.sexpr())
+    def get_optimize_weights(self):
+        if not self.optimize_weights:
+            raise Exception("Cannot return optimize_weights as it's empty")
 
-    def solve_in_z3(self):
-        check = self.solver.check()
+        return self.optimize_weights
 
-        if check == sat:
-            m = self.solver.model()
-            try:
-                # print outputs, if available
-                if (m[self.variables['out_1']] is not None) and (m[self.variables['out_2']] is not None):
-                    out_1_app = float(m[self.variables['out_1']].numerator_as_long()/m[self.variables['out_1']].denominator_as_long())
-                    out_2_app = float(m[self.variables['out_2']].numerator_as_long()/m[self.variables['out_2']].denominator_as_long())
-                    print("Out1: %.6f, Out2: %.6f" % (out_1_app, out_2_app))
-            except:
-                pass
-            # evaluate searched variables
-            searched_weights_keys = self.optimize_weights.keys()
-            for w_key in searched_weights_keys:
-                value = self.optimize_weights[w_key]
-                if m[value] is not None:
-                    w_app = float(m[value].numerator_as_long() / m[value].denominator_as_long())
-                    w_orig = self.weight_values_copy[w_key]
-                    print("%s approx: %.6f, orig: %.6f, diff: %.12f" %
-                          (w_key, w_app, w_orig, abs(w_orig - w_app)))
-                    self.model_mapping[w_key] = (w_app, w_orig)
+    def get_weight_values(self):
+        if not self.weight_values_copy:
+            raise Exception("Cannot return weight_values_copy as it's empty")
 
-            self.model = m
-            return check
+        return self.weight_values_copy
 
-        elif check == unsat or check == unknown:
-            return check
+    def get_variables(self):
+        if not self.variables:
+            raise Exception("Cannot return variables as it's empty")
 
-    def return_model_mapping(self, solver_ret_value):
-        if solver_ret_value == unsat or solver_ret_value == unknown:
-            return None
+        return self.variables
 
-        return self.model_mapping
+    def get_goal(self):
+        if not self.goal:
+            raise Exception("Cannot return goal as it's empty")
+
+        return self.goal
