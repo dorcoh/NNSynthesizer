@@ -1,3 +1,5 @@
+from copy import copy
+
 from z3 import sat
 
 from nnsynth.common.arguments_handler import ArgumentsParser
@@ -36,11 +38,6 @@ def main(args):
                             epochs=args.epochs, random_seed=args.random_seed)
     num_layers = get_num_layers(net)
     net.fit(X_train, y_train)
-
-    # plot decision boundary
-    evaluator = EvaluateDecisionBoundary(net, net, dataset, args.meshgrid_stepsize, args.contourf_levels,
-                                         args.save_plot)
-    evaluator.plot()
     print_params(net)
 
     # formulate in SMT via z3py
@@ -85,11 +82,14 @@ def main(args):
 
     print(xor_dataset_sanity_check(net))
 
+    # store original net before fix
+    original_net = copy(net)
+
     # set new params and plot decision boundary
     fixed_net = set_params(net, model_mapping)
-    evaluator = EvaluateDecisionBoundary(net, fixed_net, dataset, meshgrid_stepsize=args.meshgrid_stepsize,
+    evaluator = EvaluateDecisionBoundary(original_net, fixed_net, dataset, meshgrid_stepsize=args.meshgrid_stepsize,
                                          contourf_levels=args.contourf_levels, save_plot=args.save_plot)
-    evaluator.plot('fixed_decision_boundary')
+    evaluator.multi_plot('multi_plot')
 
     print(xor_dataset_sanity_check(fixed_net))
 
