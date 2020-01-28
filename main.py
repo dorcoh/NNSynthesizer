@@ -20,7 +20,6 @@ from nnsynth.z3_context_manager import Z3ContextManager
 
 
 def main(args):
-
     # main flow
 
     # generate data and split
@@ -56,7 +55,7 @@ def main(args):
     weights_selector = WeightsSelector(input_size=input_size, hidden_size=(8,),
                                        output_size=num_classes, delta=args.ws_delta)
     weights_selector.select_neuron(layer=2, neuron=1)
-    weights_selector.select_bias(layer=2, neuron=2)
+    weights_selector.select_neuron(layer=2, neuron=2)
 
     # keep context (original NN representation)
     eval_set = dataset.get_evaluate_set(net, args.eval_set, args.eval_set_type)
@@ -64,10 +63,10 @@ def main(args):
 
     generator.generate_formula(weights_selector, checked_property, keep_ctx_property)
 
-    z3_mgr = Z3ContextManager(generator.get_optimize_weights(), generator.get_weight_values(),
-                              generator.get_variables())
+    z3_mgr = Z3ContextManager()
     z3_mgr.add_formula_to_z3(generator.get_goal())
     z3_mgr.solve()
+
     res = z3_mgr.get_result()
 
     # exit if not sat
@@ -75,10 +74,13 @@ def main(args):
         print("Stopped with result: " + str(res))
         return 1
 
-    model_mapping = z3_mgr.get_model_mapping()
-    if model_mapping is not None:
-        with open('model_mapping', 'w') as handle:
-            handle.write(str(model_mapping))
+    model_mapping = z3_mgr.get_model_mapping(generator.get_z3_weight_variables(),
+                                             generator.get_original_weight_values())
+
+    z3_mgr.model_mapping_sanity_check()
+
+    with open('model_mapping', 'w') as handle:
+        handle.write(str(model_mapping))
 
     print(xor_dataset_sanity_check(net))
 

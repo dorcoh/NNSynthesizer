@@ -1,20 +1,11 @@
 from collections import OrderedDict
-from typing import Dict
 
 from z3 import Solver, Goal, sat
 
-from nnsynth.common.formats import Formats
-
 
 class Z3ContextManager:
-    def __init__(self, optimize_weights: Dict,
-                 weight_values: Dict, variables: Dict,
-                 formula_fname: str = 'check.smt2'):
-
+    def __init__(self, formula_fname: str = 'check.smt2'):
         self.fname = formula_fname
-        self.optimize_weights = optimize_weights
-        self.weight_values = weight_values
-        self.variables = variables
 
         # model result
         self.result = None
@@ -37,38 +28,23 @@ class Z3ContextManager:
         """Return 'z3.sat', 'z3.unsat' or 'z3.unknown'"""
         return self.result
 
-    def get_model_mapping(self):
+    def get_model_mapping(self, z3_weight_variables, original_weight_values):
         if self.result != sat:
             raise Exception("Cannot return model mapping for non-sat formula")
 
         self.model = self.solver.model()
         # evaluate searched variables
-        searched_weights_keys = self.optimize_weights.keys()
+        searched_weights_keys = z3_weight_variables.keys()
         for weight_key in searched_weights_keys:
-            weight_value = self.optimize_weights[weight_key]
+            weight_value = z3_weight_variables[weight_key]
             if self.model[weight_value] is not None:
                 w_optim = float(self.model[weight_value].numerator_as_long()
                                 / self.model[weight_value].denominator_as_long())
-                w_orig = self.weight_values[weight_key]
+                w_orig = original_weight_values[weight_key]
 
                 self.model_mapping[weight_key] = (w_optim, w_orig)
 
-        self.output_sanity_check()
-        self.model_mapping_sanity_check()
-
         return self.model_mapping
-
-    def output_sanity_check(self):
-        # print output values (if available)
-        try:
-            output_keys = [key for key, value in self.variables.items() if Formats.output_general_fmt in key]
-            sorted_output_keys = sorted(output_keys)
-            for key in sorted_output_keys:
-                out_value = float(self.model[self.variables[key]].numerator_as_long()
-                                  / self.model[self.variables[key]].denominator_as_long())
-                print("%s: %.6f" % (key, out_value))
-        except:
-            pass
 
     def model_mapping_sanity_check(self):
         # print original and optimized weight values: must have model mapping

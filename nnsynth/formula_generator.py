@@ -19,9 +19,9 @@ class FormulaGenerator:
 
         self.variables = OrderedDict()
         self.constraints = OrderedDict()
-        self.weight_values = OrderedDict()
+        self.original_weight_values = OrderedDict()
         self.weight_values_copy = OrderedDict()
-        self.optimize_weights = {}
+        self.z3_weight_variables = {}
         self.model_mapping = {}
 
         # z3 goal
@@ -56,16 +56,16 @@ class FormulaGenerator:
                 self.variables[neuron_format] = Real(neuron_format)
                 self.variables[relu_format] = Real(relu_format)
 
-                self.weight_values[bias_format] = self.intercepts[cur_layer - 1][cur_neuron - 1]
+                self.original_weight_values[bias_format] = self.intercepts[cur_layer - 1][cur_neuron - 1]
                 for cur_weight, weight in enumerate(weights_neurons, start=1):
                     weight_format = self.weight_fmt % (cur_layer, cur_neuron, cur_weight)
-                    self.weight_values[weight_format] = weight
+                    self.original_weight_values[weight_format] = weight
                     if cur_layer == self.num_layers:
                         out_format = self.output_fmt % cur_neuron
                         self.variables[out_format] = Real(out_format)
 
         # keep original weights (before overriding them)
-        self.weight_values_copy = deepcopy(self.weight_values)
+        self.weight_values_copy = deepcopy(self.original_weight_values)
 
         selected_weights = weights_selector.get_selected_weights()
         weights_delta = weights_selector.get_delta()
@@ -117,9 +117,9 @@ class FormulaGenerator:
                                 self.neuron_a_fmt_same_layer % (cur_layer - 1) in key]
 
         # define current neuron weighted sum
-        neuron_weights_values = [value for key, value in self.weight_values.items() if
+        neuron_weights_values = [value for key, value in self.original_weight_values.items() if
                                  self.weight_fmt_same_layer % (cur_layer, cur_neuron) in key]
-        neuron_bias_value = self.weight_values[self.bias_fmt % (cur_layer, cur_neuron)]
+        neuron_bias_value = self.original_weight_values[self.bias_fmt % (cur_layer, cur_neuron)]
 
         products = [Product(w, i) for w, i in zip(previous_neurons, neuron_weights_values)]
         neuron_var = products + [neuron_bias_value]
@@ -132,30 +132,30 @@ class FormulaGenerator:
             self.variables[neuron_format] = Sum(neuron_var)
 
     def add_weights_to_search(self, weight_formats, delta=0.5):
-        """Adds weight to variables dict and overrides weight_values dict with z3 variable,
+        """Adds weight to variables dict and overrides original_weight_values dict with z3 variable,
         in addition this method adds constraints to keep the searched weights in a certain range"""
         for weight_format in weight_formats:
             self.variables[weight_format] = Const(weight_format, RealSort())
 
             # add constraint to keep new variable (weight) close to new one
             if delta is not None:
-                lower_bound = self.weight_values[weight_format] - delta
-                upper_bound = self.weight_values[weight_format] + delta
+                lower_bound = self.original_weight_values[weight_format] - delta
+                upper_bound = self.original_weight_values[weight_format] + delta
                 self.constraints[weight_format] = [self.variables[weight_format] >= lower_bound,
                                                       self.variables[weight_format] <= upper_bound]
 
             # override the weight values dictionary
-            self.weight_values[weight_format] = self.variables[weight_format]
+            self.original_weight_values[weight_format] = self.variables[weight_format]
             # another helper dict (contains only the weights to optimize)
-            self.optimize_weights[weight_format] = self.variables[weight_format]
+            self.z3_weight_variables[weight_format] = self.variables[weight_format]
 
-    def get_optimize_weights(self):
-        if not self.optimize_weights:
-            raise Exception("Cannot return optimize_weights as it's empty")
+    def get_z3_weight_variables(self):
+        if not self.z3_weight_variables:
+            raise Exception("Cannot return z3_weight_variables as it's empty")
 
-        return self.optimize_weights
+        return self.z3_weight_variables
 
-    def get_weight_values(self):
+    def get_original_weight_values(self):
         if not self.weight_values_copy:
             raise Exception("Cannot return weight_values_copy as it's empty")
 
