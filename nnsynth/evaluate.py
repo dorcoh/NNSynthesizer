@@ -24,9 +24,10 @@ class EvaluateDecisionBoundary:
         self.xx, self.yy = self.dataset.get_grid_params(meshgrid_stepsize)
         pass
 
-    def plot(self, name='decision_boundary'):
+    def plot(self, name='decision_boundary', use_test=False):
         cm = plt.cm.RdBu
         cm_bright = ListedColormap(['#FF0000', '#0000FF'])
+        plt.figure(figsize=(20, 10))
         ax = plt.axes()
 
         if hasattr(self.clf, "decision_function"):
@@ -43,8 +44,9 @@ class EvaluateDecisionBoundary:
         ax.scatter(self.X_train[:, 0], self.X_train[:, 1], c=self.y_train, cmap=cm_bright,
                    edgecolors='k')
         # Plot the testing points
-        ax.scatter(self.X_test[:, 0], self.X_test[:, 1], c=self.y_test, cmap=cm_bright,
-                   edgecolors='c', alpha=0.6)
+        if not use_test:
+            ax.scatter(self.X_test[:, 0], self.X_test[:, 1], c=self.y_test, cmap=cm_bright,
+                       edgecolors='c', alpha=0.6)
 
         ax.set_xlim(self.xx.min(), self.xx.max())
         ax.set_ylim(self.yy.min(), self.yy.max())
@@ -53,8 +55,13 @@ class EvaluateDecisionBoundary:
         # ax.grid(True, which='both')
 
         # plot accuracy score
-        y_true = self.clf.predict(self.X_test)
-        acc_score = accuracy_score(y_true, self.y_test)
+        if use_test:
+            y_true = self.clf.predict(self.X_test)
+            acc_score = accuracy_score(y_true, self.y_test)
+        else:
+            y_true = self.clf.predict(self.X_train)
+            acc_score = accuracy_score(y_true, self.y_train)
+
         ax.text(self.xx.max() - .3, self.yy.min() + .3, ('%.2f' % acc_score).lstrip('0'),
                 size=15, horizontalalignment='right')
 

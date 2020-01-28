@@ -24,12 +24,13 @@ class ArgumentsParser:
     parser.add_argument('-e', '--epochs', default=10, type=int,
                         help='Number of epochs for training the net')
     # goal args
-    parser.add_argument('-dw', '--ws_delta', default=0.5, type=float,
-                        help='Delta value for bounding the free weights in their original neighbourhood')
+    parser.add_argument('-dw', '--ws_delta', default=None,
+                        help='Delta value for bounding the free weights in their original neighbourhood, '
+                             'takes float or None, in case of None formula generator skips adding these constraints')
     # robustness property args
     parser.add_argument('-pd', '--pr_delta', default=1, type=float,
                         help='Delta value for robustness property')
-    parser.add_argument('-pc', '--pr_coordinate', nargs='+', default=(10, 10),
+    parser.add_argument('-pc', '--pr_coordinate', nargs='+', default=(-10, -10),
                         help='Property coordinates, e.g., for x1=10 x2=10: python main.py -pc 10 10')
     parser.add_argument('-ev', '--eval_set', default='train', type=str,
                         help='Add as a constraint an evaluation set (X, y), '
@@ -42,5 +43,5 @@ class ArgumentsParser:
                         help='Step size for dividing input space in generated meshgrid for contour plot')
     parser.add_argument('-cl', '--contourf_levels', default=50, type=int,
                         help='Number of different regions for contour lines')
-    parser.add_argument('-spl', '--save_plot', default=False, type=bool,
+    parser.add_argument('-spl', '--save_plot', default=True, type=bool,
                         help='Whether to save plots (True) or return it to calling class (False)')

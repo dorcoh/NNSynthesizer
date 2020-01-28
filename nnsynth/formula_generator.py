@@ -1,13 +1,12 @@
 from collections import OrderedDict
 from copy import deepcopy
-from typing import List
 
 from z3 import Real, Product, Sum, And, Goal, Solver, ForAll, sat, If, Const, \
-    RealSort, unsat, Implies, unknown
+    RealSort, unsat, unknown
 
 from nnsynth.common.formats import Formats
+from nnsynth.common.properties import KeepContextProperty
 from nnsynth.weights_selector import WeightsSelector
-from nnsynth.common.models import InputImpliesOutputProperty
 
 
 class FormulaGenerator:
@@ -40,8 +39,8 @@ class FormulaGenerator:
         self.weight_fmt = Formats.weight_fmt
         self.weight_fmt_same_layer = Formats.weight_fmt_same_layer
 
-    def generate_formula(self, weights_selector: WeightsSelector, checked_property=List[InputImpliesOutputProperty],
-                         test_set=None):
+    def generate_formula(self, weights_selector: WeightsSelector, checked_property,
+                         keep_context_property: KeepContextProperty):
         # define inputs variables
         for input_sz in range(1, self.input_size + 1):
             input_format = self.input_fmt % input_sz
@@ -87,19 +86,10 @@ class FormulaGenerator:
             property_constraint.set_variables_dict(self.variables)
             constraints.append(property_constraint.get_property_constraint())
 
-        # add sample constraints
-        if test_set is not None:
-            self.X_test, self.y_test = test_set
-            for x, y in zip(self.X_test, self.y_test):
-                # note currently supports only binary classification
-                if y == 0.0:
-                    out_constraint = self.variables['out_1'] > self.variables['out_2']
-                else:
-                    out_constraint = self.variables['out_2'] > self.variables['out_1']
-                curr_constraint = Implies(
-                    And(self.variables['input_1'] == x[0], self.variables['input_2'] == x[1]),
-                    out_constraint)
-                constraints.append(curr_constraint)
+        # add keeping context property
+        keep_context_property.set_variables_dict(self.variables)
+        indicators_constraint = keep_context_property.get_property_constraint()
+        constraints.append(indicators_constraint)
 
         input_vars = [value for key, value in self.variables.items() if self.input_id_fmt in key]
 

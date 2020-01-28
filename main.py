@@ -2,7 +2,7 @@ from z3 import sat
 
 from nnsynth.common.arguments_handler import ArgumentsParser
 from nnsynth.common.models import OutputConstraint
-from nnsynth.common.properties import DeltaRobustnessProperty
+from nnsynth.common.properties import DeltaRobustnessProperty, KeepContextProperty
 from nnsynth.common.sanity import xor_dataset_sanity_check
 from nnsynth.datasets import XorDataset
 from nnsynth.evaluate import EvaluateDecisionBoundary
@@ -14,8 +14,6 @@ from nnsynth.weights_selector import WeightsSelector
 # TODO: complete all inner todos, get parameters out of classes,
 #  make some more generic robustness proeprties (multiple quarters, etc.),
 #  define some algorithm or method for choosing weights,
-#  TODO: cast as an optimization problem: add simple metric first to understand z3 capabilities
-
 
 def main(args):
 
@@ -23,7 +21,7 @@ def main(args):
 
     # generate data and split
     dataset = XorDataset(center=args.center, std=args.std, samples=args.dataset_size,
-                         test_size=args.split_size, random_seed=args.random_seed)
+                         test_size=args.test_size, random_seed=args.random_seed)
 
     X_train, y_train, X_test, y_test = dataset.get_splitted_data()
 
@@ -48,10 +46,11 @@ def main(args):
     generator = FormulaGenerator(coefs=coefs, intercepts=intercepts, input_size=input_size,
                                  output_size=num_classes, num_layers=num_layers)
     checked_property = [
-        RobustnessProperty(input_size=input_size, output_size=num_classes, desired_output=1,
-                           coordinate=args.pr_coordinate, delta=args.pr_delta,
-                           output_constraint_type=OutputConstraint.Max)
+        DeltaRobustnessProperty(input_size=input_size, output_size=num_classes, desired_output=1,
+                                coordinate=args.pr_coordinate, delta=args.pr_delta,
+                                output_constraint_type=OutputConstraint.Max)
         ]
+
     # TODO: wrap weights selector in some tactic generator or heuristic search,
     #  configure robustness property and weights selection
     # TODO: change hidden size type
@@ -60,9 +59,11 @@ def main(args):
     weights_selector.select_neuron(layer=2, neuron=1)
     weights_selector.select_bias(layer=2, neuron=2)
 
+    # keep context (original NN representation)
     eval_set = dataset.get_evaluate_set(net, args.eval_set, args.eval_set_type)
+    keep_ctx_property = KeepContextProperty(eval_set)
 
-    generator.generate_formula(weights_selector, checked_property, eval_set)
+    generator.generate_formula(weights_selector, checked_property, keep_ctx_property)
     generator.add_to_z3()
     res = generator.solve_in_z3()
 
