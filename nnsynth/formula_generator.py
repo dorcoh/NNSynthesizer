@@ -40,7 +40,7 @@ class FormulaGenerator:
         self.weight_fmt_same_layer = Formats.weight_fmt_same_layer
 
     def generate_formula(self, weights_selector: WeightsSelector, checked_property,
-                         keep_context_property: KeepContextProperty):
+                         keep_context_property: KeepContextProperty = None):
         # define inputs variables
         for input_sz in range(1, self.input_size + 1):
             input_format = self.input_fmt % input_sz
@@ -87,9 +87,10 @@ class FormulaGenerator:
             constraints.append(property_constraint.get_property_constraint())
 
         # add keeping context property
-        keep_context_property.set_variables_dict(self.variables)
-        indicators_constraint = keep_context_property.get_property_constraint()
-        constraints.append(indicators_constraint)
+        if keep_context_property is not None and keep_context_property.training_percent != 0:
+            keep_context_property.set_variables_dict(self.variables)
+            indicators_constraint = keep_context_property.get_property_constraint()
+            constraints.append(indicators_constraint)
 
         input_vars = [value for key, value in self.variables.items() if self.input_id_fmt in key]
 

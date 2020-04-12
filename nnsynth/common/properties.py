@@ -5,6 +5,10 @@ from z3 import Implies, And, If, Sum
 
 from nnsynth.common.models import InputImpliesOutputProperty, OutputConstraint, PropertyElement, Property
 
+import random
+
+random.seed(42)
+
 
 class DeltaRobustnessProperty:
     def __init__(self, input_size, output_size, desired_output, coordinate=(10, 10),
@@ -68,48 +72,65 @@ class DeltaRobustnessProperty:
 
 
 class KeepContextProperty:
-    def __init__(self, test_set):
+    def __init__(self, test_set, training_percent, keep_context_threshold, soft):
         self.test_set = test_set
+        self.keep_context_threshold = keep_context_threshold
+        self.training_percent = training_percent
+        self.soft = soft
         self.variables_dict = {}
-
         self.keep_context_constraints = []
         self.indicators_list = []
-        self.indicators_constraint = None
+        self.indicators_constraint = []
 
     def set_variables_dict(self, variables_dict: Dict):
         self.variables_dict = variables_dict
 
-    def generate_property(self):
+    def generate_property(self, soft=False):
         if not self.variables_dict:
             raise Exception("Cannot generate property without setting variables dict")
         if not self.test_set:
             raise Exception("Cannot generate keep context property with no test set")
         self.generate()
-        self.generate_indicators_constraints()
+        if soft:
+            self.generate_indicators_constraints()
 
     def get_property_constraint(self):
-        self.generate_property()
-        return self.indicators_constraint
+        return self._get_property_constraint()
+
+    def _get_property_constraint(self):
+        self.generate_property(soft=self.soft)
+        if not self.soft:
+            return And(self.keep_context_constraints)
+        else:
+            return self.indicators_constraint
 
     def generate(self):
         # add sample constraints
         self.X_test, self.y_test = self.test_set
-        for x, y in zip(self.X_test, self.y_test):
+        num_samples = int(self.training_percent * len(self.X_test))
+        samples = list(zip(self.X_test, self.y_test))
+        rand_samples = random.sample(samples, num_samples)
+        for x, y in rand_samples:
             # note currently supports only binary classification
             if y == 0.0:
                 out_constraint = self.variables_dict['out_1'] > self.variables_dict['out_2']
             else:
                 out_constraint = self.variables_dict['out_2'] > self.variables_dict['out_1']
+            # TODO: add ImpliesInputOutput..
             curr_constraint = Implies(
                 And(self.variables_dict['input_1'] == x[0], self.variables_dict['input_2'] == x[1]),
                 out_constraint)
             self.keep_context_constraints.append(curr_constraint)
 
     def generate_indicators_constraints(self):
+        # TODO: make function generic
         # add indicators for keeping context constraints
-        indicators_threshold = len(self.keep_context_constraints)  # TODO: varies
-        for i, constraint in enumerate(self.keep_context_constraints):
+        num_samples = int(self.training_percent * len(self.keep_context_constraints))
+        sampled_constraints = random.sample(self.keep_context_constraints, k=num_samples)
+        for i, constraint in enumerate(sampled_constraints):
             curr_constraint = If(constraint, 1, 0)
             self.indicators_list.append(curr_constraint)
 
-        self.indicators_constraint = Sum(self.indicators_list) >= indicators_threshold
+        self.indicators_constraint = Sum(self.indicators_list) >= self.keep_context_threshold
+
+

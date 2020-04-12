@@ -111,10 +111,10 @@ class EvaluateDecisionBoundary:
 
             # plot accuracy score
             if use_test:
-                y_true = self.clf.predict(self.X_test)
+                y_true = clfs_dict[idx].predict(self.X_test)
                 acc_score = accuracy_score(y_true, self.y_test)
             else:
-                y_true = self.clf.predict(self.X_train)
+                y_true = clfs_dict[idx].predict(self.X_train)
                 acc_score = accuracy_score(y_true, self.y_train)
 
             ax.text(self.xx.max() - .3, self.yy.min() + .3, ('%.2f' % acc_score).lstrip('0'),
