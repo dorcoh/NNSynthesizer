@@ -7,21 +7,21 @@ class ArgumentsParser:
     parser.add_argument('-rs', '--random_seed', default=42, type=int,
                         help='Random seed for creating/splitting dataset, and for training the net')
     # xor dataset args
-    parser.add_argument('-d', '--dataset_size', default=1, type=int,
+    parser.add_argument('-d', '--dataset_size', default=1000, type=int,
                         help='Number of instances for data generation per centroid')
-    parser.add_argument('-s', '--std', default=2, type=int,
+    parser.add_argument('-s', '--std', default=3, type=int,
                         help='Standard deviation of generated samples')
     parser.add_argument('-c', '--center', default=10, type=int,
                         help='Center coordinates, for example c=10 corresponds to genrating data '
                              'with the reference point (x,y)=(10,10)')
-    parser.add_argument('-sp', '--test_size', default=0, type=float,
+    parser.add_argument('-sp', '--test_size', default=0.4, type=float,
                         help='Test set percentage of generated data')
     # nn args
-    parser.add_argument('-hs', '--hidden_size', default=8, type=int,
+    parser.add_argument('-hs', '--hidden_size', default=4, type=int,
                         help='Neural net hidden layer size')
-    parser.add_argument('-l', '--learning_rate', default=0.1, type=float,
+    parser.add_argument('-l', '--learning_rate', default=1e-3, type=float,
                         help='Neural net training learning rate')
-    parser.add_argument('-e', '--epochs', default=10, type=int,
+    parser.add_argument('-e', '--epochs', default=100, type=int,
                         help='Number of epochs for training the net')
     # goal args
     parser.add_argument('-dw', '--ws_delta', default=None,

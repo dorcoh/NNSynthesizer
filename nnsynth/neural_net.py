@@ -28,7 +28,8 @@ def create_skorch_net(input_size, hidden_size, num_classes, epochs, learning_rat
         ClassificationNet(input_size, hidden_size, num_classes),
         max_epochs=epochs,
         lr=learning_rate,
-        train_split=None
+        train_split=None,
+        optimizer=torch.optim.Adam
     )
 
     return net
