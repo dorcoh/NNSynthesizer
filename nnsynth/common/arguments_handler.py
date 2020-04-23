@@ -38,6 +38,9 @@ class ArgumentsParser:
     parser.add_argument('-evt', '--eval_set_type', default='ground_truth', type=str,
                         help='In case of evaluation set (eval_set != None), which target values to evaluate'
                              'Could take `ground_truth` or `predicted` ')
+    parser.add_argument('-evl', '--limit_eval_set_per', default=0.01, type=int,
+                        help='In case of evaluation set (eval_set != None), this argument limits the percentage'
+                             'of samples to collect from the set.')
     # evaluation args
     parser.add_argument('-ms', '--meshgrid_stepsize', default=0.05, type=float,
                         help='Step size for dividing input space in generated meshgrid for contour plot')

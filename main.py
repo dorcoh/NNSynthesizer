@@ -58,7 +58,7 @@ def main(args):
     weights_selector.select_neuron(layer=2, neuron=2)
 
     # keep context (original NN representation)
-    eval_set = dataset.get_evaluate_set(net, args.eval_set, args.eval_set_type)
+    eval_set = dataset.get_evaluate_set(net, args.eval_set, args.eval_set_type, 10)
     keep_ctx_property = KeepContextProperty(eval_set)
 
     generator.generate_formula(weights_selector, checked_property, keep_ctx_property)

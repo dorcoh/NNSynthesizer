@@ -3,6 +3,7 @@ Provides:
 - custom dataset, normalized and splitted into train/test
 - mesh grid parameters for plotting decision boundary
 """
+import pickle
 from abc import ABC, abstractmethod
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
@@ -94,7 +95,7 @@ class XorDataset(Dataset):
     def get_train_subset(self, num_train_samples=None):
         return self.X_train[:num_train_samples, :], self.y_train[:num_train_samples]
 
-    def get_evaluate_set(self, net, eval_set, eval_set_type):
+    def get_evaluate_set(self, net, eval_set, eval_set_type, limit_num_samples=None):
         """Get evaluation set X, y to add later as constraints,
         In case eval_set_type is `predicted` we also need the NN object (param: net),
         if eval_set_type is `ground_truth` then net parameter is not used"""
@@ -107,6 +108,9 @@ class XorDataset(Dataset):
                 ret_eval_set = get_predicted_tuple(net, X)
             elif eval_set_type == 'ground_truth':
                 func = eval_set_mapping[eval_set][1]
-                ret_eval_set = func()
+                if limit_num_samples:
+                    ret_eval_set = func(limit_num_samples)
+                else:
+                    ret_eval_set = func()
 
         return ret_eval_set
