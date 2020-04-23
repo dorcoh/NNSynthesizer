@@ -114,3 +114,16 @@ class XorDataset(Dataset):
                     ret_eval_set = func()
 
         return ret_eval_set
+
+    def to_pickle(self, filename):
+        with open(filename, 'wb') as handle:
+            pickle.dump(self, handle, pickle.HIGHEST_PROTOCOL)
+
+    @classmethod
+    def from_pickle(cls, file_path):
+        with open(file_path, 'rb') as handle:
+            inst = pickle.load(handle)
+        if not isinstance(inst, cls):
+            raise TypeError('Unpickled object is not of type {}'.format(cls))
+
+        return inst

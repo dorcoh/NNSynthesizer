@@ -26,6 +26,8 @@ def main(args):
     dataset = XorDataset(center=args.center, std=args.std, samples=args.dataset_size,
                          test_size=args.test_size, random_seed=args.random_seed)
 
+    dataset.to_pickle('dataset.pkl')
+
     X_train, y_train, X_test, y_test = dataset.get_splitted_data()
 
     input_size = dataset.get_input_size()
