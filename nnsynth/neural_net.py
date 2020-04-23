@@ -22,7 +22,7 @@ class ClassificationNet(nn.Module):
         return out
 
 
-def create_skorch_net(input_size, hidden_size, num_classes, epochs, learning_rate, random_seed=42):
+def create_skorch_net(input_size, hidden_size, num_classes, epochs, learning_rate, random_seed=42, init=False):
     torch.manual_seed(random_seed)
     net = skorch.NeuralNetClassifier(
         ClassificationNet(input_size, hidden_size, num_classes),
@@ -31,6 +31,10 @@ def create_skorch_net(input_size, hidden_size, num_classes, epochs, learning_rat
         train_split=None,
         optimizer=torch.optim.Adam
     )
+
+    # required for loading stored net
+    if init:
+        net.initialize()
 
     return net
 
