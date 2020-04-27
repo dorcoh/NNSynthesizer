@@ -1,5 +1,7 @@
+import pickle
 from collections import OrderedDict
 from copy import deepcopy
+from typing import Union
 
 from z3 import Real, Product, Sum, And, Goal, Solver, ForAll, sat, If, Const, \
     RealSort, unsat, unknown
@@ -39,8 +41,8 @@ class FormulaGenerator:
         self.weight_fmt = Formats.weight_fmt
         self.weight_fmt_same_layer = Formats.weight_fmt_same_layer
 
-    def generate_formula(self, weights_selector: WeightsSelector, checked_property,
-                         keep_context_property: KeepContextProperty):
+    def generate_formula(self, checked_property, weights_selector: Union[WeightsSelector, None],
+                         keep_context_property: Union[KeepContextProperty, None]):
         # define inputs variables
         for input_sz in range(1, self.input_size + 1):
             input_format = self.input_fmt % input_sz
@@ -66,10 +68,11 @@ class FormulaGenerator:
 
         # keep original weights (before overriding them)
         self.weight_values_copy = deepcopy(self.original_weight_values)
-
-        selected_weights = weights_selector.get_selected_weights()
-        weights_delta = weights_selector.get_delta()
-        self.add_weights_to_search(selected_weights, weights_delta)
+        # add original weights
+        if weights_selector:
+            selected_weights = weights_selector.get_selected_weights()
+            weights_delta = weights_selector.get_delta()
+            self.add_weights_to_search(selected_weights, weights_delta)
 
         # define neurons constraints
         for cur_layer, weights_layers in enumerate(self.coefs, start=1):
@@ -77,9 +80,9 @@ class FormulaGenerator:
                 self.declare_neurons_values(cur_layer, cur_neuron)
 
         constraints = []
-        for constraint_list in self.constraints.values():
-            for constraint in constraint_list:
-                constraints.append(constraint)
+        # for constraint_list in self.constraints.values():
+        #     for constraint in constraint_list:
+        #         constraints.append(constraint)
 
         # add properties
         for property_constraint in checked_property:
@@ -87,9 +90,10 @@ class FormulaGenerator:
             constraints.append(property_constraint.get_property_constraint())
 
         # add keeping context property
-        keep_context_property.set_variables_dict(self.variables)
-        indicators_constraint = keep_context_property.get_property_constraint()
-        constraints.append(indicators_constraint)
+        if keep_context_property:
+            keep_context_property.set_variables_dict(self.variables)
+            indicators_constraint = keep_context_property.get_property_constraint()
+            constraints.append(indicators_constraint)
 
         input_vars = [value for key, value in self.variables.items() if self.input_id_fmt in key]
 

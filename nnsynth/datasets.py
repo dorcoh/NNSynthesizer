@@ -115,6 +115,32 @@ class XorDataset(Dataset):
 
         return ret_eval_set
 
+    @classmethod
+    def filter_eval_set(cls, eval_set):
+        X, y = eval_set
+        mask = []
+        for i, sample in enumerate(list(zip(X, y))):
+            x_sample, y_sample = sample[0], sample[1]
+
+            def is_noisy_sample():
+                x1, x2 = x_sample
+                if 0 < x1 <= 10 and 0 < x2 <= 10 and y_sample == 1:
+                    return True
+                elif 0 > x1 >= -10 and 0 > x2 >= -10 and y_sample == 1:
+                    return True
+                elif 0 < x1 <= 10 and 0 > x2 > -10 and y_sample == 0:
+                    return True
+                elif 0 > x1 >= -10 and 0 < x2 <= 10 and y_sample == 0:
+                    return True
+                return False
+
+            if is_noisy_sample():
+                print("Filtered sample {} - X: {}, y: {}".format(i, x_sample, y_sample))
+            else:
+                mask.append(i)
+
+        return X[mask], y[mask]
+
     def to_pickle(self, filename):
         with open(filename, 'wb') as handle:
             pickle.dump(self, handle, pickle.HIGHEST_PROTOCOL)

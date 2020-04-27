@@ -1,7 +1,8 @@
 from copy import copy
 
-from z3 import sat
+from z3 import sat, unsat, unknown
 
+from nnsynth.common import sanity
 from nnsynth.common.arguments_handler import ArgumentsParser
 from nnsynth.common.models import OutputConstraint
 from nnsynth.common.properties import DeltaRobustnessProperty, KeepContextProperty
@@ -23,23 +24,31 @@ def main(args):
     # main flow
 
     # generate data and split
-    dataset = XorDataset(center=args.center, std=args.std, samples=args.dataset_size,
-                         test_size=args.test_size, random_seed=args.random_seed)
-
-    dataset.to_pickle('dataset.pkl')
+    if not args.load_dataset:
+        dataset = XorDataset(center=args.center, std=args.std, samples=args.dataset_size,
+                             test_size=args.test_size, random_seed=args.random_seed)
+        dataset.to_pickle('dataset.pkl')
+    else:
+        dataset = XorDataset.from_pickle(args.load_dataset)
 
     X_train, y_train, X_test, y_test = dataset.get_splitted_data()
 
     input_size = dataset.get_input_size()
     num_classes = dataset.get_output_size()
 
-    # train NN
     net = create_skorch_net(input_size=input_size, hidden_size=args.hidden_size,
                             num_classes=num_classes, learning_rate=args.learning_rate,
-                            epochs=args.epochs, random_seed=args.random_seed)
-    num_layers = get_num_layers(net)
-    net.fit(X_train, y_train)
+                            epochs=args.epochs, random_seed=args.random_seed,
+                            init=args.load_nn is not None)
+    # train / load NN
+    if args.load_nn:
+        net.load_params(args.load_nn)
+    else:
+        net.fit(X_train, y_train)
+
     print_params(net)
+
+    num_layers = get_num_layers(net)
 
     # formulate in SMT via z3py
     coefs, intercepts = get_params(net)
@@ -54,27 +63,40 @@ def main(args):
     # TODO: wrap weights selector in some tactic generator or heuristic search,
     #  configure robustness property and weights selection
     # TODO: change hidden size type
-    weights_selector = WeightsSelector(input_size=input_size, hidden_size=(8,),
+    weights_selector = WeightsSelector(input_size=input_size, hidden_size=(4,),
                                        output_size=num_classes, delta=args.ws_delta)
     weights_selector.select_neuron(layer=2, neuron=1)
     weights_selector.select_neuron(layer=2, neuron=2)
 
     # keep context (original NN representation)
-    eval_set = dataset.get_evaluate_set(net, args.eval_set, args.eval_set_type, 10)
+    eval_set = dataset.get_evaluate_set(net, args.eval_set, args.eval_set_type, 50)
+    sanity.print_eval_set(eval_set)
+    eval_set = XorDataset.filter_eval_set(eval_set)
+
     keep_ctx_property = KeepContextProperty(eval_set)
 
-    generator.generate_formula(weights_selector, checked_property, keep_ctx_property)
+    if args.check_sat:
+        generator.generate_formula(checked_property, None, None)
+    else:
+        generator.generate_formula(checked_property, weights_selector, keep_ctx_property)
 
     z3_mgr = Z3ContextManager()
-    z3_mgr.add_formula_to_z3(generator.get_goal())
+    z3_mgr.add_formula_to_z3_memory(generator.get_goal())
+
     z3_mgr.solve()
 
     res = z3_mgr.get_result()
 
     # exit if not sat
-    if not (res == sat):
+    if (res == unsat or res == unknown) and not args.check_sat:
         print("Stopped with result: " + str(res))
         return 1
+
+    elif args.check_sat:
+        # check sat mode logic (no weights are freed, or additional constraints added)
+        # TODO: decouple from here into a separated script
+        print("Check sat mode: formula is {}".format(str(res)))
+        exit(0)
 
     model_mapping = z3_mgr.get_model_mapping(generator.get_z3_weight_variables(),
                                              generator.get_original_weight_values())

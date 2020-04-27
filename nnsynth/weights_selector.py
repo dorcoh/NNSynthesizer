@@ -23,6 +23,10 @@ class WeightsSelector:
         """Return unique selected weights, in addition removes duplicate keys"""
         return sorted(set(self.selected_weights))
 
+    def reset_selected_weights(self):
+        """Initialize the list which contains the selected weights"""
+        self.selected_weights = []
+
     def get_delta(self):
         """Returns None if no bounding is wanted; otherwise add bounds for each
         free weight as follows: original_value - delta <= variable <= original_value + delta"""

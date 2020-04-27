@@ -1,6 +1,8 @@
+import subprocess
 from collections import OrderedDict
+from pathlib import Path
 
-from z3 import Solver, Goal, sat
+from z3 import Solver, Goal, sat, parse_smt2_file, parse_smt2_string
 
 
 class Z3ContextManager:
@@ -15,14 +17,29 @@ class Z3ContextManager:
         self.solver = Solver()
         self.goal = Goal()
 
-    def add_formula_to_z3(self, goal: Goal, save: bool = True):
+    def add_formula_to_z3_memory(self, goal: Goal, save: bool = True):
+        """Add formula to z3 from memory (after producing goal with generator)"""
         self.solver.add(goal)
         if save:
             with open(self.fname, 'w') as handle:
                 handle.write(self.solver.sexpr())
 
+    def add_formula_to_z3_disk(self, formula_path: str = 'formula.nn'):
+        """Add formula to z3 from disk"""
+        formula = None
+        with open(formula_path, 'r') as handle:
+            formula = handle.read()
+
+        z3_formula = parse_smt2_string(formula)
+        self.solver.add(z3_formula)
+
     def solve(self):
         self.result = self.solver.check()
+
+    # def solve(self, ssh_server):
+    #     """Solve remotely on Tamnun"""
+    #     FILE = Path('.').parent / ''
+    #     subprocess.run(["scp", FILE, "USER@SERVER:PATH"])
 
     def get_result(self):
         """Return 'z3.sat', 'z3.unsat' or 'z3.unknown'"""

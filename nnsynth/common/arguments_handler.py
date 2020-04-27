@@ -6,6 +6,9 @@ class ArgumentsParser:
     # general args
     parser.add_argument('-rs', '--random_seed', default=42, type=int,
                         help='Random seed for creating/splitting dataset, and for training the net')
+    parser.add_argument('-cs', '--check_sat', default=False, type=bool,
+                        help='Flag which indicates if to check the satisfiability of the formula, '
+                             'without freeing weights')
     # xor dataset args
     parser.add_argument('-d', '--dataset_size', default=1000, type=int,
                         help='Number of instances for data generation per centroid')
@@ -14,6 +17,8 @@ class ArgumentsParser:
     parser.add_argument('-c', '--center', default=10, type=int,
                         help='Center coordinates, for example c=10 corresponds to genrating data '
                              'with the reference point (x,y)=(10,10)')
+    parser.add_argument('-ld', '--load_dataset', default=None, type=str,
+                        help='Supply pickled dataset, optional')
     parser.add_argument('-sp', '--test_size', default=0.4, type=float,
                         help='Test set percentage of generated data')
     # nn args
@@ -23,6 +28,8 @@ class ArgumentsParser:
                         help='Neural net training learning rate')
     parser.add_argument('-e', '--epochs', default=100, type=int,
                         help='Number of epochs for training the net')
+    parser.add_argument('-ln', '--load_nn', default=None, type=str,
+                        help='Supply pickled NN, optional')
     # goal args
     parser.add_argument('-dw', '--ws_delta', default=None,
                         help='Delta value for bounding the free weights in their original neighbourhood, '
