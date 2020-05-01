@@ -91,6 +91,13 @@ class KeepContextProperty:
         self.generate_property()
         return self.indicators_constraint
 
+    def set_threshold(self, threshold):
+        # workaround for setting the threshold - assuming the maximum length is at the size of test_set
+        if len(self.X_test) <= threshold:
+            self.threshold = threshold
+        else:
+            raise("Cannot set threshold which is bigger than test set length")
+
     def generate(self):
         # add sample constraints
         self.X_test, self.y_test = self.test_set
@@ -105,9 +112,12 @@ class KeepContextProperty:
                 out_constraint)
             self.keep_context_constraints.append(curr_constraint)
 
-    def generate_indicators_constraints(self):
+    def generate_indicators_constraints(self, threshold=None):
         # add indicators for keeping context constraints
-        indicators_threshold = len(self.keep_context_constraints)  # TODO: varies
+        if threshold is None:
+            indicators_threshold = len(self.keep_context_constraints)  # TODO: varies
+        else:
+            indicators_threshold = threshold
         for i, constraint in enumerate(self.keep_context_constraints):
             curr_constraint = If(constraint, 1, 0)
             self.indicators_list.append(curr_constraint)
