@@ -93,7 +93,7 @@ class KeepContextProperty:
 
     def set_threshold(self, threshold):
         # workaround for setting the threshold - assuming the maximum length is at the size of test_set
-        if len(self.X_test) <= threshold:
+        if not (threshold > len(self.test_set[0])):
             self.threshold = threshold
         else:
             raise("Cannot set threshold which is bigger than test set length")
