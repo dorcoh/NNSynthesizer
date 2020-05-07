@@ -80,7 +80,7 @@ def main(args):
         generator.generate_formula(checked_property, weights_selector, keep_ctx_property)
 
     z3_mgr = Z3ContextManager()
-    z3_mgr.add_formula_to_z3_memory(generator.get_goal())
+    z3_mgr.add_formula_from_memory(generator.get_goal())
 
     z3_mgr.solve()
 

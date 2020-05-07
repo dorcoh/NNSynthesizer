@@ -6,8 +6,7 @@ from z3 import Solver, Goal, sat, parse_smt2_file, parse_smt2_string
 
 
 class Z3ContextManager:
-    def __init__(self, formula_fname: str = 'check.smt2'):
-        self.fname = formula_fname
+    def __init__(self):
 
         # model result
         self.result = None
@@ -17,14 +16,11 @@ class Z3ContextManager:
         self.solver = Solver()
         self.goal = Goal()
 
-    def add_formula_to_z3_memory(self, goal: Goal, save: bool = True):
+    def add_formula_from_memory(self, goal: Goal):
         """Add formula to z3 from memory (after producing goal with generator)"""
         self.solver.add(goal)
-        if save:
-            with open(self.fname, 'w') as handle:
-                handle.write(self.solver.sexpr())
 
-    def add_formula_to_z3_disk(self, formula_path: str = 'formula.nn'):
+    def add_formula_from_disk(self, formula_path: str = 'formula.nn'):
         """Add formula to z3 from disk"""
         formula = None
         with open(formula_path, 'r') as handle:
@@ -69,3 +65,7 @@ class Z3ContextManager:
             w_optim, w_orig = value
             print("%s approx: %.6f, orig: %.6f, diff: %.12f" %
                   (key, w_optim, w_orig, abs(w_orig - w_optim)))
+
+    def save_formula_to_disk(self, filename='check.smt2'):
+        with open(filename, 'w') as handle:
+            handle.write(self.solver.sexpr())
