@@ -69,7 +69,7 @@ def main(args):
     weights_selector.select_neuron(layer=2, neuron=2)
 
     # keep context (original NN representation)
-    eval_set = dataset.get_evaluate_set(net, args.eval_set, args.eval_set_type, 50)
+    eval_set = dataset.get_evaluate_set(net, args.eval_set, args.eval_set_type, args.limit_eval_set)
     sanity.print_eval_set(eval_set)
     eval_set = XorDataset.filter_eval_set(eval_set)
 
