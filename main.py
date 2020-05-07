@@ -71,7 +71,6 @@ def main(args):
     # keep context (original NN representation)
     eval_set = dataset.get_evaluate_set(net, args.eval_set, args.eval_set_type, args.limit_eval_set)
     sanity.print_eval_set(eval_set)
-    eval_set = XorDataset.filter_eval_set(eval_set)
 
     keep_ctx_property = KeepContextProperty(eval_set)
 

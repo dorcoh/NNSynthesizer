@@ -89,11 +89,19 @@ class XorDataset(Dataset):
         # TODO
         return 2
 
-    def get_test_subset(self, num_test_samples=None):
-        return self.X_test[:num_test_samples, :], self.y_test[:num_test_samples]
+    def get_subset(self, X, y, num_samples, random):
+        if random:
+            mask = np.random.choice(self.y_test.shape[0], 3)
+        else:
+            mask = np.arange(start=0, stop=num_samples)
 
-    def get_train_subset(self, num_train_samples=None):
-        return self.X_train[:num_train_samples, :], self.y_train[:num_train_samples]
+        return X[mask], y[mask]
+
+    def get_test_subset(self, num_test_samples=None, random=False):
+        return self.get_subset(self.X_test, self.y_test, num_test_samples, random)
+
+    def get_train_subset(self, num_train_samples=None, random=False):
+        return self.get_subset(self.X_test, self.y_test, num_train_samples, random)
 
     def get_evaluate_set(self, net, eval_set, eval_set_type, limit_num_samples=None):
         """Get evaluation set X, y to add later as constraints,
@@ -115,31 +123,35 @@ class XorDataset(Dataset):
 
         return ret_eval_set
 
-    @classmethod
-    def filter_eval_set(cls, eval_set):
-        X, y = eval_set
+    @staticmethod
+    def is_noisy_sample(a: np.ndarray):
+        x1, x2, y_sample = a[0], a[1], a[2]
+        if x1 > 0 and x2 > 0 and y_sample == 1:
+            return True
+        elif x1 < 0 and x2 < 0 and y_sample == 1:
+            return True
+        elif x1 > 0 and x2 < 0 and y_sample == 0:
+            return True
+        elif x1 < 0 and x2 > 0 and y_sample == 0:
+            return True
+        return False
+
+    def filter_data(self, eval_set: str):
+        """Filter noisy data from self, according to desired eval_set ('train', or 'test')"""
         mask = []
-        for i, sample in enumerate(list(zip(X, y))):
-            x_sample, y_sample = sample[0], sample[1]
 
-            def is_noisy_sample():
-                x1, x2 = x_sample
-                if 0 < x1 <= 10 and 0 < x2 <= 10 and y_sample == 1:
-                    return True
-                elif 0 > x1 >= -10 and 0 > x2 >= -10 and y_sample == 1:
-                    return True
-                elif 0 < x1 <= 10 and 0 > x2 > -10 and y_sample == 0:
-                    return True
-                elif 0 > x1 >= -10 and 0 < x2 <= 10 and y_sample == 0:
-                    return True
-                return False
+        def get_mask(X, y):
+            conc_arr = np.hstack((X, y.reshape(-1, 1)))
+            mask = np.apply_along_axis(self.is_noisy_sample, 1, conc_arr)
 
-            if is_noisy_sample():
-                print("Filtered sample {} - X: {}, y: {}".format(i, x_sample, y_sample))
-            else:
-                mask.append(i)
+            return ~mask
 
-        return X[mask], y[mask]
+        if eval_set == 'train':
+            mask = get_mask(self.X_train, self.y_train)
+            self.X_train, self.y_train = self.X_train[mask], self.y_train[mask]
+        elif eval_set == 'test':
+            mask = get_mask(self.X_test, self.y_test)
+            self.X_test, self.y_test = self.X_train[mask], self.y_test[mask]
 
     def to_pickle(self, filename):
         with open(filename, 'wb') as handle:
