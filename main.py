@@ -103,7 +103,7 @@ def main(args):
     z3_mgr.model_mapping_sanity_check()
 
     with open('model_mapping', 'w') as handle:
-        handle.write(str(model_mapping))
+        handle.write(model_mapping)
 
     print(xor_dataset_sanity_check(net))
 
