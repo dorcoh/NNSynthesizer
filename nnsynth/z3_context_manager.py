@@ -63,9 +63,12 @@ class Z3ContextManager:
         # print original and optimized weight values: must have model mapping
         for key, value in self.model_mapping.items():
             w_optim, w_orig = value
-            print("%s approx: %.6f, orig: %.6f, diff: %.12f" %
+            print("%s new: %.6f, orig: %.6f, diff: %.12f" %
                   (key, w_optim, w_orig, abs(w_orig - w_optim)))
 
     def save_formula_to_disk(self, filename='check.smt2'):
         with open(filename, 'w') as handle:
             handle.write(self.solver.sexpr())
+
+    def reset_model_mapping(self):
+        self.model_mapping = OrderedDict()
