@@ -9,7 +9,7 @@ else
     exit 1
 fi
 
-#PBS -N redcsl
+#PBS -N dorz3py
 
 # Send the e-mail messages from the server to a user address
 # This line and the Technion address are mandatory!
@@ -25,10 +25,10 @@ fi
 #PBS -o log.out
 #PBS -e log.err
 
-PBS_O_WORKDIR=$HOME/
+PBS_O_WORKDIR=$HOME/nnsynth
 cd $PBS_O_WORKDIR
 
 #Run command
 #-----------------------
-source /usr/local/epd/setup.csh
+source /usr/local/epd/setup.sh
 python3 -u solver.py $formula_name > $formula_name-log.out
