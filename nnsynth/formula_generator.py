@@ -165,6 +165,10 @@ class FormulaGenerator:
 
         return self.weight_values_copy
 
+    def reset_weight_variables_values(self):
+        self.original_weight_values = OrderedDict()
+        self.z3_weight_variables = {}
+
     def get_variables(self):
         if not self.variables:
             raise Exception("Cannot return variables as it's empty")
