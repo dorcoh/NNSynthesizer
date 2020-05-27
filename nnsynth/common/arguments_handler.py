@@ -56,3 +56,11 @@ class ArgumentsParser:
                         help='Number of different regions for contour lines')
     parser.add_argument('-spl', '--save_plot', default=True, type=bool,
                         help='Whether to save plots (True) or return it to calling class (False)')
+    # main loop args
+    parser.add_argument('-sl', '--send_single', default=False, type=bool,
+                        help='Whether to send single experiment to remote server or not')
+    # exp / sub exp args
+    # used in exp_serializer
+    parser.add_argument('-es', '--experiment', default='', type=str, help="Title of the serialized experiment")
+    # used in main_loop_instances_solver
+    parser.add_argument('-sef', '--sub_exp_filename', type=str, help='Sub experiment pickle filename')
