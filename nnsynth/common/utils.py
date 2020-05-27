@@ -4,9 +4,9 @@ from pathlib import Path
 from typing import Dict
 
 
-def serialize_exp(input_size, num_classes, num_layers, coefs, intercepts, eval_set, filename='ser.exp'):
+def serialize_exp(input_size, num_classes, num_layers, coefs, intercepts, eval_set, experiment, filename_suffix='ser.exp'):
     serialization_dict = {
-        'experiment': "Some-identifers",
+        'experiment': experiment,
         'input_size': input_size,
         'num_classes': num_classes,
         'num_layers': num_layers,
@@ -14,13 +14,35 @@ def serialize_exp(input_size, num_classes, num_layers, coefs, intercepts, eval_s
         'intercepts': intercepts,
         'eval_set': eval_set
     }
+    exp_path = Path('exp')
+    if not exp_path.exists():
+        exp_path.mkdir()
 
-    with open(filename, 'wb') as handle:
-        pickle.dump(serialization_dict, handle, pickle.HIGHEST_PROTOCOL)
+    filename_suffix = experiment + '_' + filename_suffix
+    path = exp_path / filename_suffix
+    save_pickle(serialization_dict, path)
 
 
-def deserialize_exp(filename='ser.exp'):
-    return load_pickle(filename)
+def deserialize_exp(experiment='', filename_suffix='ser.exp'):
+    exp_path = Path('exp')
+    filename_suffix = experiment + '_' + filename_suffix
+    path = exp_path / filename_suffix
+    return load_pickle(path)
+
+
+def serialize_main_loop_instance(weight_tuple, threshold, eval_set_size, filename):
+    serialization_dict = {
+        'weight_comb': weight_tuple,
+        'threshold': threshold,
+        'eval_set_size': eval_set_size
+    }
+
+    sub_exp_path = Path('sub-exp')
+    if not sub_exp_path.exists():
+        sub_exp_path.mkdir()
+    path = sub_exp_path / filename
+    print("Serializing main loop instance : {}".format(filename))
+    save_pickle(serialization_dict, path)
 
 
 def parse_weight_comb(weight_comb: tuple):
@@ -33,14 +55,18 @@ def parse_weight_comb(weight_comb: tuple):
     return s
 
 
-def save_exp_details(model_config: Dict, result, distance):
+def save_exp_details(model_config: Dict, result, distance, model_mapping, filename=None):
     results_path = Path('repair-results')
     if not results_path.exists():
         results_path.mkdir()
 
-    model_config['result'] = result
+    model_config['result'] = str(result)
     model_config['distance'] = distance
-    results_file_name = 'result_dict_' + parse_weight_comb(model_config['weight_comb']) + '_t-' + str(model_config['threshold'])
+    model_config['mapping'] = model_mapping
+    if filename is None:
+        results_file_name = 'result_dict_' + parse_weight_comb(model_config['weight_comb']) + '_t-' + str(model_config['threshold'])
+    else:
+        results_file_name = filename
 
     save_pickle(model_config, results_path / results_file_name)
 

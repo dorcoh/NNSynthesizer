@@ -1,3 +1,9 @@
+"""Single experiement serializer, can choose:
+1. Dataset
+2. Neural Net architecture
+3. Evaluate set
+"""
+
 from nnsynth.common.arguments_handler import ArgumentsParser
 from nnsynth.common.utils import serialize_exp
 from nnsynth.datasets import XorDataset
@@ -33,8 +39,7 @@ def main(args):
     coefs, intercepts = get_params(net)
 
     eval_set = dataset.get_evaluate_set(net, args.eval_set, args.eval_set_type, args.limit_eval_set)
-
-    serialize_exp(input_size, num_classes, num_layers, coefs, intercepts, eval_set)
+    serialize_exp(input_size, num_classes, num_layers, coefs, intercepts, eval_set, args.experiment)
 
 
 if __name__ == '__main__':
