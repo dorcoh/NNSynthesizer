@@ -1,13 +1,15 @@
 """Solve an instance of main loop"""
 import sys
+from copy import copy
 from pathlib import Path
+from time import time
 
 from z3 import unsat, unknown
 
 from nnsynth.common.arguments_handler import ArgumentsParser
 from nnsynth.common.models import OutputConstraint
 from nnsynth.common.properties import KeepContextProperty, DeltaRobustnessProperty
-from nnsynth.common.utils import deserialize_exp, save_exp_details, save_pickle, load_pickle
+from nnsynth.common.utils import deserialize_exp, save_exp_details, save_pickle, load_pickle, deserialize_subexp
 from nnsynth.formula_generator import FormulaGenerator
 from nnsynth.weights_selector import WeightsSelector
 from nnsynth.z3_context_manager import Z3ContextManager
@@ -16,8 +18,11 @@ from nnsynth.z3_context_manager import Z3ContextManager
 def main(args):
     # main flow
 
-    exp = deserialize_exp(args.exp_filename)
-    sub_exp = load_pickle(args.sub_exp_filename)
+    exp = deserialize_exp(args.experiment)
+
+    sub_exp = deserialize_subexp(args.experiment, args.sub_exp_filename)
+
+    # TODO: most arguments below should be replaced with serialized info from exp and sub-exp dicts
 
     generator = FormulaGenerator(coefs=exp['coefs'], intercepts=exp['intercepts'],
                                  input_size=exp['input_size'],
@@ -33,12 +38,13 @@ def main(args):
     weights_selector = WeightsSelector(input_size=exp['input_size'], hidden_size=(4,),
                                        output_size=exp['num_classes'], delta=args.ws_delta)
 
-    # keep context (original NN representation)
-    keep_ctx_property = KeepContextProperty(exp['eval_set'])
+    # keep context (original NN representation), limit the number of samples if needed
+    keep_ctx_property = KeepContextProperty(exp['eval_set'], args.threshold if args.threshold != -1 else None)
 
     # debug
 
-    threshold = sub_exp['threshold']
+    # take threshold from serialized sub experiment, or from arguments
+    threshold = sub_exp['threshold'] if args.threshold == -1 else args.threshold
     eval_set_size = sub_exp['eval_set_size']
     weight_tuple = sub_exp['weight_comb']
 
@@ -66,6 +72,14 @@ def main(args):
     z3_mgr = Z3ContextManager()
     z3_mgr.add_formula_from_memory(generator.get_goal())
 
+    if args.save_formula or args.save_formula_and_exit:
+        formula_fname = args.sub_exp_filename.split('.pkl')[0]
+        if args.threshold != -1:
+            formula_fname += '_limit_%d' % args.threshold
+        formula_fname += '.smt2'
+        z3_mgr.save_formula_to_disk(formula_fname)
+    if args.save_formula_and_exit:
+        sys.exit(0)
     # invoke the solver from python wrapper
     z3_mgr.solve()
 
@@ -74,7 +88,7 @@ def main(args):
     # exit if not sat
     if (res == unsat or res == unknown) and not args.check_sat:
         print("Stopped iteration with result: " + str(res))
-        save_exp_details(model_config, res, None, None,
+        save_exp_details(model_config, res, None, None, args.experiment,
                          args.sub_exp_filename.split('.pkl')[0] + '.results')
         sys.exit(1)
 
@@ -88,8 +102,9 @@ def main(args):
                    model_mapping[weights_selector.selected_weights[0]][1])
 
         z3_mgr.model_mapping_sanity_check()
-        save_exp_details(model_config, res, param_dist, model_mapping,
-                         args.sub_exp_filename.split('.pkl')[0] + '.results')
+        save_exp_details(model_config, res, param_dist, model_mapping, args.experiment)
+                         # args.sub_exp_filename.split('.pkl')[0] + '.results')
+
 
 
 if __name__ == '__main__':

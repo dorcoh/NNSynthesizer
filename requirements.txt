@@ -1,0 +1,6 @@
+matplotlib==3.0.2
+torch==1.0.1.post2
+numpy==1.16.1
+scipy==1.2.1
+sklearn==0.0
+skorch==0.5.1a0

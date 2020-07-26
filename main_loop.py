@@ -1,17 +1,13 @@
 """Main loop for repairing an NN - each iteration runs on the same process"""
-import pickle
+from pathlib import Path
 
 from z3 import unsat, unknown
 
-from nnsynth.common import sanity
 from nnsynth.common.arguments_handler import ArgumentsParser
 from nnsynth.common.models import OutputConstraint
 from nnsynth.common.properties import KeepContextProperty, DeltaRobustnessProperty
-from nnsynth.common.sanity import xor_dataset_sanity_check
-from nnsynth.common.utils import deserialize_exp, save_exp_details
-from nnsynth.datasets import XorDataset
+from nnsynth.common.utils import deserialize_exp, save_exp_details, save_pickle
 from nnsynth.formula_generator import FormulaGenerator
-from nnsynth.neural_net import get_params, create_skorch_net, print_params, get_num_layers
 from nnsynth.weights_selector import WeightsSelector
 from nnsynth.z3_context_manager import Z3ContextManager
 
@@ -58,14 +54,17 @@ def main(args):
 
     # debug
 
-    for weight_tuple in _comb_tuples[:2]:
+    for weight_tuple in _comb_tuples[:9]:
         weights_selector.reset_selected_weights()
+        # weights
         if weight_tuple[0] == 'w':
             weights_selector.select_weight(weight_tuple[1], weight_tuple[2], weight_tuple[3])
+        # biases
         elif weight_tuple[0] == 'b':
             weights_selector.select_bias(weight_tuple[1], weight_tuple[2])
 
         for threshold in thresholds[:1]:
+            # TODO: add invocation of single jobs to Tamnun
             model_config = {
                 'weight_comb': weight_tuple,
                 'threshold': threshold,
@@ -81,11 +80,12 @@ def main(args):
             z3_mgr = Z3ContextManager()
             z3_mgr.add_formula_from_memory(generator.get_goal())
 
+            # invoke the solver from python wrapper
             z3_mgr.solve()
 
             res = z3_mgr.get_result()
 
-            # continue if not sat
+            # continue to next experiment if not sat
             if (res == unsat or res == unknown) and not args.check_sat:
                 print("Stopped iteration with result: " + str(res))
                 save_exp_details(model_config, res, None)
@@ -100,26 +100,24 @@ def main(args):
                 param_dist = abs(model_mapping[weights_selector.selected_weights[0]][0] -
                            model_mapping[weights_selector.selected_weights[0]][1])
 
-                if param_dist < best_model_distance:
+                # TODO: remove if we want to send single jobs to Tamnun
+                if args.send_single and param_dist < best_model_distance:
                     best_model_distance = param_dist
                     best_model_mapping = model_mapping
                     best_model_config = model_config
 
                 z3_mgr.model_mapping_sanity_check()
                 save_exp_details(model_config, res, param_dist)
-                break
+
 
     # save best model results as dictionary
-    best_model_results = {
-        'model_distance': best_model_distance,
-        'model_config': best_model_config
-    }
+    best_model_results = best_model_config
 
-    with open('best_model_results', 'w') as handle:
-        handle.write(str(best_model_results))
+    best_model_results_path = Path('best_model_results')
+    save_pickle(best_model_results, best_model_results_path)
 
-    with open('best_model_mapping', 'wb') as handle:
-        pickle.dump(best_model_mapping, handle, pickle.HIGHEST_PROTOCOL)
+    best_model_mapping_path = Path('best_model_mapping')
+    save_pickle(best_model_mapping, best_model_mapping_path)
 
 
 if __name__ == '__main__':

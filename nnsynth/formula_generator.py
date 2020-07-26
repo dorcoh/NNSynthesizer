@@ -92,8 +92,14 @@ class FormulaGenerator:
         # add keeping context property
         if keep_context_property:
             keep_context_property.set_variables_dict(self.variables)
-            indicators_constraint = keep_context_property.get_property_constraint()
-            constraints.append(indicators_constraint)
+            soft_constraints = keep_context_property.get_property_constraint()
+            # workaround for disabling the indicators constraint
+            if soft_constraints is not None:
+                if isinstance(soft_constraints, list):
+                    constraints += soft_constraints
+                else:
+                    # one element (e.g., indicators constraint)
+                    constraints.append(soft_constraints)
 
         input_vars = [value for key, value in self.variables.items() if self.input_id_fmt in key]
 

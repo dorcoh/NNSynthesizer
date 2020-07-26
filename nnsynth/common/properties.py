@@ -1,7 +1,7 @@
 import operator
 from typing import Dict
 
-from z3 import Implies, And, If, Sum
+from z3 import Implies, And, If, Sum, AtLeast
 
 from nnsynth.common.models import InputImpliesOutputProperty, OutputConstraint, PropertyElement, Property
 
@@ -68,13 +68,15 @@ class DeltaRobustnessProperty:
 
 
 class KeepContextProperty:
-    def __init__(self, test_set):
+    # TODO: add the usage of Property class
+    def __init__(self, test_set, constraints_limit=None):
         self.test_set = test_set
         self.variables_dict = {}
 
         self.keep_context_constraints = []
         self.indicators_list = []
         self.indicators_constraint = None
+        self.constraints_limit = constraints_limit
 
     def set_variables_dict(self, variables_dict: Dict):
         self.variables_dict = variables_dict
@@ -90,18 +92,22 @@ class KeepContextProperty:
     def get_property_constraint(self):
         self.generate_property()
         return self.indicators_constraint
+        #return self.keep_context_constraints
 
     def set_threshold(self, threshold):
         # workaround for setting the threshold - assuming the maximum length is at the size of test_set
         if not (threshold > len(self.test_set[0])):
             self.threshold = threshold
         else:
-            raise("Cannot set threshold which is bigger than test set length")
+            raise Exception("Cannot set threshold which is bigger than test set length")
 
     def generate(self):
         # add sample constraints
         self.X_test, self.y_test = self.test_set
-        for x, y in zip(self.X_test, self.y_test):
+        # use all test set (below) or inject the limit from solver (constraints_limit)
+        if self.constraints_limit is None:
+            self.constraints_limit = self.X_test.shape[0]
+        for x, y in list(zip(self.X_test, self.y_test))[:self.constraints_limit]:
             # note currently supports only binary classification
             if y == 0.0:
                 out_constraint = self.variables_dict['out_1'] > self.variables_dict['out_2']
@@ -114,12 +120,12 @@ class KeepContextProperty:
 
     def generate_indicators_constraints(self, threshold=None):
         # add indicators for keeping context constraints
-        if threshold is None:
-            indicators_threshold = len(self.keep_context_constraints)  # TODO: varies
-        else:
-            indicators_threshold = threshold
-        for i, constraint in enumerate(self.keep_context_constraints):
-            curr_constraint = If(constraint, 1, 0)
-            self.indicators_list.append(curr_constraint)
+        # if threshold is None:
+        #     indicators_threshold = len(self.keep_context_constraints)  # TODO: varies
+        # else:
+        #     indicators_threshold = threshold
+        # for i, constraint in enumerate(self.keep_context_constraints):
+        #     curr_constraint = If(constraint, 1, 0)
+        #     self.indicators_list.append(curr_constraint)
 
-        self.indicators_constraint = Sum(self.indicators_list) >= indicators_threshold
+        self.indicators_constraint = AtLeast(*self.keep_context_constraints, self.threshold)

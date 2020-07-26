@@ -78,6 +78,16 @@ class XorDataset(Dataset):
     def get_data(self):
         return self.X, self.y
 
+    def subset_data(self, perecent):
+        """Perform a reduce of the dataset size according to perecent"""
+        current_dataset_size = self.X.shape[0]
+        print("Subset data, current sizes: X={}, y={}".format(self.X.shape, self.y.shape))
+        idx = np.random.randint(low=0, high=current_dataset_size, size=int(perecent*current_dataset_size))
+        self.X = self.X[idx, :]
+        self.y = self.y[idx]
+        print("Subset data, after reducing sizes: X={}, y={}".format(self.X.shape, self.y.shape))
+
+
     def get_splitted_data(self):
         """Returns processed and splitted data"""
         return self.X_train, self.y_train, self.X_test, self.y_test
@@ -101,7 +111,8 @@ class XorDataset(Dataset):
         return self.get_subset(self.X_test, self.y_test, num_test_samples, random)
 
     def get_train_subset(self, num_train_samples=None, random=False):
-        return self.get_subset(self.X_test, self.y_test, num_train_samples, random)
+        # NOTICE: up to 9/7/20 we took the X_test, y_test (in mistake)
+        return self.get_subset(self.X_train, self.y_train, num_train_samples, random)
 
     def get_evaluate_set(self, net, eval_set, eval_set_type, limit_num_samples=None):
         """Get evaluation set X, y to add later as constraints,
@@ -136,21 +147,29 @@ class XorDataset(Dataset):
             return True
         return False
 
-    def filter_data(self, eval_set: str):
+    @staticmethod
+    def in_first_quarter(a: np.ndarray):
+        """Checks whether current sample is in the first quarter (x_1 > 0 and x_2 > 0)"""
+        x1, x2, y = a[0], a[1], a[2]
+        if x1 > 0 and x2 > 0:
+            return True
+        return False
+
+    def filter_data(self, eval_set: str, filter_func):
         """Filter noisy data from self, according to desired eval_set ('train', or 'test')"""
         mask = []
 
-        def get_mask(X, y):
+        def get_mask(X, y, filtering_function):
             conc_arr = np.hstack((X, y.reshape(-1, 1)))
-            mask = np.apply_along_axis(self.is_noisy_sample, 1, conc_arr)
+            mask = np.apply_along_axis(filtering_function, 1, conc_arr)
 
             return ~mask
 
         if eval_set == 'train':
-            mask = get_mask(self.X_train, self.y_train)
+            mask = get_mask(self.X_train, self.y_train, filter_func)
             self.X_train, self.y_train = self.X_train[mask], self.y_train[mask]
         elif eval_set == 'test':
-            mask = get_mask(self.X_test, self.y_test)
+            mask = get_mask(self.X_test, self.y_test, filter_func)
             self.X_test, self.y_test = self.X_train[mask], self.y_test[mask]
 
     def to_pickle(self, filename):

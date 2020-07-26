@@ -1,5 +1,8 @@
 #!/bin/sh
-#PBS -N dorz3py
+
+# run z3 individually, gets as parameters experiment name (var 'exp') and sub-exp (var 'formula')
+
+#PBS -N dorz3
 
 # Send the e-mail messages from the server to a user address
 # This line and the Technion address are mandatory!
@@ -12,16 +15,12 @@
 #------------------------------------------------------------------------
 #PBS -l select=1:ncpus=1
 #PBS -l walltime=24:00:00
-#PBS -l place=excl
 
 PBS_O_WORKDIR=$HOME/nnsynth
 cd $PBS_O_WORKDIR
 
-#formula_name=$CURR_SUB_EXP_PATH
 #Run command
 #-----------------------
-source /usr/local/epd/setup.sh
-echo "mkdir sub-exp/$exp/logs"
-mkdir -p sub-exp/$exp/logs
-echo "python3 -u main_loop_instances_solver.py --experiment $exp --sub_exp_filename $formula > sub-exp/$exp/logs/$formula.log"
-python3 -u main_loop_instances_solver.py --experiment $exp --sub_exp_filename $formula > sub-exp/$exp/logs/$formula.log
+mkdir -p sub-exp/$exp/z3_logs/
+echo "/usr/local/z3_V4.8.7/bin/z3 -st -smt2 $formula > sub-exp/$exp/z3_logs/$formula.log"
+/usr/local/z3_V4.8.7/bin/z3 -st -smt2 $formula > sub-exp/$exp/z3_logs/$formula.log

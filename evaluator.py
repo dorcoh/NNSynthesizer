@@ -1,19 +1,27 @@
 """Main module for evaluating the solver results"""
 import pickle
+import sys
 from collections import OrderedDict
-from copy import copy
-
+from copy import copy, deepcopy
+from pathlib import Path
 
 from nnsynth.common.arguments_handler import ArgumentsParser
 
 from nnsynth.common.sanity import xor_dataset_sanity_check
+from nnsynth.common.utils import load_pickle, deserialize_exp
 from nnsynth.datasets import XorDataset
 from nnsynth.evaluate import EvaluateDecisionBoundary
 from nnsynth.neural_net import create_skorch_net, print_params, get_params, set_params, get_num_layers
 
 
+def deserialize_subexp_results(exp_path):
+    return load_pickle(exp_path)
+
+
 def main(args):
     # main flow
+
+    exp = deserialize_exp(args.experiment)
 
     # load data
     if args.load_dataset:
@@ -38,23 +46,42 @@ def main(args):
 
     num_layers = get_num_layers(net)
 
-    # load model mapping
-    model_mapping = OrderedDict()
-    with open('model_mapping', 'rb') as handle:
-        model_mapping = pickle.load(handle)
-
-    print(xor_dataset_sanity_check(net))
+    exp_path = Path('repair-results')
+    sub_exp_path = exp_path / args.experiment
+    # TODO: currently support only 1 sub-exp in dir
 
     # store original net before fix
-    original_net = copy(net)
+    original_net = deepcopy(net)
 
-    # set new params and plot decision boundary
-    fixed_net = set_params(net, model_mapping)
-    evaluator = EvaluateDecisionBoundary(original_net, fixed_net, dataset, meshgrid_stepsize=args.meshgrid_stepsize,
-                                         contourf_levels=args.contourf_levels, save_plot=args.save_plot)
-    evaluator.multi_plot('multi_plot')
+    for i, sub_exp in enumerate(sub_exp_path.iterdir()):
+        # general filter
+        if 'result_dict' not in sub_exp.name:
+            continue
+        print(sub_exp.name)
+        sub_exp_res_dict = deserialize_subexp_results(sub_exp.absolute())
 
-    print(xor_dataset_sanity_check(fixed_net))
+        model_mapping = sub_exp_res_dict['mapping']
+        print(model_mapping)
+        print(xor_dataset_sanity_check(net))
+
+        # set new params and plot decision boundary
+        fixed_net = set_params(net, model_mapping)
+        evaluator = EvaluateDecisionBoundary(original_net, fixed_net, dataset, meshgrid_stepsize=args.meshgrid_stepsize,
+                                             contourf_levels=args.contourf_levels, save_plot=True)
+
+        threshold = sub_exp_res_dict['threshold']
+        sub_exp_desc = "w={}, th={}, d={}".format(
+            sub_exp_res_dict['weight_comb'],
+            threshold,
+            round(sub_exp_res_dict['distance'], ndigits=4)
+        )
+        print(sub_exp_desc)
+        evaluator.multi_plot_with_evalset(exp['eval_set'], threshold, args.experiment, sub_exp_desc, split_sub_name=True)
+
+        print(xor_dataset_sanity_check(fixed_net))
+
+        if args.dev:
+            sys.exit(1)
 
 
 if __name__ == '__main__':

@@ -1,4 +1,6 @@
 """Serializing instances of the main loop"""
+import sys
+
 from nnsynth.common.arguments_handler import ArgumentsParser
 from nnsynth.common.models import OutputConstraint
 from nnsynth.common.properties import KeepContextProperty, DeltaRobustnessProperty
@@ -7,9 +9,8 @@ from nnsynth.formula_generator import FormulaGenerator
 from nnsynth.weights_selector import WeightsSelector
 
 
-def generate_main_loop_instance_filename(experiment, weight_tuple, threshold, eval_set_size):
-    filename = "exp__" + experiment
-    filename += "__subexp__evalsize_" + str(eval_set_size)
+def generate_main_loop_instance_filename(weight_tuple, threshold, eval_set_size):
+    filename = "evalsize_" + str(eval_set_size)
     filename += "_threshold_" + str(threshold)
     filename += "_param"
     for elem in weight_tuple:
@@ -50,17 +51,18 @@ def main(args):
     ]
 
     # all thresholds
-    thresholds = list(reversed([i for i in range(1, args.limit_eval_set+1)]))
+    # TODO: the threshold should come from exp/params ?
+    max_threshold = exp['eval_set'][1].shape[0]
+    thresholds = list(reversed([i for i in range(0, max_threshold+1)]))
+    # thresholds = list(reversed([i for i in range(1, 1 + 1)]))
 
-    # debug
-    i = 0
     for weight_tuple in _comb_tuples:
-        for threshold in thresholds:
-            filename = generate_main_loop_instance_filename(args.experiment, weight_tuple, threshold, exp['eval_set'][0].shape[0])
-            serialize_main_loop_instance(weight_tuple, threshold, exp['eval_set'][0].shape[0], filename)
-            i += 1
-            if i == 1:
-                import sys; sys.exit(0)
+        # TODO: remove limit from threshold
+        for threshold in thresholds[:1]:
+            filename = generate_main_loop_instance_filename(weight_tuple, threshold, exp['eval_set'][0].shape[0])
+            serialize_main_loop_instance(weight_tuple, threshold, exp['eval_set'][0].shape[0], filename, args.experiment)
+            if args.dev:
+                sys.exit(0)
 
 
 if __name__ == '__main__':

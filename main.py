@@ -73,6 +73,7 @@ def main(args):
     sanity.print_eval_set(eval_set)
 
     keep_ctx_property = KeepContextProperty(eval_set)
+    keep_ctx_property.set_threshold(args.limit_eval_set)
 
     if args.check_sat:
         generator.generate_formula(checked_property, None, None)

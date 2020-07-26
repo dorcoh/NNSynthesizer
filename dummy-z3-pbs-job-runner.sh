@@ -21,5 +21,6 @@ cd $PBS_O_WORKDIR
 
 #Run command
 #-----------------------
+echo $1
 source /usr/local/epd/setup.sh
 python3 -u dummy.py

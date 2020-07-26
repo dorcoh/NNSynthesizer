@@ -64,3 +64,14 @@ class ArgumentsParser:
     parser.add_argument('-es', '--experiment', default='', type=str, help="Title of the serialized experiment")
     # used in main_loop_instances_solver
     parser.add_argument('-sef', '--sub_exp_filename', type=str, help='Sub experiment pickle filename')
+    # used in instances invoker
+    parser.add_argument('-sec', '--sub_exp_count', type=int, help='Cut the list of sub-experiment filenames as list[:c]')
+    # dev related
+    parser.add_argument('-dv', '--dev', type=bool, default=False, help="Dev related indicator")
+    # main_loop_instances_solver related
+    parser.add_argument('-sa', '--save_formula', type=bool, default=False, help="Save smt formula and continue")
+    parser.add_argument('-sae', '--save_formula_and_exit', type=bool, default=False, help="Save smt and exit")
+    # main_loop_instances_invoker related
+    parser.add_argument('-z3', '--invoke_z3_binary', type=bool, default=False, help="Whether to invoke z3 binary (True),"
+                                                                                    "or Python wrapper (False)")
+    parser.add_argument('-th', '--threshold', type=int, default=-1, help="The threshold for keep context properties")

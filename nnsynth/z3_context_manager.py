@@ -66,9 +66,12 @@ class Z3ContextManager:
             print("%s new: %.6f, orig: %.6f, diff: %.12f" %
                   (key, w_optim, w_orig, abs(w_orig - w_optim)))
 
-    def save_formula_to_disk(self, filename='check.smt2'):
+    def save_formula_to_disk(self, filename='check.smt2', check_sat_get_model=True):
+        print("save_formula_to_disk, filename: {}".format(filename))
         with open(filename, 'w') as handle:
             handle.write(self.solver.sexpr())
+            if check_sat_get_model:
+                handle.writelines(["(check-sat)\n", "(get-model)\n"])
 
     def reset_model_mapping(self):
         self.model_mapping = OrderedDict()
