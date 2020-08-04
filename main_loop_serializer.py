@@ -21,23 +21,10 @@ def generate_main_loop_instance_filename(weight_tuple, threshold, eval_set_size)
 
 def main(args):
     # main flow
+    # TODO: merge this module into 'main_loop'? (code duplication)
     exp = deserialize_exp(args.experiment)
 
-    generator = FormulaGenerator(coefs=exp['coefs'], intercepts=exp['intercepts'],
-                                 input_size=exp['input_size'],
-                                 output_size=exp['num_classes'], num_layers=exp['num_layers'])
-    checked_property = [
-        DeltaRobustnessProperty(input_size=exp['input_size'], output_size=exp['num_classes'],
-                                desired_output=1, coordinate=args.pr_coordinate, delta=args.pr_delta,
-                                output_constraint_type=OutputConstraint.Max)
-        ]
-
-    weights_selector = WeightsSelector(input_size=exp['input_size'], hidden_size=(4,),
-                                       output_size=exp['num_classes'], delta=args.ws_delta)
-
-    # keep context (original NN representation)
-    keep_ctx_property = KeepContextProperty(exp['eval_set'])
-
+    # TODO: define class to make more generic
     # all combinations for 2-4-2 NN
     _comb_tuples = [
         # weights: layer, neuron, weight
