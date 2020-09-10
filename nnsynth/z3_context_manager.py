@@ -2,7 +2,7 @@ import subprocess
 from collections import OrderedDict
 from pathlib import Path
 
-from z3 import Solver, Goal, sat, parse_smt2_file, parse_smt2_string
+from z3 import Solver, Goal, sat, parse_smt2_file, parse_smt2_string, Bool, BoolRef
 
 
 class Z3ContextManager:
@@ -37,6 +37,9 @@ class Z3ContextManager:
     #     FILE = Path('.').parent / ''
     #     subprocess.run(["scp", FILE, "USER@SERVER:PATH"])
 
+    def get_context(self):
+        return self.solver.ctx
+
     def get_result(self):
         """Return 'z3.sat', 'z3.unsat' or 'z3.unknown'"""
         return self.result
@@ -60,11 +63,14 @@ class Z3ContextManager:
         return self.model_mapping
 
     def model_mapping_sanity_check(self):
-        # print original and optimized weight values: must have model mapping
+        # returns stringified original and optimized weight values: must have model mapping
+        _s = ''
         for key, value in self.model_mapping.items():
             w_optim, w_orig = value
-            print("%s new: %.6f, orig: %.6f, diff: %.12f" %
-                  (key, w_optim, w_orig, abs(w_orig - w_optim)))
+            _s += "%s new: %.4f, orig: %.4f, diff: %.5f" % (key, w_optim, w_orig, abs(w_orig - w_optim))
+
+        return _s
+
 
     def save_formula_to_disk(self, filename='check.smt2', check_sat_get_model=True):
         print("save_formula_to_disk, filename: {}".format(filename))
@@ -75,3 +81,6 @@ class Z3ContextManager:
 
     def reset_model_mapping(self):
         self.model_mapping = OrderedDict()
+
+    def set_model_mapping(self, desired_mapping: OrderedDict):
+        self.model_mapping = desired_mapping

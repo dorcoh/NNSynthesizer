@@ -5,10 +5,13 @@ Provides:
 """
 import pickle
 from abc import ABC, abstractmethod
+from typing import Union, Tuple
+
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import numpy as np
 
+from nnsynth.common.utils import load_pickle
 from nnsynth.neural_net import get_predicted_tuple
 
 
@@ -72,11 +75,15 @@ class XorDataset(Dataset):
         # self.process()
 
         # split data
-        self.X_train, self.X_test, self.y_train, self.y_test = \
-            train_test_split(self.X, self.y, test_size=self.test_size, random_state=self.random_seed)
+        self._split_data()
+
 
     def get_data(self):
         return self.X, self.y
+
+    def _split_data(self):
+        self.X_train, self.X_test, self.y_train, self.y_test = \
+            train_test_split(self.X, self.y, test_size=self.test_size, random_state=self.random_seed)
 
     def subset_data(self, perecent):
         """Perform a reduce of the dataset size according to perecent"""
@@ -86,6 +93,8 @@ class XorDataset(Dataset):
         self.X = self.X[idx, :]
         self.y = self.y[idx]
         print("Subset data, after reducing sizes: X={}, y={}".format(self.X.shape, self.y.shape))
+        # split data again
+        self._split_data()
 
 
     def get_splitted_data(self):
@@ -134,6 +143,24 @@ class XorDataset(Dataset):
 
         return ret_eval_set
 
+    def get_dummy_eval_set(self, limit=None):
+        """To test samples soft property"""
+        X = [[2.5, -2.5], [7.5, -2.5], [12.5, -2.5], [17.5, -2.5]]
+        y = [1, 1, 1, 1]
+
+        return np.array(X).astype(np.float32)[:limit, :], np.array(y).astype(np.int32)[:limit]
+
+    def get_dummy_eval_set_voronoi(self):
+        """To test Voronoi soft property"""
+        # X = np.array([[0.5, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2], [2, 0], [2, 1], [2, 2]])
+        # y = np.array([1, 1, 1, 1, 1, 0, 0, 0, 0])
+
+        X = np.array([[5, 5], [-5, -5], [7, 7], [-7, -7], [-2.5, -2.5], [2.5, 2.5],
+                      [-5, 5], [5, -5], [-7, 7], [7, -7], [-2.5, 2.5], [2.5, -2.5]])
+        y = np.array([0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1])
+
+        return np.array(X).astype(np.float32), np.array(y).astype(np.int32)
+
     @staticmethod
     def is_noisy_sample(a: np.ndarray):
         x1, x2, y_sample = a[0], a[1], a[2]
@@ -178,8 +205,7 @@ class XorDataset(Dataset):
 
     @classmethod
     def from_pickle(cls, file_path):
-        with open(file_path, 'rb') as handle:
-            inst = pickle.load(handle)
+        inst = load_pickle(file_path)
         if not isinstance(inst, cls):
             raise TypeError('Unpickled object is not of type {}'.format(cls))
 

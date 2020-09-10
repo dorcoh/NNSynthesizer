@@ -1,3 +1,6 @@
+"""Demonstrate the flow by invoking a repair for single network"""
+import sys
+from collections import OrderedDict
 from copy import copy
 
 from z3 import sat, unsat, unknown
@@ -5,8 +8,10 @@ from z3 import sat, unsat, unknown
 from nnsynth.common import sanity
 from nnsynth.common.arguments_handler import ArgumentsParser
 from nnsynth.common.models import OutputConstraint
-from nnsynth.common.properties import DeltaRobustnessProperty, KeepContextProperty
-from nnsynth.common.sanity import xor_dataset_sanity_check
+from nnsynth.common.properties import DeltaRobustnessProperty, EnforceSamplesSoftProperty, EnforceGridSoftProperty, \
+    EnforceSamplesHardProperty, KeepContextProperty, EnforceVoronoiSoftProperty
+from nnsynth.common.sanity import xor_dataset_sanity_check, pred
+from nnsynth.common.utils import save_pickle
 from nnsynth.datasets import XorDataset
 from nnsynth.evaluate import EvaluateDecisionBoundary
 from nnsynth.formula_generator import FormulaGenerator
@@ -50,6 +55,8 @@ def main(args):
 
     num_layers = get_num_layers(net)
 
+    z3_mgr = Z3ContextManager()
+
     # formulate in SMT via z3py
     coefs, intercepts = get_params(net)
     generator = FormulaGenerator(coefs=coefs, intercepts=intercepts, input_size=input_size,
@@ -65,24 +72,33 @@ def main(args):
     # TODO: change hidden size type
     weights_selector = WeightsSelector(input_size=input_size, hidden_size=(4,),
                                        output_size=num_classes, delta=args.ws_delta)
-    weights_selector.select_neuron(layer=2, neuron=1)
-    weights_selector.select_neuron(layer=2, neuron=2)
+    # weights_selector.select_neuron(layer=2, neuron=1)
+    weights_selector.select_weight(layer=1, neuron=1, weight=1)
 
-    # keep context (original NN representation)
-    eval_set = dataset.get_evaluate_set(net, args.eval_set, args.eval_set_type, args.limit_eval_set)
+    if not args.dev:
+        eval_set = dataset.get_evaluate_set(net, args.eval_set, args.eval_set_type, args.limit_eval_set)
+    else:
+        eval_set = dataset.get_dummy_eval_set()
+
     sanity.print_eval_set(eval_set)
 
-    keep_ctx_property = KeepContextProperty(eval_set)
-    keep_ctx_property.set_threshold(args.limit_eval_set)
+    if args.soft_constraints:
+        keep_ctx_property = EnforceSamplesSoftProperty()
+    else:
+        keep_ctx_property = EnforceSamplesHardProperty()
+
+    keep_ctx_property.set_kwargs(**{'eval_set': eval_set, 'threshold': args.threshold})
 
     if args.check_sat:
+        # check sat without repair
         generator.generate_formula(checked_property, None, None)
     else:
+        # repair
         generator.generate_formula(checked_property, weights_selector, keep_ctx_property)
 
-    z3_mgr = Z3ContextManager()
     z3_mgr.add_formula_from_memory(generator.get_goal())
 
+    z3_mgr.save_formula_to_disk('formula-{}.smt2'.format(keep_ctx_property.get_constraints_type()))
     z3_mgr.solve()
 
     res = z3_mgr.get_result()
@@ -94,29 +110,36 @@ def main(args):
 
     elif args.check_sat:
         # check sat mode logic (no weights are freed, or additional constraints added)
-        # TODO: decouple from here into a separated script
         print("Check sat mode: formula is {}".format(str(res)))
         exit(0)
 
     model_mapping = z3_mgr.get_model_mapping(generator.get_z3_weight_variables(),
                                              generator.get_original_weight_values())
 
-    z3_mgr.model_mapping_sanity_check()
+    # debug (for setting results of z3 solver) - can set here your params
+    # model_mapping = OrderedDict([('weight_1_1_1', (0.5993294617618902, 0.6119044423103333))])
+    # z3_mgr.set_model_mapping(model_mapping)
 
-    with open('model_mapping', 'w') as handle:
-        handle.write(model_mapping)
+    print(z3_mgr.model_mapping_sanity_check())
 
-    print(xor_dataset_sanity_check(net))
+    with open('main.py-model_mapping', 'w') as handle:
+        handle.write(str(model_mapping))
 
     # store original net before fix
     original_net = copy(net)
 
-    # set new params and plot decision boundary
     fixed_net = set_params(net, model_mapping)
     evaluator = EvaluateDecisionBoundary(original_net, fixed_net, dataset, meshgrid_stepsize=args.meshgrid_stepsize,
-                                         contourf_levels=args.contourf_levels, save_plot=args.save_plot)
-    evaluator.multi_plot('multi_plot')
+                                         contourf_levels=args.contourf_levels, save_plot=False)
 
+    # docstring for the plot
+    custom_exp_name = 'soft' if args.soft_constraints else 'hard'
+    custom_sub_name = 'threshold: {}\n'.format(str(args.threshold))
+    custom_sub_name = custom_sub_name + ' ' + z3_mgr.model_mapping_sanity_check()
+
+    evaluator.multi_plot_with_evalset(eval_set, name=custom_exp_name, sub_name=custom_sub_name)
+
+    print(xor_dataset_sanity_check(net))
     print(xor_dataset_sanity_check(fixed_net))
 
 

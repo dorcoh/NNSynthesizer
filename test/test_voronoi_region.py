@@ -23,7 +23,7 @@ class MyTestCase(unittest.TestCase):
         # self.X_train, self.y_train, X_test, y_test = self.data.get_splitted_data()
         data_path = Path('.').absolute().parent / 'good-network-data.XorDataset.pkl'
         dataset = XorDataset.from_pickle(data_path)
-        dataset.subset_data(0.001)
+        dataset.subset_data(0.005)
         self.X_train, self.y_train = dataset.get_data()
 
         # self.idx = np.random.randint(self.X_train.shape[0], size=int(0.05 * self.X_train.shape[0]))
@@ -33,6 +33,15 @@ class MyTestCase(unittest.TestCase):
         self.points_set = np.array([[0.5, 0], [0, 1], [0, 2], [1, 0], [1, 1], [1, 2],
                                     [2, 0], [2, 1], [2, 2]])
         self.y_train = np.array([1, 1, 1, 1, 1, 0, 0, 0, 0])
+
+        X = np.array([[5, 5], [-5, -5], [7, 7], [-7, -7], [-2.5, -2.5], [2.5, 2.5],
+                      [-5, 5], [5, -5], [-7, 7], [7, -7], [-2.5, 2.5], [2.5, -2.5]])
+        y = np.array([0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1])
+
+        self.points_set = X
+        self.y_train = y
+        # print(len(self.X_train))
+        # self.vor = Voronoi(self.X_train)
         self.vor = Voronoi(self.points_set)
 
     def test_something(self):
@@ -60,7 +69,7 @@ class MyTestCase(unittest.TestCase):
         x2, y2 = point_b
         a = y1 - y2
         b = x2 - x1
-        c = x1 * x2 - x2 * y1
+        c = x1 * y2 - x2 * y1
         print("{} * x + {} * y + {} = 0".format(a, b, c))
         return a, b, c
 
@@ -78,30 +87,53 @@ class MyTestCase(unittest.TestCase):
     def test_compute_equations(self):
         """Compute the equations of each region (currently takes one region),
         take two points and evaluate these equations with them"""
+
+        voronoi_plot_2d(self.vor)
+        plt.show()
+
         polygons = []
-        for region in self.vor.regions:
+        print(self.vor.point_region)
+        print("Regions length:", len(self.vor.regions))
+        for i, region in enumerate(self.vor.regions):
             reg_points = []
             if -1 in region:
+                print("infinite region")
+                print(region)
                 continue
             for vert_idx in region:
                 v = self.vor.vertices[vert_idx]
                 reg_points.append(v)
             if reg_points:
+                curr_point_index = list(self.vor.point_region).index(i)
+                print(self.X_train[curr_point_index])
+                print(reg_points)
                 polygons.append(reg_points)
 
-        poly = polygons.pop()
+        for poly in polygons:
+        # poly = polygons.pop()
 
-        equations = []
-        for i in range(len(poly)):
-            point_a = poly[i]
-            if i < len(poly)-1:
-                point_b = poly[i+1]
-            else:
-                point_b = poly[0]
+            equations = []
+            for i in range(len(poly)):
+                point_a = poly[i]
+                if i < len(poly)-1:
+                    point_b = poly[i+1]
+                else:
+                    point_b = poly[0]
 
-            a, b, c = self.compute_eq_two_points(point_a, point_b)
-            equations.append((i, a, b, c))
+                a, b, c = self.compute_eq_two_points(point_a, point_b)
+                equations.append((i, a, b, c))
 
+        # TODO: for each region, keep the point inside of it (can also do this by SymPy once we create Polygon),
+        #  then we could compute f(x,y) > 0 or < 0 to determine the set of constraints for that region.
+        #  As another thought, it would be much better to assign each region its training point.
+
+        # TODO: for the infinite regions, take the 'far_point' created in the plot method, and use some rectangle to
+        #  create close polygons, finally handle them similarly to the finite ones
+
+        # TODO: next, for each region we should also determine its classification - this could be extracted from `y_train`,
+        #  though we should have a mapping between the points in Voronoi object to those in X_train.
+
+        # TODO: finally, we should encode the constraints and store them as Z3 boolean constraints
         print(equations)
         results = self.calc_point_equations(equations, [1.0, 1.0])
         print(results)
@@ -110,7 +142,8 @@ class MyTestCase(unittest.TestCase):
         print(results)
 
     def test_compute_plane(self):
-        """Attempt to compute the plane out of the polygon coordinates"""
+        """Attempt to compute the plane out of the polygon coordinates
+        useless in the case of 2d"""
         polygons = []
         for region in self.vor.regions:
             reg_points = []
@@ -161,7 +194,7 @@ class MyTestCase(unittest.TestCase):
         fig, ax = plt.subplots()
         polygons = []
         patches = []
-        for region in self.vor.regions:
+        for region_index, region in enumerate(self.vor.regions):
             reg_points = []
             if -1 in region:
                 continue
@@ -169,22 +202,26 @@ class MyTestCase(unittest.TestCase):
                 v = self.vor.vertices[vert_idx]
                 reg_points.append(v)
             if reg_points:
-                polygons.append(reg_points)
+                curr_point_index = list(self.vor.point_region).index(region_index)
+                polygons.append((curr_point_index, reg_points))
 
-        for poly in polygons:
+        for indices, poly in polygons:
             mat_poly = Polygon(np.stack(poly), True)
             patches.append(mat_poly)
+        cm_bright = ListedColormap(['#FF0000', '#0000FF'])
 
-        p = PatchCollection(patches, cmap=matplotlib.cm.jet, alpha=0.4, match_original=True)
+        p = PatchCollection(patches, cmap=cm_bright, alpha=0.2, match_original=True)
 
-        colors = np.empty(len(self.vor.point_region))
-        for idx, region_idx in enumerate(self.vor.point_region):
-            cls = self.y_train[idx]
-            colors[region_idx - 1] = cls
+        # set colors array according to each patch
+        colors = np.empty(len(polygons))
+        for i, elem in enumerate(polygons):
+            _curr_point_index, _ = elem
+            cls = self.y_train[_curr_point_index]
+            colors[i] = cls
 
         p.set_array(colors)
         ax.add_collection(p)
-        cm_bright = ListedColormap(['#FF0000', '#0000FF'])
+
         ax.scatter(self.points_set[:, 0], self.points_set[:, 1], c=self.y_train, cmap=cm_bright,
                    edgecolors='k')
 

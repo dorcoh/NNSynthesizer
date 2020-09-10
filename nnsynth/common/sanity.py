@@ -1,5 +1,6 @@
 """Implementations of sanity checks for main module"""
 import torch
+import numpy as np
 
 
 def xor_dataset_sanity_check(net):
@@ -10,7 +11,13 @@ def xor_dataset_sanity_check(net):
         [10.0, -10.0]]
     )
 
-    return net.predict_proba(test)
+    return pred(net, test)
+
+
+def pred(net, test_data):
+    y_pred = net.predict_proba(test_data)
+    y_pred_labels = np.argmax(y_pred, axis=1)
+    return y_pred, y_pred_labels
 
 
 def print_eval_set(eval_set):

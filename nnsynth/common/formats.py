@@ -3,6 +3,7 @@ class Formats:
     """Store z3py variables format"""
     input_fmt = 'input_%d'
     input_id_fmt = 'input'
+    keep_context_input_prefix_fmt = 'keep_context_%d_'
     neuron_z_fmt = 'neuron_in_%d_%d'
     neuron_a_fmt = 'neuron_o_%d_%d'
     neuron_a_fmt_same_layer = 'neuron_o_%d'

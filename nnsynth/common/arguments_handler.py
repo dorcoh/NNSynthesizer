@@ -49,6 +49,8 @@ class ArgumentsParser:
                         help='In case of evaluation set (eval_set != None), this argument limits the number'
                              'of samples to collect from the set. It also controls the number of soft constraints '
                              '(if these constraints are represented as samples from eval_set)')
+    parser.add_argument('-soft', '--soft_constraints', default=False, type=bool,
+                        help='Whether to activate soft (True) or hard (False) constraints')
     # evaluation args
     parser.add_argument('-ms', '--meshgrid_stepsize', default=0.05, type=float,
                         help='Step size for dividing input space in generated meshgrid for contour plot')
@@ -74,4 +76,5 @@ class ArgumentsParser:
     # main_loop_instances_invoker related
     parser.add_argument('-z3', '--invoke_z3_binary', type=bool, default=False, help="Whether to invoke z3 binary (True),"
                                                                                     "or Python wrapper (False)")
-    parser.add_argument('-th', '--threshold', type=int, default=-1, help="The threshold for keep context properties")
+    parser.add_argument('-th', '--threshold', type=int, default=1, help="The threshold for keep context properties, "
+                                                                         "in case of soft properties")
