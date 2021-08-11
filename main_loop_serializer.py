@@ -3,7 +3,7 @@ import sys
 
 from nnsynth.common.arguments_handler import ArgumentsParser
 from nnsynth.common.models import OutputConstraint
-from nnsynth.common.properties import KeepContextProperty, DeltaRobustnessProperty
+from nnsynth.common.properties import EnforceSamplesSoftProperty, DeltaRobustnessProperty
 from nnsynth.common.utils import deserialize_exp, serialize_main_loop_instance
 from nnsynth.formula_generator import FormulaGenerator
 from nnsynth.weights_selector import WeightsSelector

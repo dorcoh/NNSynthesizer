@@ -22,9 +22,8 @@ X_train, y_train, X_test, y_test = dataset.get_splitted_data()
 input_size = dataset.get_input_size()
 num_classes = dataset.get_output_size()
 
-net = create_skorch_net(input_size=input_size, hidden_size=args.hidden_size,
-                        num_classes=num_classes, learning_rate=args.learning_rate,
-                        epochs=args.epochs, random_seed=args.random_seed,
+net = create_skorch_net(input_size=input_size, hidden_size=args.hidden_size, num_classes=num_classes,
+                        epochs=args.epochs, learning_rate=args.learning_rate, random_seed=args.random_seed,
                         init=args.load_nn is not None)
 # train / load NN
 if args.load_nn:
@@ -57,5 +56,4 @@ for new_val in new_vals_list:
     base_dir = "parameters_changer_results/"
     evaluator.multi_plot(base_dir + 'param_orig_{}_new_{}'.format(round(param_val, 4), round(new_val, 4)),
                          sub_name='', plot_train=False, plot_test=False)
-
     print(xor_dataset_sanity_check(fixed_net))

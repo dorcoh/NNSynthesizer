@@ -1,15 +1,12 @@
 """Solve an instance of main loop"""
 import sys
-from copy import copy
-from pathlib import Path
-from time import time
 
 from z3 import unsat, unknown
 
 from nnsynth.common.arguments_handler import ArgumentsParser
 from nnsynth.common.models import OutputConstraint
-from nnsynth.common.properties import KeepContextProperty, DeltaRobustnessProperty
-from nnsynth.common.utils import deserialize_exp, save_exp_details, save_pickle, load_pickle, deserialize_subexp
+from nnsynth.common.properties import EnforceSamplesSoftProperty, DeltaRobustnessProperty
+from nnsynth.common.utils import deserialize_exp, save_exp_details, deserialize_subexp
 from nnsynth.formula_generator import FormulaGenerator
 from nnsynth.weights_selector import WeightsSelector
 from nnsynth.z3_context_manager import Z3ContextManager
@@ -29,17 +26,20 @@ def main(args):
                                  output_size=exp['num_classes'], num_layers=exp['num_layers'])
 
     # 1 delta robustness property at center (10, 10)
+    # TODO: serialize the checked property as well (remember we have different kind of safety properties)
     checked_property = [
         DeltaRobustnessProperty(input_size=exp['input_size'], output_size=exp['num_classes'],
                                 desired_output=1, coordinate=args.pr_coordinate, delta=args.pr_delta,
                                 output_constraint_type=OutputConstraint.Max)
         ]
 
+    # TODO: complete serialization (hidden_size, delta (if needed?))
     weights_selector = WeightsSelector(input_size=exp['input_size'], hidden_size=(4,),
                                        output_size=exp['num_classes'], delta=args.ws_delta)
 
+    # TODO: serialize as well (remember we'll have different types)
     # keep context (original NN representation), limit the number of samples if needed
-    keep_ctx_property = KeepContextProperty(exp['eval_set'], args.threshold if args.threshold != -1 else None)
+    keep_ctx_property = EnforceSamplesSoftProperty(exp['eval_set'], args.threshold if args.threshold != -1 else None)
 
     # debug
 

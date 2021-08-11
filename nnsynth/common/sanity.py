@@ -1,6 +1,7 @@
 """Implementations of sanity checks for main module"""
 import torch
 import numpy as np
+from sklearn.metrics import accuracy_score
 
 
 def xor_dataset_sanity_check(net):
@@ -13,6 +14,9 @@ def xor_dataset_sanity_check(net):
 
     return pred(net, test)
 
+def evaluate_test_acc(net, X_test, y_test):
+    y_pred = net.predict(X_test)
+    print("Accuracy:", accuracy_score(y_test, y_pred))
 
 def pred(net, test_data):
     y_pred = net.predict_proba(test_data)

@@ -86,6 +86,7 @@ class KeepContextType(Enum):
     SAMPLES = 1
     GRID = 2
     VORONOI = 3
+    SCORE = 4
 
 
 class KeepContextProperty(ABC):
@@ -163,7 +164,7 @@ class SoftConstraintsProperty(KeepContextProperty, ABC):
         self.threshold = threshold
 
     def iter_soft_constraints_inputs(self):
-        if self.keep_context_type == KeepContextType.SAMPLES:
+        if self.keep_context_type in (KeepContextType.SAMPLES, KeepContextType.SCORE):
             return iter(self.kwargs['eval_set'][0])
 
 
@@ -247,6 +248,76 @@ class EnforceSamplesHardProperty(EnforceSamplesProperty, HardConstraintsProperty
     ...
 
 # TODO: add abstract grid property, add hard grid property
+
+
+class EnforceScoresProperty(KeepContextProperty, ABC):
+    """Abstract class to enforce scores property"""
+    def __init__(self):
+        super().__init__()
+        self.keep_context_type = KeepContextType.SCORE
+
+    def _generate_property(self):
+        self._generate()
+
+    def _validate(self):
+        super()._validate()
+        if not self.kwargs['eval_set']:
+            raise Exception("Cannot generate main constraint: evaluation set is required.")
+        if not len(self.kwargs['eval_set']) == 3:
+            raise Exception("Cannot generate main constraint: "
+                            "Expecting 'predicted_score' type of evaluation set, a tuple of len 3")
+        if not 'epsilon' in self.kwargs:
+            raise Exception("Cannot generate main constraint: epsilon value is required.")
+
+    def _generate(self):
+        """Generate the actual constraints by appending them into self.keep_context_constraints.
+        In this case"""
+        # add sample constraints
+        self.test_set = self.kwargs['eval_set']
+        self.epsilon = self.kwargs['epsilon']
+        self.X_test, self.y_test, self.y_score = self.test_set
+        # use all test set (below) or inject the limit from solver (constraints_limit)
+
+        i = 0
+        for x, y, y_score in list(zip(self.X_test, self.y_test, self.y_score)):
+
+            if self.constraints_type == ConstraintType.SOFT:
+                variables = self.variables[i]
+            else:
+                variables = self.variables
+
+            # note currently supports only binary classification
+            variable_key = 'out_1' if y == 0.0 else 'out_2'
+            out_constraint = And([RealVal(y_score[y] - self.epsilon) <= variables[variable_key],
+                                  variables[variable_key] <= RealVal(y_score[y] + self.epsilon)])
+
+            input_constraint = And(variables['input_1'] == x[0], variables['input_2'] == x[1])
+            if self.constraints_type == ConstraintType.HARD:
+                curr_constraint = Implies(
+                    input_constraint,
+                    out_constraint)
+            else:
+                curr_constraint = out_constraint
+
+            self.keep_context_constraints.append(curr_constraint)
+            i += 1
+
+
+class EnforceScoresSoftProperty(EnforceScoresProperty, SoftConstraintsProperty):
+    """Enforces scores soft property"""
+    def _validate_threshold(self):
+        # workaround for setting the threshold - assuming the maximum length is at the size of test_set
+        if self.kwargs['threshold'] > self.kwargs['eval_set'][0].shape[0]:
+            raise Exception("Cannot set threshold which is bigger than test set length")
+
+    def _validate(self):
+        super()._validate()
+        self._validate_threshold()
+
+
+class EnforceScoresHardProperty(EnforceScoresProperty, HardConstraintsProperty):
+    """Enforces samples hard property"""
+    ...
 
 
 class EnforceGridSoftProperty(SoftConstraintsProperty):

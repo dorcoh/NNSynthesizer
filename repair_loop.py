@@ -6,7 +6,7 @@ from z3 import unsat, unknown
 from nnsynth.common import sanity
 from nnsynth.common.arguments_handler import ArgumentsParser
 from nnsynth.common.models import OutputConstraint
-from nnsynth.common.properties import KeepContextProperty, DeltaRobustnessProperty
+from nnsynth.common.properties import EnforceSamplesSoftProperty, DeltaRobustnessProperty
 from nnsynth.common.sanity import xor_dataset_sanity_check
 from nnsynth.datasets import XorDataset
 from nnsynth.formula_generator import FormulaGenerator
@@ -28,9 +28,8 @@ def main(args):
     num_classes = dataset.get_output_size()
     dataset.filter_data(args.eval_set)
 
-    net = create_skorch_net(input_size=input_size, hidden_size=args.hidden_size,
-                            num_classes=num_classes, learning_rate=args.learning_rate,
-                            epochs=args.epochs, random_seed=args.random_seed,
+    net = create_skorch_net(input_size=input_size, hidden_size=args.hidden_size, num_classes=num_classes,
+                            epochs=args.epochs, learning_rate=args.learning_rate, random_seed=args.random_seed,
                             init=args.load_nn is not None)
     # train / load NN
     if args.load_nn:
@@ -58,7 +57,7 @@ def main(args):
     # keep context (original NN representation)
     eval_set = dataset.get_evaluate_set(net, args.eval_set, args.eval_set_type, args.limit_eval_set)
     sanity.print_eval_set(eval_set)
-    keep_ctx_property = KeepContextProperty(eval_set)
+    keep_ctx_property = EnforceSamplesSoftProperty(eval_set)
 
     # all combinations for 2-4-2 NN
     _comb_tuples = [

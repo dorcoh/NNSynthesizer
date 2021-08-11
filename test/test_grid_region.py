@@ -21,9 +21,8 @@ class MyTestCase(unittest.TestCase):
         input_size = dataset.get_input_size()
         num_classes = dataset.get_output_size()
         args = ArgumentsParser.parser.parse_args()
-        net = create_skorch_net(input_size=input_size, hidden_size=args.hidden_size,
-                                num_classes=num_classes, learning_rate=args.learning_rate,
-                                epochs=args.epochs, random_seed=args.random_seed,
+        net = create_skorch_net(input_size=input_size, hidden_size=args.hidden_size, num_classes=num_classes,
+                                epochs=args.epochs, learning_rate=args.learning_rate, random_seed=args.random_seed,
                                 init=True)
         net.load_params(net_path.as_posix())
 

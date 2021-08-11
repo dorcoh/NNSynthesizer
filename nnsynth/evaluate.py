@@ -22,7 +22,6 @@ def get_grid_params(X, step_size=0.1):
 
     return xx, yy
 
-
 def tr(elem):
     if elem == 0:
         return 'red'
@@ -44,6 +43,7 @@ class EvaluateDecisionBoundary:
         self.xx, self.yy = self.dataset.get_grid_params(meshgrid_stepsize)
 
     def plot(self, name='decision_boundary', use_test=False):
+        """Plot a NN decision boundary (no need to init self.fixed_clf)"""
         cm = plt.cm.RdBu
         cm_bright = ListedColormap(['#FF0000', '#0000FF'])
         plt.figure(figsize=(20, 10))
@@ -98,11 +98,11 @@ class EvaluateDecisionBoundary:
         # clean
         plt.delaxes(ax)
 
-    def multi_plot(self, name='multi_plot', sub_name='sub_exp', split_sub_name=False, plot_train: bool = True, plot_test: bool = False):
+    def multi_plot(self, eval_set, name='multi_plot', sub_name='sub_exp', split_sub_name=False):
         cm = plt.cm.RdBu
         cm_bright = ListedColormap(['#FF0000', '#0000FF'])
 
-        plt.figure(figsize=(20, 10))
+        plt.figure(figsize=(30, 15))
 
         fig, axes = plt.subplots(ncols=2)
 
@@ -119,13 +119,24 @@ class EvaluateDecisionBoundary:
 
             # Plot the training points
             # TODO: set inverse scaling (currently no scaling)
-            if plot_train:
+            if idx == 0:
                 ax.scatter(self.X_train[:, 0], self.X_train[:, 1], c=self.y_train, cmap=cm_bright,
                            edgecolors='k')
             # Plot the testing points
-            if plot_test:
-                ax.scatter(self.X_test[:, 0], self.X_test[:, 1], c=self.y_test, cmap=cm_bright,
-                           edgecolors='c', alpha=0.6)
+            if idx == 1:
+                # eval set
+                ax.scatter(eval_set[0][:, 0], eval_set[0][:, 1], c=eval_set[1], cmap=cm_bright,
+                           edgecolors='k')
+
+                # opacity = 0.15
+                # if hasattr(self.dataset, 'X_sampled'):
+                #     # plot sampled set
+                #     ax.scatter(self.dataset.X_sampled[:, 0], self.dataset.X_sampled[:, 1],
+                #                c=self.dataset.y_sampled, cmap=cm_bright, edgecolors='c', alpha=opacity)
+                # else:
+                #     # plot test set
+                #     ax.scatter(self.X_test[:, 0], self.X_test[:, 1], c=self.y_test, cmap=cm_bright,
+                #                edgecolors='c', alpha=opacity)
 
             ax.set_xlim(self.xx.min(), self.xx.max())
             ax.set_ylim(self.yy.min(), self.yy.max())
@@ -134,15 +145,43 @@ class EvaluateDecisionBoundary:
             # ax.grid(True, which='both')
 
             # plot accuracy score
-            if plot_test:
-                y_true = self.clf.predict(self.X_test)
-                acc_score = accuracy_score(y_true, self.y_test)
-            else:
-                y_true = self.clf.predict(self.X_train)
-                acc_score = accuracy_score(y_true, self.y_train)
 
-            ax.text(self.xx.max() - .3, self.yy.min() + .3, ('%.2f' % acc_score).lstrip('0'),
-                    size=15, horizontalalignment='right')
+            y_pred = clfs_dict[idx].predict(self.X_test)
+            n_test = self.y_test.shape[0]
+            test_acc_score = accuracy_score(self.y_test, y_pred)
+
+            y_pred = clfs_dict[idx].predict(self.X_train)
+            n_train = self.y_train.shape[0]
+            train_acc_score = accuracy_score(self.y_train, y_pred)
+
+            y_pred = clfs_dict[idx].predict(eval_set[0])
+            n_eval = eval_set[1].shape[0]
+            eval_acc_score = accuracy_score(eval_set[1], y_pred)
+
+            text_size = 9
+            delta_y = 7
+            start = 12
+            align_left = 9
+
+            ax.text(self.xx.max() - align_left, self.yy.min() - (start + delta_y*2),
+                    ('Test: %.5f, N: %d' % (test_acc_score, n_test)).lstrip('0'),
+                    size=text_size, horizontalalignment='right')
+
+            ax.text(self.xx.max() - align_left, self.yy.min() - (start + delta_y*1),
+                    ('Train: %.5f, N: %d' % (train_acc_score, n_train)).lstrip('0'),
+                    size=text_size, horizontalalignment='right')
+
+            ax.text(self.xx.max() - align_left, self.yy.min() - (start + delta_y*0),
+                    ('Eval: %.5f, N: %d' % (eval_acc_score, n_eval)).lstrip('0'),
+                    size=text_size, horizontalalignment='right')
+
+            if hasattr(self.dataset, 'X_sampled'):
+                y_pred = clfs_dict[idx].predict(self.dataset.X_sampled)
+                n_sampled = self.dataset.y_sampled.shape[0]
+                sampled_acc_score = accuracy_score(self.dataset.y_sampled, y_pred)
+                ax.text(self.xx.max() - align_left, self.yy.min() - (start + delta_y * 3),
+                        ('Sampled: %.5f, N: %d' % (sampled_acc_score, n_sampled)).lstrip('0'),
+                        size=text_size, horizontalalignment='right')
 
             ax.axhline(y=0, color='k')
             ax.axvline(x=0, color='k')
@@ -152,8 +191,8 @@ class EvaluateDecisionBoundary:
             elif idx == 1:
                 ax.set_title("Fixed net")
 
-        plt.tight_layout()
-        fig.suptitle("Exp: {}, Sub: {}".format(name, sub_name))
+        fig.suptitle("Exp: {} \n Sub: {}".format(name, sub_name), fontsize=7)
+
 
         if self.save_plot:
             if split_sub_name:
@@ -163,6 +202,7 @@ class EvaluateDecisionBoundary:
             else:
                 plt.savefig(name + '.png')
         else:
+            plt.tight_layout(rect=[0, 0.03, 1, 0.95])
             plt.show()
 
         plt.delaxes()

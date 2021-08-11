@@ -1,7 +1,7 @@
 import pickle
 from collections import OrderedDict
 from copy import deepcopy, copy
-from typing import Union
+from typing import Union, List
 
 from z3 import Real, Product, Sum, And, Goal, ForAll, If, Const, RealSort, RealVar, RealVal
 
@@ -95,6 +95,7 @@ class FormulaGenerator:
         )
 
         self.goal.add(self.quant_clause)
+        # self.goal.add(self.inner_constraints_clause)
 
         # adds (Soft) constraints to goal
         self._add_post_constraints_to_goal()
@@ -130,8 +131,9 @@ class FormulaGenerator:
 
         elif keep_context_property.get_constraints_type() == ConstraintType.SOFT:
 
-            if keep_context_property.get_keep_context_type() == KeepContextType.SAMPLES:
+            if keep_context_property.get_keep_context_type() in (KeepContextType.SAMPLES, KeepContextType.SCORE):
                 for input_value in keep_context_property.iter_soft_constraints_inputs():
+                    # TODO: can we decouple this part and put it in the property _generate function?
                     self.declare_z3_input_variables(input_value)
                     self.declare_neuron_values()
                     self.soft_constraints_variables.append(deepcopy(self.variables))

@@ -5,7 +5,7 @@ from z3 import unsat, unknown
 
 from nnsynth.common.arguments_handler import ArgumentsParser
 from nnsynth.common.models import OutputConstraint
-from nnsynth.common.properties import KeepContextProperty, DeltaRobustnessProperty
+from nnsynth.common.properties import EnforceSamplesSoftProperty, DeltaRobustnessProperty
 from nnsynth.common.utils import deserialize_exp, save_exp_details, save_pickle
 from nnsynth.formula_generator import FormulaGenerator
 from nnsynth.weights_selector import WeightsSelector
@@ -30,7 +30,7 @@ def main(args):
                                        output_size=exp['num_classes'], delta=args.ws_delta)
 
     # keep context (original NN representation)
-    keep_ctx_property = KeepContextProperty(exp['eval_set'])
+    keep_ctx_property = EnforceSamplesSoftProperty(exp['eval_set'])
 
     # all combinations for 2-4-2 NN
     _comb_tuples = [
@@ -103,6 +103,7 @@ def main(args):
                 # TODO: remove if we want to send single jobs to Tamnun
                 if args.send_single and param_dist < best_model_distance:
                     best_model_distance = param_dist
+                    # TODO: change the way we measure models performance (use test set)
                     best_model_mapping = model_mapping
                     best_model_config = model_config
 
