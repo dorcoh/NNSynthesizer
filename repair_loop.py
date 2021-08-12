@@ -28,9 +28,8 @@ def main(args):
     num_classes = dataset.get_output_size()
     dataset.filter_data(args.eval_set)
 
-    net = create_skorch_net(input_size=input_size, hidden_size=args.hidden_size,
-                            num_classes=num_classes, learning_rate=args.learning_rate,
-                            epochs=args.epochs, random_seed=args.random_seed,
+    net = create_skorch_net(input_size=input_size, hidden_size=args.hidden_size, num_classes=num_classes,
+                            epochs=args.epochs, learning_rate=args.learning_rate, random_seed=args.random_seed,
                             init=args.load_nn is not None)
     # train / load NN
     if args.load_nn:

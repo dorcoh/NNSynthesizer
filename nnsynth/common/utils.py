@@ -6,7 +6,7 @@ from typing import Dict
 
 EXP_FILENAME_SUFFIX = '.exp.pkl'
 
-def serialize_exp(input_size, num_classes, num_layers, coefs, intercepts, eval_set, experiment,
+def serialize_exp(input_size, num_classes, num_layers, coefs, intercepts, eval_set, experiment, hidden_size, property,
                   filename_suffix=EXP_FILENAME_SUFFIX):
     serialization_dict = {
         'experiment': experiment,
@@ -15,7 +15,9 @@ def serialize_exp(input_size, num_classes, num_layers, coefs, intercepts, eval_s
         'num_layers': num_layers,
         'coefs': coefs,
         'intercepts': intercepts,
-        'eval_set': eval_set
+        'eval_set': eval_set,
+        'hidden_size': hidden_size,
+        'property': property
     }
     exp_path = Path('exp')
     if not exp_path.exists():
@@ -79,6 +81,7 @@ def save_exp_details(model_config: Dict, result, distance, model_mapping, experi
     path_to_store = results_path / results_file_name
     print("saving exp results pickle in: {}".format(str(path_to_store.absolute().as_uri())))
     save_pickle(model_config, results_path / results_file_name)
+    # TODO: append to some tabular structure, in addition to single files (so we could quickly aggregate the stats)
 
 
 def load_pickle(filename):

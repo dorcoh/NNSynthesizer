@@ -258,7 +258,7 @@ class EnforceGridSoftProperty(SoftConstraintsProperty):
     - thought: perhaps we can make the cells even smaller (and not adjacent) -> to allow smoothness"""
 
     def __init__(self, net, x_range: Tuple[float, float], y_range: Tuple[float, float], grid_delta: float,
-                 samples_num: int, random_seed: int = 42):
+                 samples_num: int, random_seed: int = 42, limit_cells: int = 4):
         """
 
         :param net: network model
@@ -282,6 +282,7 @@ class EnforceGridSoftProperty(SoftConstraintsProperty):
         # set random seed for reproducibility
         random.seed(random_seed)
         self.keep_context_type = KeepContextType.GRID
+        self.limit_cells = limit_cells
 
     def get_patches(self) -> Tuple[List, List]:
         return self.patches, self.patches_labels
@@ -290,7 +291,7 @@ class EnforceGridSoftProperty(SoftConstraintsProperty):
         # grid order: starting at top left corner and scanning the rows until reaching bottom right corner.
         xx = np.arange(self.x_range[0], self.x_range[1], self.grid_delta)
         yy = np.flip(np.arange(self.y_range[0], self.y_range[1], self.grid_delta))
-        limit_cells = 4
+        limit_cells = self.limit_cells
         for i in range(len(yy)-1):
             for j in range(len(xx)-1):
                 points_indices = [(j, i), (j+1, i), (j+1, i+1), (j, i+1)]
@@ -319,10 +320,10 @@ class EnforceGridSoftProperty(SoftConstraintsProperty):
                 # store the outcome
                 if len(self.keep_context_constraints) < limit_cells:
                     # TODO: remove the custom cells
-                    if -6 <= points[0][1] <= -1 and 1 <= points[0][0] <= 21: # y and x
-                        self.keep_context_constraints.append(curr_constraint)
-                        self.patches.append(points)
-                        self.patches_labels.append(y_pred_majority)
+                    # if -6 <= points[0][1] <= -1 and 1 <= points[0][0] <= 21: # y and x
+                    self.keep_context_constraints.append(curr_constraint)
+                    self.patches.append(points)
+                    self.patches_labels.append(y_pred_majority)
                 else:
                     break
             else:

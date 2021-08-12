@@ -95,6 +95,7 @@ class FormulaGenerator:
         )
 
         self.goal.add(self.quant_clause)
+        # self.goal.add(self.inner_constraints_clause)
 
         # adds (Soft) constraints to goal
         self._add_post_constraints_to_goal()

@@ -22,8 +22,10 @@ class ArgumentsParser:
     parser.add_argument('-sp', '--test_size', default=0.4, type=float,
                         help='Test set percentage of generated data')
     # nn args
-    parser.add_argument('-hs', '--hidden_size', default=4, type=int,
+    parser.add_argument('-hs', '--hidden_size', default=[4], type=int, nargs='+',
                         help='Neural net hidden layer size')
+    parser.add_argument('-mnn', '--modular_nn', default=False, type=bool,
+                        help='Whether to use 2 layer net or modular')
     parser.add_argument('-l', '--learning_rate', default=1e-3, type=float,
                         help='Neural net training learning rate')
     parser.add_argument('-e', '--epochs', default=100, type=int,
@@ -51,6 +53,9 @@ class ArgumentsParser:
                              '(if these constraints are represented as samples from eval_set)')
     parser.add_argument('-soft', '--soft_constraints', default=False, type=bool,
                         help='Whether to activate soft (True) or hard (False) constraints')
+    parser.add_argument('-heur', '--heuristic', default=1, type=int,
+                        help="Keep context type (1 - samples, 2 - grid, 3 - Voronoi")
+    parser.add_argument('-np', '--num_properties', default=1, type=int, help="Number of properties to optimize")
     # evaluation args
     parser.add_argument('-ms', '--meshgrid_stepsize', default=0.05, type=float,
                         help='Step size for dividing input space in generated meshgrid for contour plot')
@@ -70,6 +75,7 @@ class ArgumentsParser:
     parser.add_argument('-sec', '--sub_exp_count', type=int, help='Cut the list of sub-experiment filenames as list[:c]')
     # dev related
     parser.add_argument('-dv', '--dev', type=bool, default=False, help="Dev related indicator")
+    parser.add_argument('-enx', '--eval_nn_and_exit', type=bool, default=False, help="Main: when true eval net and exit.")
     # main_loop_instances_solver related
     parser.add_argument('-sa', '--save_formula', type=bool, default=False, help="Save smt formula and continue")
     parser.add_argument('-sae', '--save_formula_and_exit', type=bool, default=False, help="Save smt and exit")

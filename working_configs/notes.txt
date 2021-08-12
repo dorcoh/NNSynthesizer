@@ -1,0 +1,11 @@
+# net 1
+
+# points
+
+# grid
+
+--load_dataset good-network-data.XorDataset.pkl --load_nn model.pkl --save_plot False --soft_constraints True --threshold 1 --hidden_size 4 --heuristic 2
+
+# voronoi
+
+# net 2

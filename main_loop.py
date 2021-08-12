@@ -103,6 +103,7 @@ def main(args):
                 # TODO: remove if we want to send single jobs to Tamnun
                 if args.send_single and param_dist < best_model_distance:
                     best_model_distance = param_dist
+                    # TODO: change the way we measure models performance (use test set)
                     best_model_mapping = model_mapping
                     best_model_config = model_config
 

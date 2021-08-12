@@ -1,6 +1,7 @@
 import subprocess
 from collections import OrderedDict
 from pathlib import Path
+from time import time
 
 from z3 import Solver, Goal, sat, parse_smt2_file, parse_smt2_string, Bool, BoolRef
 
@@ -30,7 +31,11 @@ class Z3ContextManager:
         self.solver.add(z3_formula)
 
     def solve(self):
+        start = time()
         self.result = self.solver.check()
+        end = time()
+        print("Solver execution: {} seconds".format(end-start))
+        return "%.4f" % (end-start)
 
     # def solve(self, ssh_server):
     #     """Solve remotely on Tamnun"""
@@ -67,7 +72,7 @@ class Z3ContextManager:
         _s = ''
         for key, value in self.model_mapping.items():
             w_optim, w_orig = value
-            _s += "%s new: %.4f, orig: %.4f, diff: %.5f" % (key, w_optim, w_orig, abs(w_orig - w_optim))
+            _s += "%s new: %.4f, orig: %.4f, diff: %.5f \n" % (key, w_optim, w_orig, abs(w_orig - w_optim))
 
         return _s
 
