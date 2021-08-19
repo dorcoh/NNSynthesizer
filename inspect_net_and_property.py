@@ -1,32 +1,18 @@
 """This module goal is to provide the ability for inspecting the NN and the desired property, it takes
 an exp config, similar to the config that `repair_exp_runner.py` expects."""
-
-"""
-Trigger a set of experiments with configuration file, each instance of experiment takes:
-(1) source network and dataset (2) specification, (3) heuristic and its params, it then attempts to perform a repair.
-"""
 import logging
 import sys
-import time
-from copy import copy
 from datetime import datetime
 from pathlib import Path
 
-import pandas as pd
-from z3 import unsat, unknown
 
 from nnsynth.common.arguments_handler import ArgumentsParser
 from nnsynth.common.exp_config_reader import ExpConfigReader
-from nnsynth.common.properties import EnforceSamplesSoftProperty, EnforceSamplesHardProperty, \
-    EnforceGridSoftProperty, KeepContextType, EnforceVoronoiSoftProperty, set_property_from_params
-from nnsynth.common.utils import save_exp_config
-from nnsynth.datasets import Dataset, randomly_sample
-from nnsynth.evaluate import EvaluateDecisionBoundary, build_exp_docstring, compute_exp_metrics
-from nnsynth.formula_generator import FormulaGenerator
-from nnsynth.neural_net import create_skorch_net, print_params, get_params, set_params, get_num_layers, \
-    ModularClassificationNet, ClassificationNet, get_n_params
-from nnsynth.weights_selector import WeightsSelector
-from nnsynth.z3_context_manager import Z3ContextManager
+from nnsynth.common.properties import set_property_from_params
+from nnsynth.datasets import Dataset
+from nnsynth.evaluate import EvaluateDecisionBoundary
+from nnsynth.neural_net import create_skorch_net, print_params, ModularClassificationNet, ClassificationNet
+
 
 CURR_PATH = Path('.')
 DATASETS_PATH = CURR_PATH / "datasets"

@@ -15,8 +15,8 @@
     "z3_timeout": 600,
 
     "save_plot": true,
-    "meshgrid_stepsize": 1,
-    "meshgrid_limit": 20,
+    "meshgrid_stepsize": 0.5,
+    "meshgrid_limit": 5,
 
     "hidden_size": [4],
     "sampled_dataset_n": 500

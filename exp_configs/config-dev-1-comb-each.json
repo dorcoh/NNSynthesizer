@@ -15,8 +15,8 @@
     "z3_timeout": 10,
 
     "save_plot": true,
-    "meshgrid_stepsize": 0.05,
-    "meshgrid_limit": 0.5,
+    "meshgrid_stepsize": 0.25,
+    "meshgrid_limit": 1,
 
     "hidden_size": [4],
     "sampled_dataset_n": 200
@@ -43,7 +43,7 @@
           "heuristic_params": {
             "x_range": [-22, 22],
             "y_range": [-22, 22],
-            "grid_delta": 4,
+            "grid_delta": 2,
             "samples_num": 3,
             "limit_cells": 450
           }

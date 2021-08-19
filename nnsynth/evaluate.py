@@ -703,11 +703,11 @@ class EvaluateDecisionBoundary:
                     xy=(start_x, start_y + delta_y * 3),
                     xycoords='axes points')
 
-        ax.annotate(text=('Test: %.5f, N: %d' % (metrics[clf_key + "train_acc"], metrics[clf_key + "train_acc_n"])).lstrip('0'),
+        ax.annotate(text=('Test: %.5f, N: %d' % (metrics[clf_key + "test_acc"], metrics[clf_key + "test_acc_n"])).lstrip('0'),
                     xy=(start_x, start_y + delta_y * 2),
                     xycoords='axes points')
 
-        ax.annotate(text=('Train: %.5f, N: %d' % (metrics[clf_key + "test_acc"], metrics[clf_key + "train_acc_n"])).lstrip('0'),
+        ax.annotate(text=('Train: %.5f, N: %d' % (metrics[clf_key + "train_acc"], metrics[clf_key + "train_acc_n"])).lstrip('0'),
                     xy=(start_x, start_y + delta_y * 1),
                     xycoords='axes points')
 

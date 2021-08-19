@@ -15,8 +15,8 @@
     "z3_timeout": 10,
 
     "save_plot": true,
-    "meshgrid_stepsize": 0.05,
-    "meshgrid_limit": 0.5,
+    "meshgrid_stepsize": 0.25,
+    "meshgrid_limit": 1,
 
     "hidden_size": [4],
     "sampled_dataset_n": 200
@@ -26,18 +26,16 @@
         "settings": {
           "heuristic": 2,
           "heuristic_params": {
-            "x_range": [-22, 22],
-            "y_range": [-22, 22],
-            "grid_delta": 5,
+            "x_range": [-20, 20],
+            "y_range": [-20, 20],
+            "grid_delta": 2,
             "samples_num": 3,
             "limit_cells": 450
           }
         },
         "hyper_params": {
             "weights_config": [
-              {"select_neuron": [[2,1]]},
-              {"select_neuron": [[2,2]]},
-              {"select_layer": [[2]]}
+              {"select_neuron": [[2,1]]}
             ],
             "threshold": [1]
         }

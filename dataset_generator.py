@@ -7,13 +7,12 @@ import matplotlib.pyplot as plt
 
 def main(args):
     # generate data and split
-    # dataset = XorDataset(center=args.center, std=args.std, samples=args.dataset_size,
-    #                      test_size=args.test_size, random_seed=args.random_seed)
-    # dataset.to_pickle('dataset.pkl')
+    dataset = XorDataset(center=args.center, std=args.std, samples=args.dataset_size,
+                         test_size=args.test_size, random_seed=args.random_seed)
+    dataset.to_pickle('dataset.pkl')
 
-    dataset = BlobsDataset()
     plot(*dataset.get_data())
-    dataset.to_pickle('blobs-dataset.pkl')
+    dataset.to_pickle('check-dataset-generator.pkl')
 
 
 def plot(X, y):
