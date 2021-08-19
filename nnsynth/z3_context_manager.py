@@ -1,3 +1,4 @@
+import logging
 import subprocess
 from collections import OrderedDict
 from pathlib import Path
@@ -30,12 +31,21 @@ class Z3ContextManager:
         z3_formula = parse_smt2_string(formula)
         self.solver.add(z3_formula)
 
-    def solve(self):
+    def solve(self, timeout=None):
         start = time()
+        if timeout is not None:
+            self.solver.set("timeout", 1000*timeout)  # in ms
         self.result = self.solver.check()
         end = time()
-        print("Solver execution: {} seconds".format(end-start))
-        return "%.4f" % (end-start)
+        has_timed_out = self.solver.reason_unknown() == 'timeout'
+        if has_timed_out:
+            logging.info(f"Solver timed out. Timeout={timeout} seconds")
+            ret_val = "timeout"
+        else:
+            logging.info("Solver execution: {} seconds".format(end-start))
+            ret_val = "%.4f" % (end-start)
+
+        return ret_val
 
     # def solve(self, ssh_server):
     #     """Solve remotely on Tamnun"""

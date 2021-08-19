@@ -1,5 +1,6 @@
 import logging
 import operator
+import pickle
 import random
 import sys
 from abc import ABC, abstractmethod
@@ -14,6 +15,7 @@ import numpy as np
 
 from nnsynth.common.formats import Formats
 from nnsynth.common.models import InputImpliesOutputProperty, OutputConstraint, PropertyElement, Property
+from nnsynth.common.utils import load_pickle
 
 
 class DeltaRobustnessProperty:
@@ -132,13 +134,41 @@ class KeepContextProperty(ABC):
         self.variables = variables
 
     def set_kwargs(self, **kwargs):
+        self.log_kwargs(**kwargs)
         self.kwargs = kwargs
+
+    def get_kwargs(self, key):
+        return self.kwargs[key]
+
+    def log_kwargs(self, **kwargs):
+        for key, value in kwargs.items():
+            if key == 'eval_set':
+                # eval set
+                logging.info(f"Arg: {key}, X Shape: {value[0].shape}, Y Shape: {value[1].shape}")
+            else:
+                # other
+                logging.info(f"Arg: {key}, Value: {value}")
 
     def get_constraints_type(self):
         return self.constraints_type
 
     def get_keep_context_type(self):
         return self.keep_context_type
+
+    def get_num_constraints(self):
+        return len(self.keep_context_constraints)
+
+    def to_pickle(self, filename):
+        with open(filename, 'wb') as handle:
+            pickle.dump(self, handle, pickle.HIGHEST_PROTOCOL)
+
+    @classmethod
+    def from_pickle(cls, file_path):
+        inst = load_pickle(file_path)
+        if not isinstance(inst, cls):
+            raise TypeError('Unpickled object is not of type {}'.format(cls))
+
+        return inst
 
 
 class SoftConstraintsProperty(KeepContextProperty, ABC):
@@ -288,10 +318,12 @@ class EnforceGridSoftProperty(SoftConstraintsProperty):
         return self.patches, self.patches_labels
 
     def _generate_property(self):
+        logging.info("EnforceGridSoftProperty::_generate_property")
         # grid order: starting at top left corner and scanning the rows until reaching bottom right corner.
         xx = np.arange(self.x_range[0], self.x_range[1], self.grid_delta)
         yy = np.flip(np.arange(self.y_range[0], self.y_range[1], self.grid_delta))
         limit_cells = self.limit_cells
+        logging.info(f"EnforceGridSoftProperty::prepare to generate {(len(yy)-1)*(len(xx)-1)} cells")
         for i in range(len(yy)-1):
             for j in range(len(xx)-1):
                 points_indices = [(j, i), (j+1, i), (j+1, i+1), (j, i+1)]
@@ -330,8 +362,8 @@ class EnforceGridSoftProperty(SoftConstraintsProperty):
                 continue
             break
 
-        print("Total cells: {}".format(len(self.keep_context_constraints)))
-        print(self.patches)
+        logging.debug("Total cells: {}".format(len(self.keep_context_constraints)))
+        logging.debug(self.patches)
 
     def get_multiple_random_points_in_poly(self, poly: Polygon, n: int):
         FLOAT_PRECISION = 7
@@ -355,14 +387,28 @@ class EnforceGridSoftProperty(SoftConstraintsProperty):
         # TODO: deprecate, not required (at least in case of soft constraints)
         return iter(['x' for x in range(4)])
 
+    def save_patches(self, filename):
+        patches = (self.patches, self.patches_labels)
+        with open(filename, 'wb') as handle:
+            pickle.dump(patches, handle, pickle.HIGHEST_PROTOCOL)
+
+    @classmethod
+    def load_saved_patches(cls, file_path):
+        inst = load_pickle(file_path)
+
+        return inst
+
 
 class EnforceVoronoiSoftProperty(SoftConstraintsProperty):
-    def __init__(self):
+    def __init__(self, limit_points=None, resample=False, random_state=42):
         super().__init__()
         self.keep_context_type = KeepContextType.VORONOI
         self.vor = None
         self.polygons = []
         self.labels = []
+        self.limit_points = limit_points
+        self.resample = resample
+        self.random_state = random_state
 
     def _validate(self):
         super()._validate()
@@ -373,9 +419,28 @@ class EnforceVoronoiSoftProperty(SoftConstraintsProperty):
         """Gets polygons and their labels"""
         return self.polygons, self.labels
 
+    def handle_points(self):
+        logging.info(f"EnforceVoronoiSoftProperty::handle_points, size before: {self.X_test.shape[0]}")
+        np.random.seed(self.random_state)
+        samples = self.X_test.shape[0]
+        idx = np.arange(samples)
+        if self.limit_points or self.resample:
+            if self.limit_points and self.resample:
+                idx = np.random.randint(samples, size=self.limit_points)
+            elif self.limit_points:
+                idx = np.arange(self.limit_points)
+
+        self.X_test = self.X_test[idx, :]
+        self.y_test = self.y_test[idx]
+
+        logging.info(f"EnforceVoronoiSoftProperty::handle_points, size after: {self.X_test.shape[0]}")
+        pass
+
     def _generate_property(self):
+        logging.info("EnforceVoronoiSoftProperty::_generate_property")
         self.test_set = self.kwargs['eval_set']
         self.X_test, self.y_test = self.test_set
+        self.handle_points()
 
         self.x_min_max, self.y_min_max = None, None
 
@@ -411,6 +476,7 @@ class EnforceVoronoiSoftProperty(SoftConstraintsProperty):
     def _generate_voronoi_cells(self):
         # generate the actual voronoi regions (finite and infinite ones)
         # should return a mapping of each sample with its region
+        logging.info("EnforceVoronoiSoftProperty::_generate_voronoi_cells")
         self.vor = Voronoi(self.X_test)
 
         # will hold a tuples of the form (point_index: int, polygon: List)
@@ -437,7 +503,7 @@ class EnforceVoronoiSoftProperty(SoftConstraintsProperty):
         self.cells_equations = []
 
         for sample_index, poly in polygons:
-            print("Current sample", self.X_test[sample_index])
+            logging.debug("Current sample", self.X_test[sample_index])
             equations = []
 
             for i in range(len(poly)):
@@ -491,12 +557,13 @@ class EnforceVoronoiSoftProperty(SoftConstraintsProperty):
 
     def _compute_eq_two_points(self, point_a, point_b):
         """Compute a linear equation out of two points in 2d"""
+        logging.debug(f"_compute_eq_two_points::{point_a} - {point_b}")
         x1, y1 = point_a
         x2, y2 = point_b
         a = y1 - y2
         b = x2 - x1
         c = x1 * y2 - x2 * y1
-        print("{} * x + {} * y + {} = 0".format(a, b, c))
+        logging.debug("{} * x + {} * y + {} = 0".format(a, b, c))
         return a, b, c
 
     def calc_point_equations(self, equations, point) -> List[Tuple]:
@@ -519,3 +586,37 @@ class EnforceVoronoiSoftProperty(SoftConstraintsProperty):
             results.append((i, (eq_params, transform_result(res))))
 
         return results
+
+    def save_patches(self, filename):
+        patches = self.get_patches()
+        with open(filename, 'wb') as handle:
+            pickle.dump(patches, handle, pickle.HIGHEST_PROTOCOL)
+
+    @classmethod
+    def load_saved_patches(cls, file_path):
+        inst = load_pickle(file_path)
+
+        return inst
+
+
+def set_property_from_params(properties: List[Dict],
+                             input_size,
+                             num_classes,
+                             output_constraint_type=OutputConstraint.Max) -> List[DeltaRobustnessProperty]:
+    logging.info(f"set_property_from_params::input_size={input_size}, num_classes={num_classes}")
+    spec = []
+    for prop in properties:
+        logging.info(f"set_property_from_params::coord={prop['pr_coordinate']}, "
+                     f"delta={prop['pr_delta']}, "
+                     f"desired_output={prop['pr_desired_output']}")
+        _prop = DeltaRobustnessProperty(
+            input_size=input_size,
+            output_size=num_classes,
+            output_constraint_type=output_constraint_type,
+            coordinate=prop['pr_coordinate'],
+            delta=prop['pr_delta'],
+            desired_output=prop['pr_desired_output']
+        )
+        spec.append(_prop)
+
+    return spec

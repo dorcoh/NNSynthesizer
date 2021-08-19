@@ -1,0 +1,121 @@
+{
+  "global": {
+    "load_dataset": "xor-bad-dataset.pickle",
+    "load_nn": "model-xor-bad.pkl",
+
+    "properties": [
+      {
+        "pr_coordinate": [50, -15],
+        "pr_delta": 5,
+        "pr_desired_output": 2
+      }
+    ],
+
+    "soft_constraints": true,
+    "z3_timeout": 600,
+
+    "save_plot": true,
+    "meshgrid_stepsize": 1,
+    "meshgrid_limit": 20,
+
+    "hidden_size": [4],
+    "sampled_dataset_n": 500
+  },
+  "experiments": [
+    {
+      "settings": {
+        "heuristic": 1,
+        "heuristic_params": {
+        },
+        "limit_eval_set": 450
+      },
+
+      "hyper_params": {
+        "weights_config": [
+          {"select_neuron": [[2,1]]},
+          {"select_neuron": [[2,2]]},
+          {"select_layer": [[2]]}
+        ],
+        "threshold": [1, 250, 400]
+      }
+    },
+      {
+        "settings": {
+          "heuristic": 2,
+          "heuristic_params": {
+            "x_range": [-22, 22],
+            "y_range": [-22, 22],
+            "grid_delta": 4,
+            "samples_num": 3,
+            "limit_cells": 450
+          }
+        },
+        "hyper_params": {
+            "weights_config": [
+              {"select_neuron": [[2,1]]},
+              {"select_neuron": [[2,2]]},
+              {"select_layer": [[2]]}
+            ],
+            "threshold": [1, 2]
+        }
+      },
+      {
+          "settings": {
+            "heuristic": 3,
+            "heuristic_params": {
+              "limit_points": 450,
+              "resample": true,
+              "random_state": 42
+            }
+          },
+          "hyper_params": {
+              "weights_config": [
+                {"select_neuron": [[2,1]]},
+                {"select_neuron": [[2,2]]},
+                {"select_layer": [[2]]}
+              ],
+              "threshold": [1, 2]
+          }
+      },
+
+        {
+        "settings": {
+          "heuristic": 2,
+          "heuristic_params": {
+            "x_range": [-22, 22],
+            "y_range": [-22, 22],
+            "grid_delta": 2,
+            "samples_num": 3,
+            "limit_cells": 400
+          }
+        },
+        "hyper_params": {
+            "weights_config": [
+              {"select_neuron": [[2,1]]},
+              {"select_neuron": [[2,2]]},
+              {"select_layer": [[2]]}
+            ],
+            "threshold": [1, 2]
+        }
+      },
+
+          {
+          "settings": {
+            "heuristic": 3,
+            "heuristic_params": {
+              "limit_points": 400,
+              "resample": true,
+              "random_state": 42
+            }
+          },
+          "hyper_params": {
+              "weights_config": [
+                {"select_neuron": [[2,1]]},
+                {"select_neuron": [[2,2]]},
+                {"select_layer": [[2]]}
+              ],
+              "threshold": [1, 2]
+          }
+      }
+  ]
+}

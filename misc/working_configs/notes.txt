@@ -1,0 +1,15 @@
+# net 1
+
+# points
+
+# grid
+
+## 1
+--load_dataset good-network-data.XorDataset.pkl --load_nn model.pkl --save_plot False --soft_constraints True --threshold 1 --hidden_size 4 --heuristic 2
+weights_selector.select_neuron(layer=2, neuron=1)
+weights_selector.select_neuron(layer=1, neuron=1)
+weights_selector.select_neuron(layer=1, neuron=2)
+
+# voronoi
+
+# net 2

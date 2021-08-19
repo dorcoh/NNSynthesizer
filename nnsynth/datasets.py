@@ -68,6 +68,9 @@ class Dataset(ABC):
             self.X_sampled = X
             self.y_sampled = y
 
+    def get_sampled(self):
+        return self.X_sampled, self.y_sampled
+
     def get_splitted_data(self):
         """Returns processed and splitted data"""
         return self.X_train, self.y_train, self.X_test, self.y_test

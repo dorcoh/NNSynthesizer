@@ -1,8 +1,10 @@
+import json
 import os
 import pickle
 from pathlib import Path
 from typing import Dict
 
+import pandas as pd
 
 EXP_FILENAME_SUFFIX = '.exp.pkl'
 
@@ -102,3 +104,21 @@ def save_pickle(obj, fname):
     elif isinstance(fname, Path):
         with fname.open('wb') as handle:
             pickle.dump(obj, handle, pickle.HIGHEST_PROTOCOL)
+
+def save_exp_config(args: Dict, path: Path):
+    with path.open('w') as handle:
+        json.dump(args, handle, indent=4)
+
+
+def append_stats(path, exp_id, exp_key, metrics, time_took, extra=None):
+    """Append general stats (aggregating all experiments)"""
+    df = pd.DataFrame([{
+        'exp_id': exp_id,
+        'exp_key': exp_key,
+        'extra_params': extra,
+        'avg_acc_before': metrics['original_avg'] if 'original_avg' in metrics else None,
+        'avg_acc_after': metrics['repaired_avg'] if 'repaired_avg' in metrics else None,
+        'time': time_took}])
+
+    with open(path, 'a') as f:
+        df.to_csv(f, header=f.tell() == 0, index=False)

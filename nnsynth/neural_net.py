@@ -1,6 +1,7 @@
 """
 Provides a trained neural network
 """
+import logging
 import random
 from enum import Enum
 from typing import Tuple, List, Union
@@ -130,10 +131,11 @@ def create_skorch_net(input_size, hidden_size, num_classes, epochs, learning_rat
 
 
 def print_params(net):
+    logging.debug("Print params")
     params = net.module.named_parameters()
 
     for name, param in params:
-        print(name, param)
+        logging.debug(name, param)
 
 
 def get_params(net):

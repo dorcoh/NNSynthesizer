@@ -1,0 +1,75 @@
+{
+  "global": {
+    "load_dataset": "good-network-data.XorDataset.pkl",
+    "load_nn": "model.pkl",
+
+    "properties": [
+      {
+        "pr_coordinate": [10, 10],
+        "pr_delta": 2,
+        "pr_desired_output": 1
+      }
+    ],
+
+    "soft_constraints": true,
+    "z3_timeout": 10,
+
+    "save_plot": true,
+    "meshgrid_stepsize": 0.05,
+    "meshgrid_limit": 0.5,
+
+    "hidden_size": [4],
+    "sampled_dataset_n": 200
+  },
+  "experiments": [
+      {
+        "settings": {
+          "heuristic": 1,
+          "heuristic_params": {
+          },
+          "limit_eval_set": 450
+        },
+
+        "hyper_params": {
+          "weights_config": [
+            {"select_neuron": [[2,1]]}
+          ],
+          "threshold": [1]
+        }
+      },
+      {
+        "settings": {
+          "heuristic": 2,
+          "heuristic_params": {
+            "x_range": [-22, 22],
+            "y_range": [-22, 22],
+            "grid_delta": 4,
+            "samples_num": 3,
+            "limit_cells": 450
+          }
+        },
+        "hyper_params": {
+            "weights_config": [
+              {"select_neuron": [[2,1]]}
+            ],
+            "threshold": [1]
+        }
+      },
+      {
+          "settings": {
+            "heuristic": 3,
+            "heuristic_params": {
+              "limit_points": 150,
+              "resample": true,
+              "random_state": 42
+            }
+          },
+          "hyper_params": {
+              "weights_config": [
+                {"select_neuron": [[2,1]]}
+              ],
+              "threshold": [1]
+          }
+      }
+  ]
+}
