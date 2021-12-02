@@ -55,6 +55,7 @@ class ArgumentsParser:
                              'of samples to collect from the set. It also controls the number of soft constraints '
                              '(if these constraints are represented as samples from eval_set)')
     parser.add_argument('-sdn', '--sampled_dataset_n', default=200, type=int, help="# of samples in sampled dataset.")
+    parser.add_argument('-ngd', '--property_samples_sgd', default=200, type=int, help="# of samples to re-sample from property during SGD.")
     parser.add_argument('-soft', '--soft_constraints', default=False, type=bool,
                         help='Whether to activate soft (True) or hard (False) constraints')
     parser.add_argument('-heur', '--heuristic', default=1, type=int,
@@ -92,3 +93,10 @@ class ArgumentsParser:
     parser.add_argument('-z3t', '--z3_timeout', type=int, default=None, help="Timeout for Z3 in seconds.")
     parser.add_argument('-th', '--threshold', type=int, default=1, help="The threshold for keep context properties, "
                                                                          "in case of soft properties")
+    # exp runner
+    parser.add_argument('-cc', '--cache', type=bool, default=False)
+    parser.add_argument('-gt', '--timestamp', type=str, default=None)
+    parser.add_argument('-eid', '--exp_id', type=int, default=None)
+
+    # inspector
+    parser.add_argument('-pltn', '--plot_name', type=str, default='Some-plot')

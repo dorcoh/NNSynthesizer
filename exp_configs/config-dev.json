@@ -6,7 +6,7 @@
     "properties": [
       {
         "pr_coordinate": [10, 10],
-        "pr_delta": 2,
+        "pr_delta": 9,
         "pr_desired_output": 1
       }
     ],
@@ -32,47 +32,12 @@
 
       "hyper_params": {
         "weights_config": [
-          {"select_neuron": [[2,1]]},
-          {"select_neuron": [[2,2]]},
-          {"select_layer": [[2]]}
+          {"select_weight": [[2,1,1]]},
+          {"select_weight": [[2,2,1]]},
+          {"select_weight": [[2,2,2]]}
         ],
         "threshold": [1]
       }
-    },
-      {
-        "settings": {
-          "heuristic": 2,
-          "heuristic_params": {
-            "x_range": [-22, 22],
-            "y_range": [-22, 22],
-            "grid_delta": 4,
-            "samples_num": 3,
-            "limit_cells": 450
-          }
-        },
-        "hyper_params": {
-            "weights_config": [
-              {"select_neuron": [[2,1]]},
-              {"select_neuron": [[2,2]]},
-              {"select_layer": [[2]]}
-            ],
-            "threshold": [1]
-        }
-      },
-      {
-          "settings": {
-            "heuristic": 3,
-            "heuristic_params": {
-            }
-          },
-          "hyper_params": {
-              "weights_config": [
-                {"select_neuron": [[2,1]]},
-                {"select_neuron": [[2,2]]},
-                {"select_layer": [[2]]}
-              ],
-              "threshold": [1]
-          }
-      }
+    }
   ]
 }

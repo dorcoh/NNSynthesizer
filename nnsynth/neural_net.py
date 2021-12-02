@@ -1,6 +1,7 @@
 """
 Provides a trained neural network
 """
+import json
 import logging
 import random
 from enum import Enum
@@ -117,7 +118,7 @@ def create_skorch_net(input_size, hidden_size, num_classes, epochs, learning_rat
         lr=learning_rate,
         train_split=None,
         optimizer=torch.optim.Adam,
-        verbose=0
+        verbose=1
         # callbacks=[
         #     FreezeWeightsCallback(freezed_weights_list)
         # ]
@@ -137,6 +138,25 @@ def print_params(net):
     for name, param in params:
         logging.debug(name, param)
 
+def save_params_combs(net, name: str):
+    logging.info(f"save params combs for net: {net}")
+    layers = {}
+    for name, param in net.module.named_parameters():
+        layers[name] = param.detach().numpy().shape
+
+    weights_list = [value for key, value in layers.items() if 'weight' in key]
+    combs = []
+    for layer, elem in enumerate(weights_list, start=1):
+        for neuron in range(1, elem[0]+1):
+            for weight in range(1, elem[1]+1):
+                w_comb = {'select_weight': [[layer, neuron, weight]]}
+                combs.append(w_comb)
+            b_comb = {'select_bias': [[layer, neuron]]}
+            combs.append(b_comb)
+
+    logging.info(f"Total 1-weight combs for:{net} :{len(combs)}")
+    with open(name.replace('.', '') + '-combs.json', 'w') as handle:
+        json.dump(combs, handle)
 
 def get_params(net):
     coefs, intercepts = [], []

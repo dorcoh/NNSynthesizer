@@ -6,13 +6,15 @@ from copy import copy
 from pathlib import Path
 from typing import Dict, List
 
+import pandas as pd
+
 
 class ExpConfigReader:
     def __init__(self, path: Path):
         with path.open('r') as handle:
             self.config: Dict = json.load(handle)
 
-    def parse_experiments(self):
+    def parse_experiments(self, _args=None):
         for exp in self.config.get('experiments'):
             exp_settings: Dict = exp['settings']
             comb_dicts = self.explode_hyper_params(exp['hyper_params'])
@@ -35,8 +37,27 @@ class ExpConfigReader:
 
         return comb_dicts
 
-    def get_experiments_instances(self):
-        return self.parse_experiments()
+    def _get_experiments_instances(self, args=None):
+        return self.parse_experiments(args)
+
+    def _get_cached_experiment_instances(self, args, path):
+        # based on `general_stats.csv` file
+        df = pd.read_csv(path)
+        # exp_id start at 1, while idx start at 0
+        for idx, row in df.iloc[args.exp_id-1:].iterrows():
+            cfg_path = Path(row['config_path'])
+            with cfg_path.open('r') as handle:
+                exp_cfg: Dict = json.load(handle)
+                yield idx, exp_cfg
+
+    def get_experiments_instances(self, args=None, path=None):
+        logging.info("get_experiments_instances")
+        if not args.cache:
+            logging.info("get_experiments_instances::regular mode")
+            return enumerate(self._get_experiments_instances())
+        else:
+            logging.info(f"get_experiments_instances::cache mode. params: ts: {args.timestamp}, exp_id: {args.exp_id}")
+            return self._get_cached_experiment_instances(args, path)
 
     def update_args_with_global_config(self, args):
         vars(args).update(**self.config['global'])

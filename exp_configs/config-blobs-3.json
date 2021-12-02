@@ -1,0 +1,48 @@
+{
+  "global": {
+    "load_dataset": "blobs-dataset.pkl",
+    "load_nn": "model-blobs.pkl",
+    "modular_nn": true,
+    "hidden_size": [10, 10],
+
+
+    "properties": [
+      {
+        "pr_coordinate": [30, 6],
+        "pr_delta": 5,
+        "pr_desired_output": 1
+      },
+      {
+        "pr_coordinate": [-7.5, -30],
+        "pr_delta": 5,
+        "pr_desired_output": 1
+      }
+    ],
+    "num_properties": 2,
+
+    "soft_constraints": true,
+    "z3_timeout": 600,
+
+    "save_plot": true,
+    "meshgrid_stepsize": 0.5,
+    "meshgrid_limit": 5,
+    "sampled_dataset_n": 1000
+  },
+  "experiments": [
+    {
+      "settings": {
+        "heuristic": 1,
+        "heuristic_params": {
+        },
+        "limit_eval_set": 6000
+      },
+
+      "hyper_params": {
+        "weights_config": [
+            {"select_bias": [[2, 4]], "select_weight": [[2, 6, 1]]}, {"select_bias": [[2, 4]], "select_weight": [[2, 4, 1]]}, {"select_bias": [[2, 4]], "select_weight": [[2, 3, 9]]}, {"select_bias": [[2, 4]], "select_weight": [[2, 3, 6]]}, {"select_bias": [[2, 4]], "select_weight": [[2, 3, 3]]}, {"select_bias": [[2, 4]], "select_weight": [[2, 9, 5]]}, {"select_bias": [[2, 4]], "select_weight": [[2, 2, 3]]}, {"select_bias": [[2, 4]], "select_weight": [[2, 4, 3]]}, {"select_bias": [[2, 4]], "select_weight": [[2, 8, 3]]}, {"select_weight": [[2, 6, 1], [2, 4, 1]]}, {"select_weight": [[2, 6, 1], [2, 3, 9]]}, {"select_weight": [[2, 6, 1], [2, 3, 6]]}, {"select_weight": [[2, 6, 1], [2, 3, 3]]}, {"select_weight": [[2, 6, 1], [2, 9, 5]]}, {"select_weight": [[2, 6, 1], [2, 2, 3]]}, {"select_weight": [[2, 6, 1], [2, 4, 3]]}, {"select_weight": [[2, 6, 1], [2, 8, 3]]}, {"select_weight": [[2, 4, 1], [2, 3, 9]]}, {"select_weight": [[2, 4, 1], [2, 3, 6]]}, {"select_weight": [[2, 4, 1], [2, 3, 3]]}, {"select_weight": [[2, 4, 1], [2, 9, 5]]}, {"select_weight": [[2, 4, 1], [2, 2, 3]]}, {"select_weight": [[2, 4, 1], [2, 4, 3]]}, {"select_weight": [[2, 4, 1], [2, 8, 3]]}, {"select_weight": [[2, 3, 9], [2, 3, 6]]}, {"select_weight": [[2, 3, 9], [2, 3, 3]]}, {"select_weight": [[2, 3, 9], [2, 9, 5]]}, {"select_weight": [[2, 3, 9], [2, 2, 3]]}, {"select_weight": [[2, 3, 9], [2, 4, 3]]}, {"select_weight": [[2, 3, 9], [2, 8, 3]]}, {"select_weight": [[2, 3, 6], [2, 3, 3]]}, {"select_weight": [[2, 3, 6], [2, 9, 5]]}, {"select_weight": [[2, 3, 6], [2, 2, 3]]}, {"select_weight": [[2, 3, 6], [2, 4, 3]]}, {"select_weight": [[2, 3, 6], [2, 8, 3]]}, {"select_weight": [[2, 3, 3], [2, 9, 5]]}, {"select_weight": [[2, 3, 3], [2, 2, 3]]}, {"select_weight": [[2, 3, 3], [2, 4, 3]]}, {"select_weight": [[2, 3, 3], [2, 8, 3]]}, {"select_weight": [[2, 9, 5], [2, 2, 3]]}, {"select_weight": [[2, 9, 5], [2, 4, 3]]}, {"select_weight": [[2, 9, 5], [2, 8, 3]]}, {"select_weight": [[2, 2, 3], [2, 4, 3]]}, {"select_weight": [[2, 2, 3], [2, 8, 3]]}, {"select_weight": [[2, 4, 3], [2, 8, 3]]}
+          ],
+          "threshold": [1, 500, 1000, 2000, 5500]
+      }
+    }
+  ]
+}

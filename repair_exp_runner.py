@@ -9,13 +9,14 @@ from copy import copy
 from datetime import datetime
 from pathlib import Path
 
+from guppy import hpy
 from z3 import unsat, unknown
 
 from nnsynth.common.arguments_handler import ArgumentsParser
 from nnsynth.common.exp_config_reader import ExpConfigReader
 from nnsynth.common.properties import EnforceSamplesSoftProperty, EnforceSamplesHardProperty, \
     EnforceGridSoftProperty, KeepContextType, EnforceVoronoiSoftProperty, set_property_from_params
-from nnsynth.common.utils import save_exp_config, append_stats
+from nnsynth.common.utils import save_exp_config, append_stats, set_stats
 from nnsynth.datasets import Dataset, randomly_sample
 from nnsynth.evaluate import EvaluateDecisionBoundary, build_exp_docstring, compute_exp_metrics
 from nnsynth.formula_generator import FormulaGenerator
@@ -108,7 +109,12 @@ def main(args):
     # exit if not sat
     if (res == unsat or res == unknown) and not args.check_sat:
         logging.info("Stopped with result: " + str(res))
-        return fname, {}, time_took
+        # cleanup
+        del dataset, net
+        del X_sampled, y_sampled
+        del generator, weights_selector, keep_ctx_property, z3_mgr
+
+        return fname, {'exit-result': str(res)}, time_took
 
     logging.info("Repaired NN. New weights mapping:")
     model_mapping = z3_mgr.get_model_mapping(generator.get_z3_weight_variables(),
@@ -133,47 +139,108 @@ def main(args):
     evaluator.multi_plot_all_heuristics(main_details=exp_name, extra_details=details,
                                         keep_ctx_property=keep_ctx_property, metrics=metrics, path=EXP_PATH, fname=fname)
 
+    # cleanup
+    del dataset, net
+    del X_sampled, y_sampled
+    del generator, weights_selector, keep_ctx_property, z3_mgr
+    del original_net, fixed_net
+    del evaluator
+
     return fname, metrics, time_took
 
 
+def heap_stats(path, h, exp_id):
+    with path.open('a') as handle:
+        handle.write(f"-----------------\n")
+        handle.write(f"Experiment {exp_id}\n")
+        handle.write(str(h.heap()))
+        handle.write(f"\n-----------------\n")
+
+
+def skipped_exp_id(args):
+    id = f"RepairResult::Props-{args.num_properties}::Heuristic-{KeepContextType(args.heuristic).name}::" \
+            f"NumConstraints-{None}::Threshold-{args.threshold}::NNHidden-{args.hidden_size}::" \
+            f"Params-{None}::Free-{None}::WeightsConfig-{args.weights_config}"
+    return id
+
+def key_without_threshold(args):
+    id = f"RepairResult::Props-{args.num_properties}::Heuristic-{KeepContextType(args.heuristic).name}::" \
+            f"NumConstraints-{None}::Threshold-{None}::NNHidden-{args.hidden_size}::" \
+            f"Params-{None}::Free-{None}::WeightsConfig-{args.weights_config}"
+    return id
+
+
 if __name__ == '__main__':
-    logging.basicConfig(stream=sys.stdout, level=logging.INFO)
+    logger_format = "%(asctime)s [%(levelname)-5.5s]  %(message)s"
+    logging.basicConfig(stream=sys.stdout, level=logging.INFO, format=logger_format)
     # set CLI args and config args
     args = ArgumentsParser.parser.parse_args()
+
     CONFIGS_PATH = CURR_PATH / "exp_configs"
     cfg_reader = ExpConfigReader(CONFIGS_PATH / args.exp_config_path)
     cfg_reader.update_args_with_global_config(args)
 
     # set exp dir
-    _EXP_ROOT_PATH = CURR_PATH / "results" / f"{Path(args.exp_config_path).stem}" / datetime.utcnow().strftime("%s")
-    _EXP_ROOT_PATH.mkdir(parents=True)
-    save_exp_config(cfg_reader.get_config_dict(), _EXP_ROOT_PATH / "config.json")
+    timestamp = datetime.utcnow().strftime("%s") if not args.timestamp else args.timestamp
 
-    for i, exp_args_instance in enumerate(cfg_reader.get_experiments_instances()):
+    _EXP_ROOT_PATH = CURR_PATH / "results" / f"{Path(args.exp_config_path).stem}" / timestamp
+    _EXP_ROOT_PATH.mkdir(parents=True, exist_ok=True)
+
+    save_exp_config(cfg_reader.get_config_dict(), _EXP_ROOT_PATH / "config.json")
+    csv_path = _EXP_ROOT_PATH / "general_stats.csv"
+
+    h = hpy()
+    heap_stats(_EXP_ROOT_PATH / "heap.status", h, 0)
+
+    exp_keys = {}
+    for i, exp_args_instance in cfg_reader.get_experiments_instances(args, csv_path):
         # exp instance path
         EXP_PATH = _EXP_ROOT_PATH / f"exp_{i + 1}"
         EXP_PATH.mkdir(exist_ok=True)
 
         # logger
-        logFormatter = logging.Formatter("%(asctime)s [%(levelname)-5.5s]  %(message)s")
+        logFormatter = logging.Formatter(logger_format)
         rootLogger = logging.getLogger()
         fileHandler = logging.FileHandler(EXP_PATH / "log.out")
         fileHandler.setFormatter(logFormatter)
         rootLogger.addHandler(fileHandler)
 
+        vars(args).update(exp_args_instance)
+        if exp_keys.get(key_without_threshold(args)):
+            # assuming thresholds are increasing, we can earn from 'early stopping'
+            logging.info(f"Skipping exp {i + 1}, similar configs with lower thresholds resulted with UNSAT/UNKNOWN")
+            skipped_exp_key = skipped_exp_id(args)
+            logging.info(f"Exp id: {skipped_exp_key}")
+            set_stats(path=_EXP_ROOT_PATH / "general_stats.csv", exp_id=i + 1, exp_key=skipped_exp_key,
+                         metrics={'exit-result': 'skipped'},
+                         time_took='skipped', extra=None)
+
+            # save args
+            save_exp_config(vars(args), EXP_PATH / "config.json")
+            # clear logger
+            logging.info(f"Clear logger")
+            rootLogger.removeHandler(fileHandler)
+            heap_stats(_EXP_ROOT_PATH / "heap.status", h, exp_id=i + 1)
+            continue
+
         # actual run
         logging.info(f"Starting exp {i + 1}")
-        vars(args).update(exp_args_instance)
+
         start = time.time()
         fname, metrics, time_took = main(args)
+
+        if metrics.get('exit-result'):
+            id = key_without_threshold(args)
+            exp_keys[id] = True
+
         extra_metadata = str(args.heuristic_params) if args.heuristic_params else None
-        append_stats(path=_EXP_ROOT_PATH / "general_stats.csv", exp_id=i + 1, exp_key=fname, metrics=metrics,
+        set_stats(path=_EXP_ROOT_PATH / "general_stats.csv", exp_id=i + 1, exp_key=fname, metrics=metrics,
                      time_took=time_took, extra=extra_metadata)
         logging.info(f"Total time: {time.time() - start} seconds.")
 
         # save args
         save_exp_config(vars(args), EXP_PATH / "config.json")
-
         # clear logger
         logging.info(f"Clear logger")
         rootLogger.removeHandler(fileHandler)
+        heap_stats(_EXP_ROOT_PATH / "heap.status", h, exp_id=i+1)

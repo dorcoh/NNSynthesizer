@@ -55,6 +55,21 @@ def build_exp_docstring(args, num_constraints, time_took, net_params, net_free_p
     return first, second, fname
 
 
+def build_exp_docstring_sgd(args, time_took, net_params, net_free_params, epochs_took):
+
+    time_took = "{:.2f}".format(time_took)
+    first = f"Repair by Gradient Descent :: Enforce {len(args.properties)} properties \n" \
+            f"SMT Solver plus Gradient Descent time: {time_took} sec \n" \
+            f"# Epochs to converge: {epochs_took}"
+
+    second = f"NN details: Hidden layers sizes: {args.hidden_size}  \n" \
+             f"# Parameters: {net_params}, Free: {net_free_params}"
+
+    fname = f"RepairResult::Props-{args.num_properties}::NNHidden-{args.hidden_size}::Params-{net_params}::Free-{net_free_params}"
+
+    return first, second, fname
+
+
 def compute_exp_metrics(clf, fixed_clf, dataset, path: Union[None, Path] = None) -> Dict:
     logging.info("compute_exp_metrics")
     X_train, y_train, X_test, y_test = dataset.get_splitted_data()
@@ -176,6 +191,14 @@ class EvaluateDecisionBoundary:
         """Plot a NN decision boundary (no need to init self.fixed_clf)"""
         cm = plt.cm.RdBu
         cm_bright = ListedColormap(['#FF0000', '#0000FF'])
+
+        BIGGER_SIZE = 25
+
+        plt.rc('axes', labelsize=BIGGER_SIZE)  # fontsize of the x and y labels
+        plt.rc('xtick', labelsize=BIGGER_SIZE)  # fontsize of the tick labels
+        plt.rc('ytick', labelsize=BIGGER_SIZE)  # fontsize of the tick labels
+        plt.rc('legend', fontsize=BIGGER_SIZE)  # legend fontsize
+
         plt.figure(figsize=(20, 10))
         ax = plt.axes()
 
@@ -189,15 +212,14 @@ class EvaluateDecisionBoundary:
         Z = Z.reshape(self.xx.shape)
         ax.contourf(self.xx, self.yy, Z, self.contourf_levels, vmin=0, vmax=1, cmap=cm, alpha=0.8)
 
-        # Plot the training points
-        if use_test is not None:
-            if not use_test:
-                ax.scatter(self.X_train[:, 0], self.X_train[:, 1], c=self.y_train, cmap=cm_bright,
-                           edgecolors='k')
-            # Plot the testing points
-            else:
-                ax.scatter(self.X_test[:, 0], self.X_test[:, 1], c=self.y_test, cmap=cm_bright,
-                           edgecolors='c', alpha=0.6)
+        tickers = {}
+        tickers['train'] = ax.scatter(self.X_train[:, 0], self.X_train[:, 1], c=self.y_train, cmap=cm_bright,
+                       edgecolors='k', marker='o', label="Train set")
+        tickers['test'] = ax.scatter(self.X_test[:, 0], self.X_test[:, 1], c=self.y_test, cmap=cm_bright,
+                       edgecolors='c', marker="^", alpha=0.6, label="Test set")
+        if hasattr(self.dataset, 'X_sampled'):
+            tickers['samples'] = ax.scatter(self.dataset.X_sampled[:, 0], self.dataset.X_sampled[:, 1], c=self.dataset.y_sampled,
+                       cmap=cm_bright, edgecolors='c', alpha=0.3, marker='s', label="Sampled set")
 
         ax.set_xlim(self.x_limit[0], self.x_limit[1])
         ax.set_ylim(self.y_limit[0], self.y_limit[1])
@@ -220,7 +242,7 @@ class EvaluateDecisionBoundary:
         ax.axhline(y=0, color='k')
         ax.axvline(x=0, color='k')
 
-        ax.set_title(name)
+        ax.set_title(name, fontdict={'fontsize': 40, 'fontweight': 'medium'})
 
         def gen_patches():
             # out of DeltaRobustnessProperty
@@ -241,19 +263,28 @@ class EvaluateDecisionBoundary:
         patches, patches_labels = gen_patches()
         # add patches
         polys = []
-        for patch in patches:
+        for i, patch in enumerate(patches):
             arr = np.array(patch)
             print(arr)
             matplot_poly = Polygon(arr, edgecolor='black',
                                    linewidth=1.5, closed=True, joinstyle='round')
             polys.append(matplot_poly)
+            points = matplot_poly.get_xy()
+            x = [p[0] for p in points]
+            y = [p[1] for p in points]
+            centroid = (sum(x) / len(points), sum(y) / len(points))
+            text = f"Property {i+1}"
+            ax.annotate(text, centroid, color='w', weight='bold',
+                        fontsize=16, ha='center', va='center')
+
 
         hex_colors = [mcolors.hex2color(cm_bright.colors[i]) for i in patches_labels]
         colors = np.array(hex_colors)
-        p = PatchCollection(polys, cmap=cm_bright, alpha=0.3)
+        p = PatchCollection(polys, cmap=cm_bright, alpha=0.5)
         p.set_facecolor(colors)
         ax.add_collection(p, autolim=False)
 
+        plt.legend(loc="upper center", bbox_to_anchor=(0.5, -0.05), markerscale=3)
         plt.tight_layout()
 
         if self.save_plot:
@@ -264,6 +295,7 @@ class EvaluateDecisionBoundary:
 
         # clean
         plt.delaxes(ax)
+        plt.close()
 
     def multi_plot(self, eval_set, name='multi_plot', sub_name='sub_exp', split_sub_name=False, fname: Path = Path('.')):
         cm = plt.cm.RdBu
@@ -634,10 +666,11 @@ class EvaluateDecisionBoundary:
     def multi_plot_all_heuristics(self,
                                   main_details: str,
                                   extra_details: str,
-                                  keep_ctx_property: KeepContextProperty,
+                                  keep_ctx_property: Union[None, KeepContextProperty],
                                   metrics: Dict[str, float],
                                   path: Path,
-                                  fname: str):
+                                  fname: str,
+                                  method: str = 'SMT'):
         """Generic function to evaluate all types of heuristics."""
         # colors
         cm = plt.cm.RdBu
@@ -663,7 +696,12 @@ class EvaluateDecisionBoundary:
             if idx == 0:
                 ax.set_title("Original net")
                 self.annotate_scores(ax, metrics, "original_")
-                self.plot_heuristic_visualization(ax=ax, keep_ctx_property=keep_ctx_property, colormap=cm_bright)
+                if method == 'SMT':
+                    self.plot_heuristic_visualization(ax=ax, keep_ctx_property=keep_ctx_property, colormap=cm_bright)
+                else:
+                    # SGD
+                    ax.scatter(self.X_train[:, 0], self.X_train[:, 1], c=self.y_train, cmap=cm_bright,
+                               edgecolors='k')
 
             if idx == 1:
                 ax.set_title("Fixed net")
@@ -693,6 +731,7 @@ class EvaluateDecisionBoundary:
             plt.show()
 
         plt.delaxes()
+        plt.close()
 
     def annotate_scores(self, ax, metrics: Dict[str, float], clf_key: str):
         delta_y = -15

@@ -1,7 +1,11 @@
 """Implementations of sanity checks for main module"""
+import logging
+
 import torch
 import numpy as np
 from sklearn.metrics import accuracy_score
+
+from nnsynth.datasets import Dataset
 
 
 def xor_dataset_sanity_check(net):
@@ -17,6 +21,12 @@ def xor_dataset_sanity_check(net):
 def evaluate_test_acc(net, X_test, y_test):
     y_pred = net.predict(X_test)
     print("Accuracy:", accuracy_score(y_test, y_pred))
+
+def evaluate_dataset(dataset: Dataset):
+    logging.info(f"Train: {dataset.X_train.shape, dataset.y_train.shape}")
+    logging.info(f"Test: {dataset.X_test.shape, dataset.y_test.shape}")
+    if hasattr(dataset, 'X_sampled'):
+        logging.info(f"Sampled: {dataset.X_sampled.shape, dataset.y_sampled.shape}")
 
 def pred(net, test_data):
     y_pred = net.predict_proba(test_data)

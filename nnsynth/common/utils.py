@@ -1,4 +1,5 @@
 import json
+import logging
 import os
 import pickle
 from pathlib import Path
@@ -110,15 +111,39 @@ def save_exp_config(args: Dict, path: Path):
         json.dump(args, handle, indent=4)
 
 
-def append_stats(path, exp_id, exp_key, metrics, time_took, extra=None):
+def append_stats(path, exp_id, exp_key, metrics, time_took, extra=None, config_path=None):
     """Append general stats (aggregating all experiments)"""
-    df = pd.DataFrame([{
+    res = {
         'exp_id': exp_id,
         'exp_key': exp_key,
         'extra_params': extra,
-        'avg_acc_before': metrics['original_avg'] if 'original_avg' in metrics else None,
-        'avg_acc_after': metrics['repaired_avg'] if 'repaired_avg' in metrics else None,
-        'time': time_took}])
+        'avg_acc_before': metrics['original_avg'] if 'original_avg' in metrics else metrics.get('exit-result'),
+        'avg_acc_after': metrics['repaired_avg'] if 'repaired_avg' in metrics else metrics.get('exit-result'),
+        'time': time_took
+    }
+    if config_path:
+        res.update({'config_path': config_path})
+
+    df = pd.DataFrame([res])
 
     with open(path, 'a') as f:
         df.to_csv(f, header=f.tell() == 0, index=False)
+
+
+def set_stats(path, exp_id, exp_key, metrics, time_took, extra=None):
+    """Set general stats (aggregating all experiments)"""
+    res = {
+        'exp_key': exp_key,
+        'extra_params': extra,
+        'avg_acc_before': metrics['original_avg'] if 'original_avg' in metrics else metrics.get('exit-result'),
+        'avg_acc_after': metrics['repaired_avg'] if 'repaired_avg' in metrics else metrics.get('exit-result'),
+        'time': time_took
+    }
+
+    # assumed to exist
+    df = pd.read_csv(path)
+    logging.info(f"Setting values for exp_id: {exp_id}")
+    for key, value in res.items():
+        df.loc[exp_id-1, key] = value
+
+    df.to_csv(path, index=False)

@@ -5,7 +5,7 @@ Provides:
 """
 import pickle
 from abc import ABC, abstractmethod
-from typing import Union, Tuple
+from typing import Union, Tuple, List, Dict
 
 import numpy
 import skorch
@@ -14,6 +14,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 import numpy as np
 
+from nnsynth.common.properties import DeltaRobustnessProperty
 from nnsynth.common.utils import load_pickle
 from nnsynth.neural_net import get_predicted_tuple
 
@@ -74,6 +75,16 @@ class Dataset(ABC):
     def get_splitted_data(self):
         """Returns processed and splitted data"""
         return self.X_train, self.y_train, self.X_test, self.y_test
+
+    def convert_types_before_train(self):
+        self.X_train: np.ndarray = self.X_train.astype(np.float32)
+        self.X_test: np.ndarray = self.X_test.astype(np.float32)
+        self.y_train: np.ndarray = self.y_train.astype(np.long)
+        self.y_test: np.ndarray = self.y_test.astype(np.long)
+
+        if hasattr(self, "X_sampled"):
+            self.X_sampled: np.ndarray = self.X_sampled.astype(np.float32)
+            self.y_sampled: np.ndarray = self.y_sampled.astype(np.long)
 
     def to_pickle(self, filename):
         with open(filename, 'wb') as handle:
@@ -250,10 +261,10 @@ class BlobsDataset(Dataset):
             [-10, 10],
             [-10, -10],
             [10, -10],
-            [30, -30],
-            [-30, -30],
-            [-30, 30],
-            [30, 30],
+            [30, -30],  # 0
+            [-30, -30],  # 1
+            [-30, 30],  # 0
+            [30, 30], # 1
             # [-50, -50],
             # [-50, 50],
             # [50, 50],
@@ -309,3 +320,26 @@ def randomly_sample(net: skorch.NeuralNetClassifier, dataset: Dataset, n_samples
     y = net.predict(X).astype(np.long)
 
     return X, y
+
+
+def property_randomly_sample(property: List[Dict], n_samples=100, seed = 42):
+    np.random.seed(seed)
+
+    _n_samples_each = int(n_samples / len(property))
+    X = np.ndarray((0, 2))
+    y = np.ndarray((0, 1))
+    for prop in property:
+        pr_x, pr_y = prop['pr_coordinate']
+        dt = prop['pr_delta']
+        output = prop['pr_desired_output'] - 1
+
+        mins = (pr_x - dt, pr_y - dt)
+        maxs = (pr_x + dt, pr_y + dt)
+
+        _X = np.random.uniform(low=mins, high=maxs, size=(_n_samples_each, 2))
+        _y = np.full((_n_samples_each, 1), output)
+
+        X = np.append(X, _X, axis=0)
+        y = np.append(y, _y, axis=0)
+
+    return X, y.squeeze()
