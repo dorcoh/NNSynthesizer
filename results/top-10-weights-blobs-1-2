@@ -1,0 +1,40 @@
+Prop 1
+
+{'select_bias': [[2, 4]]},
+{'select_weight': [[2, 6, 1]]},
+{'select_weight': [[2, 4, 1]]},
+{'select_weight': [[2, 3, 9]]},
+{'select_weight': [[2, 3, 6]]}
+
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-1000::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_bias': [[2, 4]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-1000::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 6, 1]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-1::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 4, 1]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-1000::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 4, 1]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-2000::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 4, 1]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-500::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 4, 1]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-1::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 6, 1]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-5500::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 3, 9]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-500::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 3, 6]]}
+
+
+
+Prop 2
+
+{'select_weight': [[2, 3, 3]]},
+{'select_weight': [[2, 9, 5]]},
+{'select_weight': [[2, 2, 3]]},
+{'select_weight': [[2, 4, 3]]},
+{'select_weight': [[2, 8, 3]]}
+
+
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-2000::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 3, 3]]},
+
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-1::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 2, 3]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-500::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 2, 3]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-1000::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 2, 3]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-500::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 9, 5]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-2000::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 2, 3]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-5500::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 2, 3]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-1::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 9, 5]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-2000::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 4, 3]]}
+RepairResult::Props-1::Heuristic-SAMPLES::NumConstraints-6000::Threshold-1::NNHidden-[10, 10]::Params-162::Free-1::WeightsConfig-{'select_weight': [[2, 8, 3]]}

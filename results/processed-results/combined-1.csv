@@ -1,0 +1,589 @@
+source,exp_id,avg_acc_before,avg_acc_after,time,Props,Heuristic,NumConstraints,Threshold,NNHidden,Params,Free,WeightsConfig,extra_params
+config-xor-bad-1-results,1,0.9950846531949754,0.6504642271982524,0.2746,1,SAMPLES,450,1,[4],22,5,"{'select_neuron': [[2, 1]]}",
+config-xor-bad-1-results,2,0.9950846531949754,0.9817039868924086,30.4846,1,SAMPLES,450,250,[4],22,5,"{'select_neuron': [[2, 1]]}",
+config-xor-bad-1-results,3,0.9950846531949754,0.9817039868924086,3.0699,1,SAMPLES,450,400,[4],22,5,"{'select_neuron': [[2, 1]]}",
+config-xor-bad-1-results,4,0.9950846531949754,0.6499180775532496,0.3767,1,SAMPLES,450,1,[4],22,5,"{'select_neuron': [[2, 2]]}",
+config-xor-bad-1-results,5,0.9950846531949754,0.979792463134899,4.3493,1,SAMPLES,450,250,[4],22,5,"{'select_neuron': [[2, 2]]}",
+config-xor-bad-1-results,6,0.9950846531949754,0.9756963407973784,4.9270,1,SAMPLES,450,400,[4],22,5,"{'select_neuron': [[2, 2]]}",
+config-xor-bad-1-results,7,0.9950846531949754,0.375204806116876,0.2963,1,SAMPLES,450,1,[4],22,10,{'select_layer': [[2]]},
+config-xor-bad-1-results,8,0.9950846531949754,0.979792463134899,43.5956,1,SAMPLES,450,250,[4],22,10,{'select_layer': [[2]]},
+config-xor-bad-1-results,9,0.9950846531949754,0.979792463134899,23.6789,1,SAMPLES,450,400,[4],22,10,{'select_layer': [[2]]},
+config-xor-bad-1-results,10,0.9950846531949754,0.6608410704533042,0.6119,1,GRID,100,1,[4],22,5,"{'select_neuron': [[2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-1-results,11,,,timeout,1,GRID,100,2,[4],22,5,"{'select_neuron': [[2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-1-results,12,0.9950846531949754,0.6327143637356636,0.4906,1,GRID,100,1,[4],22,5,"{'select_neuron': [[2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-1-results,13,,,timeout,1,GRID,100,2,[4],22,5,"{'select_neuron': [[2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-1-results,14,0.9950846531949754,0.375204806116876,0.2936,1,GRID,100,1,[4],22,10,{'select_layer': [[2]]},"{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-1-results,15,,,timeout,1,GRID,100,2,[4],22,10,{'select_layer': [[2]]},"{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-1-results,16,0.9950846531949754,0.375204806116876,1.2616,1,VORONOI,268,1,[4],22,5,"{'select_neuron': [[2, 1]]}","{'limit_points': 450, 'resample': True, 'random_state': 42}"
+config-xor-bad-1-results,17,,,timeout,1,VORONOI,268,2,[4],22,5,"{'select_neuron': [[2, 1]]}","{'limit_points': 450, 'resample': True, 'random_state': 42}"
+config-xor-bad-1-results,18,0.9950846531949754,0.375204806116876,1.3593,1,VORONOI,268,1,[4],22,5,"{'select_neuron': [[2, 2]]}","{'limit_points': 450, 'resample': True, 'random_state': 42}"
+config-xor-bad-1-results,19,,,timeout,1,VORONOI,268,2,[4],22,5,"{'select_neuron': [[2, 2]]}","{'limit_points': 450, 'resample': True, 'random_state': 42}"
+config-xor-bad-1-results,20,0.9950846531949754,0.375204806116876,1.4843,1,VORONOI,268,1,[4],22,10,{'select_layer': [[2]]},"{'limit_points': 450, 'resample': True, 'random_state': 42}"
+config-xor-bad-1-results,21,,,timeout,1,VORONOI,268,2,[4],22,10,{'select_layer': [[2]]},"{'limit_points': 450, 'resample': True, 'random_state': 42}"
+config-xor-bad-1-results,22,0.9950846531949754,0.375204806116876,1.1264,1,GRID,400,1,[4],22,5,"{'select_neuron': [[2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 400}"
+config-xor-bad-1-results,23,,,timeout,1,GRID,400,2,[4],22,5,"{'select_neuron': [[2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 400}"
+config-xor-bad-1-results,24,0.9950846531949754,0.375204806116876,2.9003,1,GRID,400,1,[4],22,5,"{'select_neuron': [[2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 400}"
+config-xor-bad-1-results,25,,,timeout,1,GRID,400,2,[4],22,5,"{'select_neuron': [[2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 400}"
+config-xor-bad-1-results,26,0.9950846531949754,0.375204806116876,4.2224,1,GRID,400,1,[4],22,10,{'select_layer': [[2]]},"{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 400}"
+config-xor-bad-1-results,27,,,timeout,1,GRID,400,2,[4],22,10,{'select_layer': [[2]]},"{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 400}"
+config-xor-bad-1-results,28,0.9950846531949754,0.6430912069907154,5.5790,1,VORONOI,250,1,[4],22,5,"{'select_neuron': [[2, 1]]}","{'limit_points': 400, 'resample': True, 'random_state': 42}"
+config-xor-bad-1-results,29,,,timeout,1,VORONOI,250,2,[4],22,5,"{'select_neuron': [[2, 1]]}","{'limit_points': 400, 'resample': True, 'random_state': 42}"
+config-xor-bad-1-results,30,0.9950846531949754,0.375204806116876,3.0391,1,VORONOI,250,1,[4],22,5,"{'select_neuron': [[2, 2]]}","{'limit_points': 400, 'resample': True, 'random_state': 42}"
+config-xor-bad-1-results,31,,,timeout,1,VORONOI,250,2,[4],22,5,"{'select_neuron': [[2, 2]]}","{'limit_points': 400, 'resample': True, 'random_state': 42}"
+config-xor-bad-1-results,32,0.9950846531949754,0.375204806116876,2.9732,1,VORONOI,250,1,[4],22,10,{'select_layer': [[2]]},"{'limit_points': 400, 'resample': True, 'random_state': 42}"
+config-xor-bad-1-results,33,,,timeout,1,VORONOI,250,2,[4],22,10,{'select_layer': [[2]]},"{'limit_points': 400, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,1,0.9950846531949754,0.6859639541234298,0.1658,1,GRID,100,1,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-missing-results,2,,,timeout,1,GRID,100,2,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-missing-results,3,,,timeout,1,GRID,100,10,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-missing-results,4,0.9950846531949754,0.8596395412342982,0.5287,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,5,,,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,6,,,timeout,1,VORONOI,153,10,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,7,0.9950846531949754,0.6859639541234298,0.6633,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,8,,,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,9,,,timeout,1,VORONOI,153,10,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,10,0.9950846531949754,0.6859639541234298,0.6153,1,VORONOI,153,1,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,11,,,timeout,1,VORONOI,153,2,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,12,,,timeout,1,VORONOI,153,10,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,13,0.9950846531949754,0.8623702894593118,0.8365,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,14,,,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,15,,,timeout,1,VORONOI,153,10,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,16,0.9950846531949754,0.6859639541234298,0.9548,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,17,,,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,18,,,timeout,1,VORONOI,153,10,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,19,0.9950846531949754,0.7785363189513926,1.2023,1,VORONOI,153,1,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,20,,,timeout,1,VORONOI,153,2,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,21,,,timeout,1,VORONOI,153,10,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,22,0.9950846531949754,0.6859639541234298,0.9882,1,VORONOI,153,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,23,,,timeout,1,VORONOI,153,2,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,24,,,timeout,1,VORONOI,153,10,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,25,0.9950846531949754,0.6859639541234298,1.5647,1,VORONOI,153,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,26,,,timeout,1,VORONOI,153,2,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,27,,,timeout,1,VORONOI,153,10,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,28,0.9950846531949754,0.6859639541234298,1.1196,1,VORONOI,153,1,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,29,,,timeout,1,VORONOI,153,2,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-missing-results,30,,,timeout,1,VORONOI,153,10,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-2-results,1,0.9950846531949754,0.8596395412342982,0.1818,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}",
+config-xor-bad-2-results,2,0.9950846531949754,0.8694702348443474,0.3253,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 1, 1]]}",
+config-xor-bad-2-results,3,unsat,unsat,0.3138,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 1, 1]]}",
+config-xor-bad-2-results,4,0.9950846531949754,0.6859639541234298,0.2231,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}",
+config-xor-bad-2-results,5,0.9950846531949754,0.6963407973784818,0.4811,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 1, 2]]}",
+config-xor-bad-2-results,6,unsat,unsat,0.2776,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 1, 2]]}",
+config-xor-bad-2-results,7,0.9950846531949754,0.6859639541234298,0.1318,1,SAMPLES,450,1,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}",
+config-xor-bad-2-results,8,0.9950846531949754,0.9860731840524304,0.7616,1,SAMPLES,450,250,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}",
+config-xor-bad-2-results,9,0.9950846531949754,0.977607864554888,48.5508,1,SAMPLES,450,400,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}",
+config-xor-bad-2-results,10,0.9950846531949754,0.8623702894593118,0.1597,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}",
+config-xor-bad-2-results,11,0.9950846531949754,0.8694702348443474,0.3382,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 2, 1]]}",
+config-xor-bad-2-results,12,unsat,unsat,0.3008,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 2, 1]]}",
+config-xor-bad-2-results,13,0.9950846531949754,0.6859639541234298,0.2021,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}",
+config-xor-bad-2-results,14,0.9950846531949754,0.6963407973784818,0.4735,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 2, 2]]}",
+config-xor-bad-2-results,15,unsat,unsat,0.3166,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 2, 2]]}",
+config-xor-bad-2-results,16,0.9950846531949754,0.7001638448935008,0.2827,1,SAMPLES,450,1,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-2-results,17,0.9950846531949754,0.977607864554888,0.8516,1,SAMPLES,450,250,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-2-results,18,0.9950846531949754,0.977607864554888,0.9069,1,SAMPLES,450,400,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-2-results,19,0.9950846531949754,0.6873293282359366,0.2228,1,SAMPLES,450,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}",
+config-xor-bad-2-results,20,0.9950846531949754,0.9860731840524304,1.0418,1,SAMPLES,450,250,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}",
+config-xor-bad-2-results,21,0.9950846531949754,0.977607864554888,0.8526,1,SAMPLES,450,400,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}",
+config-xor-bad-2-results,22,0.9950846531949754,0.6859639541234298,0.2196,1,SAMPLES,450,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}",
+config-xor-bad-2-results,23,0.9950846531949754,0.977607864554888,0.8581,1,SAMPLES,450,250,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}",
+config-xor-bad-2-results,24,0.9950846531949754,0.977607864554888,0.8487,1,SAMPLES,450,400,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}",
+config-xor-bad-2-results,25,0.9950846531949754,0.6859639541234298,0.1409,1,SAMPLES,450,1,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-2-results,26,0.9950846531949754,0.9860731840524304,0.5489,1,SAMPLES,450,250,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-2-results,27,0.9950846531949754,0.977607864554888,0.6092,1,SAMPLES,450,400,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-2-results,28,0.9950846531949754,0.8596395412342982,0.3448,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,29,,,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,30,,,timeout,1,GRID,100,10,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,31,0.9950846531949754,0.6859639541234298,0.2873,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,32,,,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,33,,,timeout,1,GRID,100,10,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,34,0.9950846531949754,0.6859639541234298,0.2416,1,GRID,100,1,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,35,,,timeout,1,GRID,100,2,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,36,,,timeout,1,GRID,100,10,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,37,0.9950846531949754,0.6859639541234298,0.3264,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,38,,,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,39,,,timeout,1,GRID,100,10,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,40,0.9950846531949754,0.6859639541234298,0.3364,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,41,,,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,42,,,timeout,1,GRID,100,10,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,43,0.9950846531949754,0.6859639541234298,0.3157,1,GRID,100,1,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,44,,,timeout,1,GRID,100,2,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,45,,,timeout,1,GRID,100,10,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,46,0.9950846531949754,0.6859639541234298,0.3462,1,GRID,100,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,47,,,timeout,1,GRID,100,2,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,48,,,timeout,1,GRID,100,10,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,49,0.9950846531949754,0.6859639541234298,0.3826,1,GRID,100,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-2-results,50,,,timeout,1,GRID,100,2,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-missing-2-results,1,unsat,unsat,0.5146,1,VORONOI,82,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,2,,,timeout,1,VORONOI,82,2,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,3,unsat,unsat,0.2587,1,VORONOI,82,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,4,,,timeout,1,VORONOI,82,2,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,5,unsat,unsat,0.2742,1,VORONOI,82,1,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,6,,,timeout,1,VORONOI,82,2,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,7,unsat,unsat,0.3041,1,VORONOI,82,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,8,,,timeout,1,VORONOI,82,2,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,9,unsat,unsat,0.5831,1,VORONOI,82,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,10,,,timeout,1,VORONOI,82,2,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,11,unsat,unsat,0.4277,1,VORONOI,82,1,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,12,,,timeout,1,VORONOI,82,2,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,13,unsat,unsat,0.4026,1,VORONOI,82,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,14,,,timeout,1,VORONOI,82,2,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,15,unsat,unsat,0.4589,1,VORONOI,82,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,16,,,timeout,1,VORONOI,82,2,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,17,unsat,unsat,0.4099,1,VORONOI,82,1,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,18,,,timeout,1,VORONOI,82,2,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,19,0.9950846531949754,0.5461496450027308,0.7996,1,VORONOI,82,1,[4],22,5,"{'select_neuron': [[2, 1]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,20,,,timeout,1,VORONOI,82,2,[4],22,5,"{'select_neuron': [[2, 1]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,21,0.9950846531949754,0.8025669033315128,1.4126,1,VORONOI,82,1,[4],22,5,"{'select_neuron': [[2, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,22,,,timeout,1,VORONOI,82,2,[4],22,5,"{'select_neuron': [[2, 2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,23,0.9950846531949754,0.375204806116876,0.7745,1,VORONOI,82,1,[4],22,10,{'select_layer': [[2]]},"{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,24,,,timeout,1,VORONOI,82,2,[4],22,10,{'select_layer': [[2]]},"{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,25,0.9950846531949754,0.3730202075368651,0.8155,1,VORONOI,82,1,[4],22,12,{'select_layer': [[1]]},"{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,26,,,timeout,1,VORONOI,82,2,[4],22,12,{'select_layer': [[1]]},"{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,27,0.9950846531949754,0.375204806116876,14.4605,1,VORONOI,82,1,[4],22,22,"{'select_layer': [[1], [2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-missing-2-results,28,,,timeout,1,VORONOI,82,2,[4],22,22,"{'select_layer': [[1], [2]]}","{'limit_points': 100, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,1,unsat,unsat,0.1623,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}",
+config-xor-bad-3-results,2,unsat,unsat,0.2116,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 1, 1]]}",
+config-xor-bad-3-results,3,unsat,unsat,0.2180,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 1, 1]]}",
+config-xor-bad-3-results,4,unsat,unsat,0.1278,1,SAMPLES,450,450,[4],22,1,"{'select_weight': [[2, 1, 1]]}",
+config-xor-bad-3-results,5,unsat,unsat,0.1554,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}",
+config-xor-bad-3-results,6,unsat,unsat,0.2130,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 1, 2]]}",
+config-xor-bad-3-results,7,unsat,unsat,0.2189,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 1, 2]]}",
+config-xor-bad-3-results,8,unsat,unsat,0.1396,1,SAMPLES,450,450,[4],22,1,"{'select_weight': [[2, 1, 2]]}",
+config-xor-bad-3-results,9,unsat,unsat,0.1538,1,SAMPLES,450,1,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}",
+config-xor-bad-3-results,10,unsat,unsat,0.5816,1,SAMPLES,450,250,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}",
+config-xor-bad-3-results,11,unsat,unsat,0.5284,1,SAMPLES,450,400,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}",
+config-xor-bad-3-results,12,unsat,unsat,0.1169,1,SAMPLES,450,450,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}",
+config-xor-bad-3-results,13,unsat,unsat,0.1712,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}",
+config-xor-bad-3-results,14,unsat,unsat,0.2145,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 2, 1]]}",
+config-xor-bad-3-results,15,unsat,unsat,0.2020,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 2, 1]]}",
+config-xor-bad-3-results,16,unsat,unsat,0.1255,1,SAMPLES,450,450,[4],22,1,"{'select_weight': [[2, 2, 1]]}",
+config-xor-bad-3-results,17,unsat,unsat,0.1471,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}",
+config-xor-bad-3-results,18,unsat,unsat,0.2147,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 2, 2]]}",
+config-xor-bad-3-results,19,unsat,unsat,0.2056,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 2, 2]]}",
+config-xor-bad-3-results,20,unsat,unsat,0.1310,1,SAMPLES,450,450,[4],22,1,"{'select_weight': [[2, 2, 2]]}",
+config-xor-bad-3-results,21,unsat,unsat,0.1508,1,SAMPLES,450,1,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-3-results,22,unsat,unsat,0.1727,1,SAMPLES,450,250,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-3-results,23,unsat,unsat,0.1882,1,SAMPLES,450,400,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-3-results,24,unsat,unsat,0.1191,1,SAMPLES,450,450,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-3-results,25,unsat,unsat,0.2262,1,SAMPLES,450,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}",
+config-xor-bad-3-results,26,unsat,unsat,0.5433,1,SAMPLES,450,250,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}",
+config-xor-bad-3-results,27,unsat,unsat,1.0080,1,SAMPLES,450,400,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}",
+config-xor-bad-3-results,28,unsat,unsat,0.1194,1,SAMPLES,450,450,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}",
+config-xor-bad-3-results,29,unsat,unsat,0.2244,1,SAMPLES,450,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}",
+config-xor-bad-3-results,30,unsat,unsat,0.2573,1,SAMPLES,450,250,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}",
+config-xor-bad-3-results,31,unsat,unsat,0.2340,1,SAMPLES,450,400,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}",
+config-xor-bad-3-results,32,unsat,unsat,0.1210,1,SAMPLES,450,450,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}",
+config-xor-bad-3-results,33,unsat,unsat,0.1217,1,SAMPLES,450,1,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-3-results,34,unsat,unsat,1.0519,1,SAMPLES,450,250,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-3-results,35,unsat,unsat,0.5713,1,SAMPLES,450,400,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-3-results,36,unsat,unsat,0.1128,1,SAMPLES,450,450,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}",
+config-xor-bad-3-results,37,0.9950846531949754,0.6676679410158384,0.3316,1,SAMPLES,450,1,[4],22,5,"{'select_neuron': [[2, 1]]}",
+config-xor-bad-3-results,38,0.9950846531949754,0.9803386127799016,1.7368,1,SAMPLES,450,250,[4],22,5,"{'select_neuron': [[2, 1]]}",
+config-xor-bad-3-results,39,0.9950846531949754,0.9751501911523758,27.5279,1,SAMPLES,450,400,[4],22,5,"{'select_neuron': [[2, 1]]}",
+config-xor-bad-3-results,40,0.9950846531949754,0.9778809393773894,1.6070,1,SAMPLES,450,450,[4],22,5,"{'select_neuron': [[2, 1]]}",
+config-xor-bad-3-results,41,0.9950846531949754,0.6736755871108684,0.2799,1,SAMPLES,450,1,[4],22,5,"{'select_neuron': [[2, 2]]}",
+config-xor-bad-3-results,42,0.9950846531949754,0.9803386127799016,3.6565,1,SAMPLES,450,250,[4],22,5,"{'select_neuron': [[2, 2]]}",
+config-xor-bad-3-results,43,0.9950846531949754,0.9754232659748772,2.2526,1,SAMPLES,450,400,[4],22,5,"{'select_neuron': [[2, 2]]}",
+config-xor-bad-3-results,44,0.9950846531949754,0.979792463134899,1.1933,1,SAMPLES,450,450,[4],22,5,"{'select_neuron': [[2, 2]]}",
+config-xor-bad-3-results,45,0.9950846531949754,0.375204806116876,0.3901,1,SAMPLES,450,1,[4],22,10,{'select_layer': [[2]]},
+config-xor-bad-3-results,46,0.9950846531949754,0.9751501911523758,40.5056,1,SAMPLES,450,250,[4],22,10,{'select_layer': [[2]]},
+config-xor-bad-3-results,47,0.9950846531949754,0.9756963407973784,44.9602,1,SAMPLES,450,400,[4],22,10,{'select_layer': [[2]]},
+config-xor-bad-3-results,48,0.9950846531949754,0.9751501911523758,2.8777,1,SAMPLES,450,450,[4],22,10,{'select_layer': [[2]]},
+config-xor-bad-3-results,49,0.9950846531949754,0.3762971054068815,2.9959,1,SAMPLES,450,1,[4],22,12,{'select_layer': [[1]]},
+config-xor-bad-3-results,50,,,timeout,1,SAMPLES,450,250,[4],22,12,{'select_layer': [[1]]},
+config-xor-bad-3-results,51,,,timeout,1,SAMPLES,450,400,[4],22,12,{'select_layer': [[1]]},
+config-xor-bad-3-results,52,,,timeout,1,SAMPLES,450,450,[4],22,12,{'select_layer': [[1]]},
+config-xor-bad-3-results,53,,,timeout,1,SAMPLES,450,1,[4],22,22,"{'select_layer': [[1], [2]]}",
+config-xor-bad-3-results,54,,,timeout,1,SAMPLES,450,250,[4],22,22,"{'select_layer': [[1], [2]]}",
+config-xor-bad-3-results,55,,,timeout,1,SAMPLES,450,400,[4],22,22,"{'select_layer': [[1], [2]]}",
+config-xor-bad-3-results,56,,,timeout,1,SAMPLES,450,450,[4],22,22,"{'select_layer': [[1], [2]]}",
+config-xor-bad-3-results,57,unsat,unsat,0.2499,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,58,unsat,unsat,2.0984,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,59,unsat,unsat,0.2875,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,60,unsat,unsat,1.7341,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,61,unsat,unsat,0.2760,1,GRID,100,1,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,62,unsat,unsat,2.0942,1,GRID,100,2,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,63,unsat,unsat,0.2407,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,64,unsat,unsat,1.7921,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,65,unsat,unsat,0.2352,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,66,unsat,unsat,1.8441,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,67,unsat,unsat,0.3204,1,GRID,100,1,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,68,unsat,unsat,2.0901,1,GRID,100,2,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,69,unsat,unsat,0.2465,1,GRID,100,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,70,unsat,unsat,2.0271,1,GRID,100,2,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,71,unsat,unsat,0.2891,1,GRID,100,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,72,unsat,unsat,2.7441,1,GRID,100,2,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,73,unsat,unsat,0.2385,1,GRID,100,1,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,74,unsat,unsat,2.1848,1,GRID,100,2,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,75,0.9950846531949754,0.5016384489350082,0.3238,1,GRID,100,1,[4],22,5,"{'select_neuron': [[2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,76,,,timeout,1,GRID,100,2,[4],22,5,"{'select_neuron': [[2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,77,0.9950846531949754,0.375204806116876,0.2721,1,GRID,100,1,[4],22,5,"{'select_neuron': [[2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,78,,,timeout,1,GRID,100,2,[4],22,5,"{'select_neuron': [[2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,79,0.9950846531949754,0.375204806116876,0.5565,1,GRID,100,1,[4],22,10,{'select_layer': [[2]]},"{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,80,,,timeout,1,GRID,100,2,[4],22,10,{'select_layer': [[2]]},"{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,81,0.9950846531949754,0.3858547241944293,0.9100,1,GRID,100,1,[4],22,12,{'select_layer': [[1]]},"{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,82,,,timeout,1,GRID,100,2,[4],22,12,{'select_layer': [[1]]},"{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,83,,,timeout,1,GRID,100,1,[4],22,22,"{'select_layer': [[1], [2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,84,,,timeout,1,GRID,100,2,[4],22,22,"{'select_layer': [[1], [2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,85,unsat,unsat,1.4230,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,86,,,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,87,unsat,unsat,1.2132,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,88,,,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,89,unsat,unsat,1.2545,1,VORONOI,153,1,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,90,,,timeout,1,VORONOI,153,2,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,91,unsat,unsat,1.5079,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,92,,,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,93,unsat,unsat,2.3599,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,94,,,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,95,unsat,unsat,2.6768,1,VORONOI,153,1,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,96,,,timeout,1,VORONOI,153,2,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,97,unsat,unsat,3.4163,1,VORONOI,153,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,98,,,timeout,1,VORONOI,153,2,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,99,unsat,unsat,3.1486,1,VORONOI,153,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,100,,,timeout,1,VORONOI,153,2,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,101,unsat,unsat,2.8181,1,VORONOI,153,1,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,102,,,timeout,1,VORONOI,153,2,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,103,0.9950846531949754,0.5669033315128346,3.7555,1,VORONOI,153,1,[4],22,5,"{'select_neuron': [[2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,104,,,timeout,1,VORONOI,153,2,[4],22,5,"{'select_neuron': [[2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,105,0.9950846531949754,0.375204806116876,4.6258,1,VORONOI,153,1,[4],22,5,"{'select_neuron': [[2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,106,,,timeout,1,VORONOI,153,2,[4],22,5,"{'select_neuron': [[2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,107,0.9950846531949754,0.375204806116876,4.1594,1,VORONOI,153,1,[4],22,10,{'select_layer': [[2]]},"{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,108,,,timeout,1,VORONOI,153,2,[4],22,10,{'select_layer': [[2]]},"{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,109,0.9950846531949754,0.375204806116876,3.4618,1,VORONOI,153,1,[4],22,12,{'select_layer': [[1]]},"{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,110,,,timeout,1,VORONOI,153,2,[4],22,12,{'select_layer': [[1]]},"{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,111,0.9950846531949754,0.62998361551065,12.0139,1,VORONOI,153,1,[4],22,22,"{'select_layer': [[1], [2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,112,,,timeout,1,VORONOI,153,2,[4],22,22,"{'select_layer': [[1], [2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-3-results,113,unsat,unsat,6.0204,1,GRID,441,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,114,,,timeout,1,GRID,441,2,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,115,unsat,unsat,6.5114,1,GRID,441,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,116,,,timeout,1,GRID,441,2,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,117,unsat,unsat,4.0547,1,GRID,441,1,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,118,,,timeout,1,GRID,441,2,[4],22,2,"{'select_weight': [[2, 1, 1], [2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,119,unsat,unsat,4.6840,1,GRID,441,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,120,,,timeout,1,GRID,441,2,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,121,unsat,unsat,5.5579,1,GRID,441,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,122,,,timeout,1,GRID,441,2,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,123,unsat,unsat,4.6563,1,GRID,441,1,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,124,,,timeout,1,GRID,441,2,[4],22,2,"{'select_weight': [[2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,125,unsat,unsat,6.0490,1,GRID,441,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,126,,,timeout,1,GRID,441,2,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,127,unsat,unsat,4.8619,1,GRID,441,1,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,128,,,timeout,1,GRID,441,2,[4],22,3,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,129,unsat,unsat,6.8217,1,GRID,441,1,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,130,,,timeout,1,GRID,441,2,[4],22,4,"{'select_weight': [[2, 1, 1], [2, 1, 2], [2, 2, 1], [2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,131,0.9950846531949754,0.375204806116876,8.6394,1,GRID,441,1,[4],22,5,"{'select_neuron': [[2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,132,,,timeout,1,GRID,441,2,[4],22,5,"{'select_neuron': [[2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,133,0.9950846531949754,0.593391589295467,6.5956,1,GRID,441,1,[4],22,5,"{'select_neuron': [[2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,134,,,timeout,1,GRID,441,2,[4],22,5,"{'select_neuron': [[2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,135,0.9950846531949754,0.375204806116876,4.3426,1,GRID,441,1,[4],22,10,{'select_layer': [[2]]},"{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,136,,,timeout,1,GRID,441,2,[4],22,10,{'select_layer': [[2]]},"{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,137,0.9950846531949754,0.4904423812124522,4.1502,1,GRID,441,1,[4],22,12,{'select_layer': [[1]]},"{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,138,,,timeout,1,GRID,441,2,[4],22,12,{'select_layer': [[1]]},"{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-3-results,139,0.9950846531949754,0.4983615510649918,26.0362,1,GRID,441,1,[4],22,22,"{'select_layer': [[1], [2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 2, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,1,unsat,unsat,0.2911,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 1, 1]]}",
+config-xor-bad-4-one-weight-combs-results,2,unsat,unsat,0.4585,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 1, 1]]}",
+config-xor-bad-4-one-weight-combs-results,3,unsat,unsat,0.4465,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 1, 1]]}",
+config-xor-bad-4-one-weight-combs-results,4,unsat,unsat,0.3036,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 1, 2]]}",
+config-xor-bad-4-one-weight-combs-results,5,unsat,unsat,0.6235,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 1, 2]]}",
+config-xor-bad-4-one-weight-combs-results,6,unsat,unsat,0.4210,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 1, 2]]}",
+config-xor-bad-4-one-weight-combs-results,7,unsat,unsat,2.4687,1,SAMPLES,450,1,[4],22,1,"{'select_bias': [[1, 1]]}",
+config-xor-bad-4-one-weight-combs-results,8,unsat,unsat,0.3630,1,SAMPLES,450,250,[4],22,1,"{'select_bias': [[1, 1]]}",
+config-xor-bad-4-one-weight-combs-results,9,unsat,unsat,0.3723,1,SAMPLES,450,400,[4],22,1,"{'select_bias': [[1, 1]]}",
+config-xor-bad-4-one-weight-combs-results,10,unsat,unsat,0.2835,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 2, 1]]}",
+config-xor-bad-4-one-weight-combs-results,11,unsat,unsat,0.6814,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 2, 1]]}",
+config-xor-bad-4-one-weight-combs-results,12,unsat,unsat,0.4265,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 2, 1]]}",
+config-xor-bad-4-one-weight-combs-results,13,unsat,unsat,0.3074,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 2, 2]]}",
+config-xor-bad-4-one-weight-combs-results,14,unsat,unsat,0.6513,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 2, 2]]}",
+config-xor-bad-4-one-weight-combs-results,15,unsat,unsat,0.6466,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 2, 2]]}",
+config-xor-bad-4-one-weight-combs-results,16,unsat,unsat,1.7687,1,SAMPLES,450,1,[4],22,1,"{'select_bias': [[1, 2]]}",
+config-xor-bad-4-one-weight-combs-results,17,unsat,unsat,0.3911,1,SAMPLES,450,250,[4],22,1,"{'select_bias': [[1, 2]]}",
+config-xor-bad-4-one-weight-combs-results,18,unsat,unsat,0.3878,1,SAMPLES,450,400,[4],22,1,"{'select_bias': [[1, 2]]}",
+config-xor-bad-4-one-weight-combs-results,19,unsat,unsat,0.3048,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 3, 1]]}",
+config-xor-bad-4-one-weight-combs-results,20,unsat,unsat,0.5044,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 3, 1]]}",
+config-xor-bad-4-one-weight-combs-results,21,unsat,unsat,0.5783,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 3, 1]]}",
+config-xor-bad-4-one-weight-combs-results,22,unsat,unsat,0.2821,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 3, 2]]}",
+config-xor-bad-4-one-weight-combs-results,23,unsat,unsat,0.5177,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 3, 2]]}",
+config-xor-bad-4-one-weight-combs-results,24,unsat,unsat,0.5291,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 3, 2]]}",
+config-xor-bad-4-one-weight-combs-results,25,unsat,unsat,1.6216,1,SAMPLES,450,1,[4],22,1,"{'select_bias': [[1, 3]]}",
+config-xor-bad-4-one-weight-combs-results,26,unsat,unsat,0.4550,1,SAMPLES,450,250,[4],22,1,"{'select_bias': [[1, 3]]}",
+config-xor-bad-4-one-weight-combs-results,27,unsat,unsat,0.4343,1,SAMPLES,450,400,[4],22,1,"{'select_bias': [[1, 3]]}",
+config-xor-bad-4-one-weight-combs-results,28,0.9950846531949754,0.4994538503549973,0.2791,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 4, 1]]}",
+config-xor-bad-4-one-weight-combs-results,29,unsat,unsat,0.8434,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 4, 1]]}",
+config-xor-bad-4-one-weight-combs-results,30,unsat,unsat,0.4801,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 4, 1]]}",
+config-xor-bad-4-one-weight-combs-results,31,0.9950846531949754,0.4956308028399782,0.3337,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 4, 2]]}",
+config-xor-bad-4-one-weight-combs-results,32,unsat,unsat,0.5210,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 4, 2]]}",
+config-xor-bad-4-one-weight-combs-results,33,unsat,unsat,0.5091,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 4, 2]]}",
+config-xor-bad-4-one-weight-combs-results,34,0.9950846531949754,0.375204806116876,2.5177,1,SAMPLES,450,1,[4],22,1,"{'select_bias': [[1, 4]]}",
+config-xor-bad-4-one-weight-combs-results,35,unsat,unsat,0.5005,1,SAMPLES,450,250,[4],22,1,"{'select_bias': [[1, 4]]}",
+config-xor-bad-4-one-weight-combs-results,36,unsat,unsat,0.4166,1,SAMPLES,450,400,[4],22,1,"{'select_bias': [[1, 4]]}",
+config-xor-bad-4-one-weight-combs-results,37,0.9950846531949754,0.8596395412342982,0.1985,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}",
+config-xor-bad-4-one-weight-combs-results,38,0.9950846531949754,0.8694702348443474,0.4345,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 1, 1]]}",
+config-xor-bad-4-one-weight-combs-results,39,unsat,unsat,0.2890,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 1, 1]]}",
+config-xor-bad-4-one-weight-combs-results,40,0.9950846531949754,0.6859639541234298,0.1815,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}",
+config-xor-bad-4-one-weight-combs-results,41,0.9950846531949754,0.6963407973784818,0.3309,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 1, 2]]}",
+config-xor-bad-4-one-weight-combs-results,42,unsat,unsat,0.3541,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 1, 2]]}",
+config-xor-bad-4-one-weight-combs-results,43,unsat,unsat,0.1827,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 1, 3]]}",
+config-xor-bad-4-one-weight-combs-results,44,unsat,unsat,0.2410,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 1, 3]]}",
+config-xor-bad-4-one-weight-combs-results,45,unsat,unsat,0.2487,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 1, 3]]}",
+config-xor-bad-4-one-weight-combs-results,46,unsat,unsat,0.1597,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 1, 4]]}",
+config-xor-bad-4-one-weight-combs-results,47,unsat,unsat,0.2875,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 1, 4]]}",
+config-xor-bad-4-one-weight-combs-results,48,unsat,unsat,0.2922,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 1, 4]]}",
+config-xor-bad-4-one-weight-combs-results,49,0.9950846531949754,0.8413435281267068,0.9231,1,SAMPLES,450,1,[4],22,1,"{'select_bias': [[2, 1]]}",
+config-xor-bad-4-one-weight-combs-results,50,0.9950846531949754,0.8413435281267068,0.5754,1,SAMPLES,450,250,[4],22,1,"{'select_bias': [[2, 1]]}",
+config-xor-bad-4-one-weight-combs-results,51,unsat,unsat,0.4710,1,SAMPLES,450,400,[4],22,1,"{'select_bias': [[2, 1]]}",
+config-xor-bad-4-one-weight-combs-results,52,0.9950846531949754,0.6859639541234298,0.2192,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}",
+config-xor-bad-4-one-weight-combs-results,53,0.9950846531949754,0.8694702348443474,0.3406,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 2, 1]]}",
+config-xor-bad-4-one-weight-combs-results,54,unsat,unsat,0.2297,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 2, 1]]}",
+config-xor-bad-4-one-weight-combs-results,55,0.9950846531949754,0.6859639541234298,0.1722,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}",
+config-xor-bad-4-one-weight-combs-results,56,0.9950846531949754,0.6963407973784818,0.3707,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 2, 2]]}",
+config-xor-bad-4-one-weight-combs-results,57,unsat,unsat,0.2282,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 2, 2]]}",
+config-xor-bad-4-one-weight-combs-results,58,unsat,unsat,0.1872,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 2, 3]]}",
+config-xor-bad-4-one-weight-combs-results,59,unsat,unsat,0.2429,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 2, 3]]}",
+config-xor-bad-4-one-weight-combs-results,60,unsat,unsat,0.2472,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 2, 3]]}",
+config-xor-bad-4-one-weight-combs-results,61,unsat,unsat,0.1632,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 2, 4]]}",
+config-xor-bad-4-one-weight-combs-results,62,unsat,unsat,0.2530,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 2, 4]]}",
+config-xor-bad-4-one-weight-combs-results,63,unsat,unsat,0.2624,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 2, 4]]}",
+config-xor-bad-4-one-weight-combs-results,64,0.9950846531949754,0.8413435281267068,0.7668,1,SAMPLES,450,1,[4],22,1,"{'select_bias': [[2, 2]]}",
+config-xor-bad-4-one-weight-combs-results,65,0.9950846531949754,0.8413435281267068,0.4320,1,SAMPLES,450,250,[4],22,1,"{'select_bias': [[2, 2]]}",
+config-xor-bad-4-one-weight-combs-results,66,unsat,unsat,0.4878,1,SAMPLES,450,400,[4],22,1,"{'select_bias': [[2, 2]]}",
+config-xor-bad-4-one-weight-combs-results,67,unsat,unsat,0.2075,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,68,unsat,unsat,161.7938,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,69,unsat,unsat,0.2371,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,70,unsat,unsat,1.4016,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,71,unsat,unsat,29.8754,1,GRID,100,1,[4],22,1,"{'select_bias': [[1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,72,unsat,unsat,72.3918,1,GRID,100,2,[4],22,1,"{'select_bias': [[1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,73,unsat,unsat,0.2462,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,74,unsat,unsat,398.9614,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,75,unsat,unsat,0.2614,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,76,unsat,unsat,1.6124,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,77,unsat,unsat,16.2441,1,GRID,100,1,[4],22,1,"{'select_bias': [[1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,78,unsat,unsat,223.4585,1,GRID,100,2,[4],22,1,"{'select_bias': [[1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,79,unsat,unsat,0.2758,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 3, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,80,unsat,unsat,4.1342,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 3, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,81,unsat,unsat,0.3055,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 3, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,82,unsat,unsat,1.8206,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 3, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,83,unsat,unsat,11.4855,1,GRID,100,1,[4],22,1,"{'select_bias': [[1, 3]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,84,unsat,unsat,2.0158,1,GRID,100,2,[4],22,1,"{'select_bias': [[1, 3]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,85,0.9950846531949754,0.4994538503549973,0.4449,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 4, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,86,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 4, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,87,0.9950846531949754,0.4956308028399782,0.3381,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 4, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,88,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 4, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,89,0.9950846531949754,0.375204806116876,19.6972,1,GRID,100,1,[4],22,1,"{'select_bias': [[1, 4]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,90,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_bias': [[1, 4]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,91,0.9950846531949754,0.8596395412342982,0.3069,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,92,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,93,0.9950846531949754,0.6859639541234298,0.3884,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,94,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,95,unsat,unsat,0.3435,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 1, 3]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,96,unsat,unsat,2.0791,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 1, 3]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,97,unsat,unsat,0.3926,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 1, 4]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,98,unsat,unsat,2.1018,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 1, 4]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,99,0.9950846531949754,0.375204806116876,21.2543,1,GRID,100,1,[4],22,1,"{'select_bias': [[2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,100,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_bias': [[2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,101,0.9950846531949754,0.6859639541234298,0.3775,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,102,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,103,0.9950846531949754,0.6859639541234298,0.4728,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,104,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,105,unsat,unsat,0.3020,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 2, 3]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,106,unsat,unsat,2.1019,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 2, 3]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,107,unsat,unsat,0.3319,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 2, 4]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,108,unsat,unsat,2.0029,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 2, 4]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,109,0.9950846531949754,0.7515019115237576,17.9213,1,GRID,100,1,[4],22,1,"{'select_bias': [[2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,110,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_bias': [[2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-4-one-weight-combs-results,111,unsat,unsat,0.6252,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,112,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,113,unsat,unsat,0.9789,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,114,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,115,unsat,unsat,82.2910,1,VORONOI,153,1,[4],22,1,"{'select_bias': [[1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,116,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_bias': [[1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,117,unsat,unsat,1.1573,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,118,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,119,unsat,unsat,1.6705,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,120,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,121,unsat,unsat,281.5678,1,VORONOI,153,1,[4],22,1,"{'select_bias': [[1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,122,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_bias': [[1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,123,unsat,unsat,2.5136,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 3, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,124,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 3, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,125,unsat,unsat,1.6520,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 3, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,126,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 3, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,127,unsat,unsat,102.5054,1,VORONOI,153,1,[4],22,1,"{'select_bias': [[1, 3]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,128,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_bias': [[1, 3]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,129,0.9950846531949754,0.4994538503549973,2.4624,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 4, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,130,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 4, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,131,0.9950846531949754,0.4956308028399782,2.0748,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 4, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,132,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 4, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,133,0.9950846531949754,0.375204806116876,139.3678,1,VORONOI,153,1,[4],22,1,"{'select_bias': [[1, 4]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,134,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_bias': [[1, 4]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,135,0.9950846531949754,0.8596395412342982,1.4327,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,136,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,137,0.9950846531949754,0.6859639541234298,1.1449,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,138,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,139,unsat,unsat,1.6081,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 1, 3]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,140,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 1, 3]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,141,unsat,unsat,2.5259,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 1, 4]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,142,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 1, 4]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,143,0.9950846531949754,0.375204806116876,105.8528,1,VORONOI,153,1,[4],22,1,"{'select_bias': [[2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,144,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_bias': [[2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,145,0.9950846531949754,0.6859639541234298,1.3189,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,146,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,147,0.9950846531949754,0.6859639541234298,0.9215,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,148,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,149,unsat,unsat,1.6044,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 2, 3]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,150,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 2, 3]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,151,unsat,unsat,1.7127,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 2, 4]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,152,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 2, 4]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,153,0.9950846531949754,0.375204806116876,57.7394,1,VORONOI,153,1,[4],22,1,"{'select_bias': [[2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-4-one-weight-combs-results,154,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_bias': [[2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,1,unsat,unsat,0.2760,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 1, 1]]}",
+config-xor-bad-5-one-weight-combs-results,2,unsat,unsat,0.6026,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 1, 1]]}",
+config-xor-bad-5-one-weight-combs-results,3,unsat,unsat,0.6676,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 1, 1]]}",
+config-xor-bad-5-one-weight-combs-results,4,unsat,unsat,0.3264,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 1, 2]]}",
+config-xor-bad-5-one-weight-combs-results,5,unsat,unsat,0.4367,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 1, 2]]}",
+config-xor-bad-5-one-weight-combs-results,6,unsat,unsat,0.4347,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 1, 2]]}",
+config-xor-bad-5-one-weight-combs-results,7,unsat,unsat,1.8234,1,SAMPLES,450,1,[4],22,1,"{'select_bias': [[1, 1]]}",
+config-xor-bad-5-one-weight-combs-results,8,unsat,unsat,0.3667,1,SAMPLES,450,250,[4],22,1,"{'select_bias': [[1, 1]]}",
+config-xor-bad-5-one-weight-combs-results,9,unsat,unsat,0.4282,1,SAMPLES,450,400,[4],22,1,"{'select_bias': [[1, 1]]}",
+config-xor-bad-5-one-weight-combs-results,10,unsat,unsat,0.2849,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 2, 1]]}",
+config-xor-bad-5-one-weight-combs-results,11,unsat,unsat,0.4413,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 2, 1]]}",
+config-xor-bad-5-one-weight-combs-results,12,unsat,unsat,0.4487,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 2, 1]]}",
+config-xor-bad-5-one-weight-combs-results,13,unsat,unsat,0.3207,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 2, 2]]}",
+config-xor-bad-5-one-weight-combs-results,14,unsat,unsat,0.6438,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 2, 2]]}",
+config-xor-bad-5-one-weight-combs-results,15,unsat,unsat,0.4311,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 2, 2]]}",
+config-xor-bad-5-one-weight-combs-results,16,unsat,unsat,1.5507,1,SAMPLES,450,1,[4],22,1,"{'select_bias': [[1, 2]]}",
+config-xor-bad-5-one-weight-combs-results,17,unsat,unsat,0.4485,1,SAMPLES,450,250,[4],22,1,"{'select_bias': [[1, 2]]}",
+config-xor-bad-5-one-weight-combs-results,18,unsat,unsat,0.3653,1,SAMPLES,450,400,[4],22,1,"{'select_bias': [[1, 2]]}",
+config-xor-bad-5-one-weight-combs-results,19,0.9950846531949754,0.8099399235390496,0.2823,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 3, 1]]}",
+config-xor-bad-5-one-weight-combs-results,20,0.9950846531949754,0.807209175314036,0.7618,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 3, 1]]}",
+config-xor-bad-5-one-weight-combs-results,21,unsat,unsat,0.4926,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 3, 1]]}",
+config-xor-bad-5-one-weight-combs-results,22,0.9950846531949754,0.9898962315674494,0.2637,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 3, 2]]}",
+config-xor-bad-5-one-weight-combs-results,23,0.9950846531949754,0.7730748225013654,0.5665,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 3, 2]]}",
+config-xor-bad-5-one-weight-combs-results,24,0.9950846531949754,0.85800109229929,0.8077,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 3, 2]]}",
+config-xor-bad-5-one-weight-combs-results,25,0.9950846531949754,0.9705079191698526,2.4606,1,SAMPLES,450,1,[4],22,1,"{'select_bias': [[1, 3]]}",
+config-xor-bad-5-one-weight-combs-results,26,0.9950846531949754,0.9803386127799016,0.7730,1,SAMPLES,450,250,[4],22,1,"{'select_bias': [[1, 3]]}",
+config-xor-bad-5-one-weight-combs-results,27,0.9950846531949754,0.91398143091207,0.8416,1,SAMPLES,450,400,[4],22,1,"{'select_bias': [[1, 3]]}",
+config-xor-bad-5-one-weight-combs-results,28,0.9950846531949754,0.4980884762424904,0.2874,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 4, 1]]}",
+config-xor-bad-5-one-weight-combs-results,29,unsat,unsat,0.6814,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 4, 1]]}",
+config-xor-bad-5-one-weight-combs-results,30,unsat,unsat,0.4587,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 4, 1]]}",
+config-xor-bad-5-one-weight-combs-results,31,0.9950846531949754,0.4972692517749863,0.3015,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[1, 4, 2]]}",
+config-xor-bad-5-one-weight-combs-results,32,0.9950846531949754,0.5827416712179138,0.5172,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[1, 4, 2]]}",
+config-xor-bad-5-one-weight-combs-results,33,unsat,unsat,0.4425,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[1, 4, 2]]}",
+config-xor-bad-5-one-weight-combs-results,34,0.9950846531949754,0.375204806116876,2.1637,1,SAMPLES,450,1,[4],22,1,"{'select_bias': [[1, 4]]}",
+config-xor-bad-5-one-weight-combs-results,35,unsat,unsat,0.7998,1,SAMPLES,450,250,[4],22,1,"{'select_bias': [[1, 4]]}",
+config-xor-bad-5-one-weight-combs-results,36,unsat,unsat,0.4474,1,SAMPLES,450,400,[4],22,1,"{'select_bias': [[1, 4]]}",
+config-xor-bad-5-one-weight-combs-results,37,unsat,unsat,0.1625,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}",
+config-xor-bad-5-one-weight-combs-results,38,unsat,unsat,0.2267,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 1, 1]]}",
+config-xor-bad-5-one-weight-combs-results,39,unsat,unsat,0.2072,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 1, 1]]}",
+config-xor-bad-5-one-weight-combs-results,40,unsat,unsat,0.1470,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}",
+config-xor-bad-5-one-weight-combs-results,41,unsat,unsat,0.2094,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 1, 2]]}",
+config-xor-bad-5-one-weight-combs-results,42,unsat,unsat,0.2149,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 1, 2]]}",
+config-xor-bad-5-one-weight-combs-results,43,0.9950846531949754,0.6843255051884216,0.1641,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 1, 3]]}",
+config-xor-bad-5-one-weight-combs-results,44,0.9950846531949754,0.9249044238121246,0.3185,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 1, 3]]}",
+config-xor-bad-5-one-weight-combs-results,45,0.9950846531949754,0.9249044238121246,0.2600,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 1, 3]]}",
+config-xor-bad-5-one-weight-combs-results,46,unsat,unsat,0.1733,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 1, 4]]}",
+config-xor-bad-5-one-weight-combs-results,47,unsat,unsat,0.2295,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 1, 4]]}",
+config-xor-bad-5-one-weight-combs-results,48,unsat,unsat,0.2439,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 1, 4]]}",
+config-xor-bad-5-one-weight-combs-results,49,0.9950846531949754,0.9631348989623156,1.0122,1,SAMPLES,450,1,[4],22,1,"{'select_bias': [[2, 1]]}",
+config-xor-bad-5-one-weight-combs-results,50,0.9950846531949754,0.9631348989623156,0.4333,1,SAMPLES,450,250,[4],22,1,"{'select_bias': [[2, 1]]}",
+config-xor-bad-5-one-weight-combs-results,51,0.9950846531949754,0.9631348989623156,0.4618,1,SAMPLES,450,400,[4],22,1,"{'select_bias': [[2, 1]]}",
+config-xor-bad-5-one-weight-combs-results,52,unsat,unsat,0.1474,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}",
+config-xor-bad-5-one-weight-combs-results,53,unsat,unsat,0.2135,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 2, 1]]}",
+config-xor-bad-5-one-weight-combs-results,54,unsat,unsat,0.2107,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 2, 1]]}",
+config-xor-bad-5-one-weight-combs-results,55,unsat,unsat,0.1736,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}",
+config-xor-bad-5-one-weight-combs-results,56,unsat,unsat,0.2287,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 2, 2]]}",
+config-xor-bad-5-one-weight-combs-results,57,unsat,unsat,0.2145,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 2, 2]]}",
+config-xor-bad-5-one-weight-combs-results,58,0.9950846531949754,0.8689240851993446,0.1470,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 2, 3]]}",
+config-xor-bad-5-one-weight-combs-results,59,0.9950846531949754,0.9249044238121246,0.2862,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 2, 3]]}",
+config-xor-bad-5-one-weight-combs-results,60,0.9950846531949754,0.9249044238121246,0.3764,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 2, 3]]}",
+config-xor-bad-5-one-weight-combs-results,61,unsat,unsat,0.1552,1,SAMPLES,450,1,[4],22,1,"{'select_weight': [[2, 2, 4]]}",
+config-xor-bad-5-one-weight-combs-results,62,unsat,unsat,0.2369,1,SAMPLES,450,250,[4],22,1,"{'select_weight': [[2, 2, 4]]}",
+config-xor-bad-5-one-weight-combs-results,63,unsat,unsat,0.2267,1,SAMPLES,450,400,[4],22,1,"{'select_weight': [[2, 2, 4]]}",
+config-xor-bad-5-one-weight-combs-results,64,0.9950846531949754,0.9631348989623156,0.9229,1,SAMPLES,450,1,[4],22,1,"{'select_bias': [[2, 2]]}",
+config-xor-bad-5-one-weight-combs-results,65,0.9950846531949754,0.9631348989623156,0.4271,1,SAMPLES,450,250,[4],22,1,"{'select_bias': [[2, 2]]}",
+config-xor-bad-5-one-weight-combs-results,66,0.9950846531949754,0.9631348989623156,0.4166,1,SAMPLES,450,400,[4],22,1,"{'select_bias': [[2, 2]]}",
+config-xor-bad-5-one-weight-combs-results,67,unsat,unsat,0.1983,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,68,unsat,unsat,4.1650,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,69,unsat,unsat,0.1955,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,70,unsat,unsat,1.4659,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,71,unsat,unsat,104.4807,1,GRID,100,1,[4],22,1,"{'select_bias': [[1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,72,unsat,unsat,1.5568,1,GRID,100,2,[4],22,1,"{'select_bias': [[1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,73,unsat,unsat,0.2109,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,74,unsat,unsat,1.7501,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,75,unsat,unsat,0.2217,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,76,unsat,unsat,1.5974,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,77,unsat,unsat,27.4333,1,GRID,100,1,[4],22,1,"{'select_bias': [[1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,78,unsat,unsat,1.6347,1,GRID,100,2,[4],22,1,"{'select_bias': [[1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,79,0.9950846531949754,0.807209175314036,0.2089,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 3, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,80,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 3, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,81,0.9950846531949754,0.9898962315674494,0.3029,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 3, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,82,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 3, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,83,0.9950846531949754,0.6886947023484434,14.6991,1,GRID,100,1,[4],22,1,"{'select_bias': [[1, 3]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,84,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_bias': [[1, 3]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,85,0.9950846531949754,0.4980884762424904,0.3767,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 4, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,86,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 4, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,87,0.9950846531949754,0.4972692517749863,0.3708,1,GRID,100,1,[4],22,1,"{'select_weight': [[1, 4, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,88,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[1, 4, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,89,0.9950846531949754,0.375204806116876,29.0029,1,GRID,100,1,[4],22,1,"{'select_bias': [[1, 4]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,90,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_bias': [[1, 4]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,91,unsat,unsat,0.3118,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,92,unsat,unsat,2.1091,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,93,unsat,unsat,0.3102,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,94,unsat,unsat,2.0609,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,95,0.9950846531949754,0.6843255051884216,0.2895,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 1, 3]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,96,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 1, 3]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,97,unsat,unsat,0.3311,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 1, 4]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,98,unsat,unsat,2.1014,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 1, 4]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,99,0.9950846531949754,0.3896777717094484,13.2421,1,GRID,100,1,[4],22,1,"{'select_bias': [[2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,100,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_bias': [[2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,101,unsat,unsat,0.3250,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,102,unsat,unsat,2.0034,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,103,unsat,unsat,0.3208,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,104,unsat,unsat,1.7249,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,105,0.9950846531949754,0.6843255051884216,0.3503,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 2, 3]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,106,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 2, 3]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,107,unsat,unsat,0.3559,1,GRID,100,1,[4],22,1,"{'select_weight': [[2, 2, 4]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,108,unsat,unsat,2.1657,1,GRID,100,2,[4],22,1,"{'select_weight': [[2, 2, 4]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,109,0.9950846531949754,0.9451119606772256,16.3471,1,GRID,100,1,[4],22,1,"{'select_bias': [[2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,110,unknown,unknown,timeout,1,GRID,100,2,[4],22,1,"{'select_bias': [[2, 2]]}","{'x_range': [-22, 22], 'y_range': [-22, 22], 'grid_delta': 4, 'samples_num': 3, 'limit_cells': 450}"
+config-xor-bad-5-one-weight-combs-results,111,unsat,unsat,0.8222,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,112,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,113,unsat,unsat,0.7774,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,114,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,115,unsat,unsat,129.2007,1,VORONOI,153,1,[4],22,1,"{'select_bias': [[1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,116,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_bias': [[1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,117,unsat,unsat,0.8175,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,118,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,119,unsat,unsat,1.3713,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,120,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,121,unsat,unsat,99.2042,1,VORONOI,153,1,[4],22,1,"{'select_bias': [[1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,122,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_bias': [[1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,123,0.9950846531949754,0.8080283997815402,2.3676,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 3, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,124,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 3, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,125,0.9950846531949754,0.4978154014199891,1.5472,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 3, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,126,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 3, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,127,0.9950846531949754,0.6843255051884216,148.0611,1,VORONOI,153,1,[4],22,1,"{'select_bias': [[1, 3]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,128,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_bias': [[1, 3]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,129,0.9950846531949754,0.4980884762424904,1.5081,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 4, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,130,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 4, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,131,0.9950846531949754,0.4972692517749863,3.0182,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[1, 4, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,132,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[1, 4, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,133,0.9950846531949754,0.375204806116876,111.6497,1,VORONOI,153,1,[4],22,1,"{'select_bias': [[1, 4]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,134,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_bias': [[1, 4]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,135,unsat,unsat,1.5463,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,136,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 1, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,137,unsat,unsat,2.8988,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,138,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 1, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,139,0.9950846531949754,0.6843255051884216,2.1769,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 1, 3]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,140,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 1, 3]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,141,unsat,unsat,2.0979,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 1, 4]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,142,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 1, 4]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,143,0.9950846531949754,0.375204806116876,48.4576,1,VORONOI,153,1,[4],22,1,"{'select_bias': [[2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,144,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_bias': [[2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,145,unsat,unsat,1.1621,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,146,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 2, 1]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,147,unsat,unsat,1.8790,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,148,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,149,0.9950846531949754,0.6843255051884216,1.9961,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 2, 3]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,150,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 2, 3]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,151,unsat,unsat,1.7539,1,VORONOI,153,1,[4],22,1,"{'select_weight': [[2, 2, 4]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,152,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_weight': [[2, 2, 4]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,153,0.9950846531949754,0.9636810486073184,78.7777,1,VORONOI,153,1,[4],22,1,"{'select_bias': [[2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
+config-xor-bad-5-one-weight-combs-results,154,unknown,unknown,timeout,1,VORONOI,153,2,[4],22,1,"{'select_bias': [[2, 2]]}","{'limit_points': 200, 'resample': True, 'random_state': 42}"
