@@ -112,19 +112,10 @@ config-blobs-2.json
 config-blobs-3.json
 ```
 
-# License
+# Citation
 
-Distributed under MIT license.
+TODO
 
 # Contact
 
-- Connect with me on [LinkedIn](https://www.linkedin.com/in/dorcoh)
-- Send me a PM here on GitHub
-
-# Acknowledgments
-
-I would like to thank:
-
-- My advisor Prof. Ofer Strichman
-- Our colleague - Prof. Guy Katz
-- Technion, Israel institute of Technology
+You can connect with me on [LinkedIn](https://www.linkedin.com/in/dorcoh)
