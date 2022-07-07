@@ -130,7 +130,7 @@ def append_stats(path, exp_id, exp_key, metrics, time_took, extra=None, config_p
         df.to_csv(f, header=f.tell() == 0, index=False)
 
 
-def set_stats(path, exp_id, exp_key, metrics, time_took, extra=None):
+def set_stats(path: Path, exp_id, exp_key, metrics, time_took, extra=None):
     """Set general stats (aggregating all experiments)"""
     res = {
         'exp_key': exp_key,
@@ -140,8 +140,11 @@ def set_stats(path, exp_id, exp_key, metrics, time_took, extra=None):
         'time': time_took
     }
 
-    # assumed to exist
-    df = pd.read_csv(path)
+    if path.exists():
+        df = pd.read_csv(path)
+    else:
+        df = pd.DataFrame()
+
     logging.info(f"Setting values for exp_id: {exp_id}")
     for key, value in res.items():
         df.loc[exp_id-1, key] = value

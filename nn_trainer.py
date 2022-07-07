@@ -1,4 +1,6 @@
 """Main module for training the network, requires: pickled dataset"""
+from pathlib import Path
+
 import numpy as np
 
 from nnsynth.common.arguments_handler import ArgumentsParser
@@ -14,7 +16,6 @@ def main(args):
     # generate data and split
     if args.load_dataset:
         dataset = Dataset.from_pickle(args.load_dataset)
-        # dataset =
     else:
         exit(1)
 
@@ -22,7 +23,7 @@ def main(args):
 
     if args.trainer_subset:
         dataset.X_train, dataset.y_train = gen_imbalance(X_train, y_train, prob_stay=0.3)
-        dataset.to_pickle('xor-bad-dataset.pickle')
+        dataset.to_pickle('reduced-' + Path(args.load_dataset).name)
 
     input_size = dataset.get_input_size()
     num_classes = dataset.get_output_size()
@@ -40,10 +41,10 @@ def main(args):
     print("Num layers: ", str(num_layers))
 
     evaluator = EvaluateDecisionBoundary(net, None, dataset, meshgrid_stepsize=args.meshgrid_stepsize,
-                                         contourf_levels=args.contourf_levels, save_plot=False,
+                                         contourf_levels=args.contourf_levels, save_plot=args.save_plot,
                                          meshgrid_limit=args.meshgrid_limit)
     evaluator.plot(use_test=True)
-    suffix = 'xor-bad'
+    suffix = args.trained_nn_suffix
     net.save_params(f_params='model-{}.pkl'.format(suffix), f_optimizer='optimizer-{}.pkl'.format(suffix),
                     f_history='history-{}.json'.format(suffix))
 

@@ -23,7 +23,7 @@ MODELS_PATH = CURR_PATH / "models"
 
 
 def main(args):
-    logging.info("Inspect net and property.")
+    logging.info("Serialize net and property.")
 
     logging.info("Init dataset")
     if not args.load_dataset:

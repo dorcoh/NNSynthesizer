@@ -182,7 +182,6 @@ if __name__ == '__main__':
 
     # set exp dir
     timestamp = datetime.utcnow().strftime("%s") if not args.timestamp else args.timestamp
-
     _EXP_ROOT_PATH = CURR_PATH / "results" / f"{Path(args.exp_config_path).stem}" / timestamp
     _EXP_ROOT_PATH.mkdir(parents=True, exist_ok=True)
 

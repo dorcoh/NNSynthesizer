@@ -4,6 +4,8 @@ import argparse
 class ArgumentsParser:
     parser = argparse.ArgumentParser(description='NN Synthesizer.')
     # general args
+    parser.add_argument('-cfg', '--config', type=str, default='config-example-samples.json',
+                        help="Path to a json config to override the below settings.")
     parser.add_argument('-rs', '--random_seed', default=42, type=int,
                         help='Random seed for creating/splitting dataset, and for training the net')
     parser.add_argument('-cs', '--check_sat', default=False, type=bool,
@@ -32,12 +34,16 @@ class ArgumentsParser:
                         help='Number of epochs for training the net')
     parser.add_argument('-ln', '--load_nn', default=None, type=str,
                         help='Supply pickled NN, optional')
+    # nn-trainer related
     parser.add_argument('-ts', '--trainer_subset', default=None, type=float, help="Perform a reduce before training.")
+    parser.add_argument('-tns', '--trained_nn_suffix', default='trained_nn_suffix', type=str,
+                        help="Trained NN name suffix.")
     # goal args
     parser.add_argument('-dw', '--ws_delta', default=None,
                         help='Delta value for bounding the free weights in their original neighbourhood, '
                              'takes float or None, in case of None formula generator skips adding these constraints')
-    parser.add_argument('-wcf', '--exp_config_path', type=str, default="config-dev.json")
+    parser.add_argument('-wcf', '--exp_config_path', type=str, default="config-dev.json",
+                        help="A json config for an experiment (by `repair_exp_runner.py`).")
     # robustness property args
     parser.add_argument('-pd', '--pr_delta', default=1, type=float,
                         help='Delta value for robustness property')

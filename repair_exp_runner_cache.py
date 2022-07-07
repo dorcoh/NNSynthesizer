@@ -1,6 +1,6 @@
 """
-Trigger a set of experiments with configuration file, each instance of experiment takes:
-(1) source network and dataset (2) specification, (3) heuristic and its params, it then attempts to perform a repair.
+Pre-compute config files for an experiments set, takes a config and generates config files in `cache` directory. The
+goal of caching is for a quick mitigation in case of failure (can restart from the last experiment).
 """
 import logging
 import sys

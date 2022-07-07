@@ -1,0 +1,28 @@
+{
+  "load_dataset": "good-network-data.XorDataset.pkl",
+  "load_nn": "model.pkl",
+  "hidden_size": [4],
+
+  "weights_config": {
+    "select_weight": [[1,1,1], [1,1,2]],
+    "select_bias": [[1, 1]]
+  },
+
+  "properties": [
+      {
+        "pr_coordinate": [10, 10],
+        "pr_delta": 9,
+        "pr_desired_output": 1
+      }
+    ],
+
+  "soft_constraints": true,
+  "heuristic": 2,
+  "heuristic_params": {
+    "x_range": [-22, 22],
+    "y_range": [-22, 22],
+    "grid_delta": 4,
+    "samples_num": 3,
+    "limit_cells": 100
+  }
+}
