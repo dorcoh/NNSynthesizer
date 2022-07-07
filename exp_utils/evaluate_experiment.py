@@ -5,7 +5,7 @@ from nnsynth.common.utils import load_pickle
 
 args = ArgumentsParser.parser.parse_args()
 
-sub_exp_path = Path('../../experiments/initial/repair-results')
+sub_exp_path = Path('../experiments/initial/repair-results')
 exp_path = sub_exp_path / args.experiment
 
 

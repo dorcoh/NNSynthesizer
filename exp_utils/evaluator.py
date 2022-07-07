@@ -45,7 +45,7 @@ def main(args):
 
     num_layers = get_num_layers(net)
 
-    exp_path = Path('../../experiments/initial/repair-results')
+    exp_path = Path('../experiments/initial/repair-results')
     sub_exp_path = exp_path / args.experiment
     # TODO: currently support only 1 sub-exp in dir
 

@@ -53,7 +53,7 @@ for new_val in new_vals_list:
     # TODO: reduce the dataset size (takes time to evaluate)
     evaluator = EvaluateDecisionBoundary(original_net, fixed_net, dataset, meshgrid_stepsize=args.meshgrid_stepsize,
                                          contourf_levels=args.contourf_levels, save_plot=True)
-    base_dir = "../../misc/parameters_changer_results/"
+    base_dir = "../misc/parameters_changer_results/"
     evaluator.multi_plot(base_dir + 'param_orig_{}_new_{}'.format(round(param_val, 4), round(new_val, 4)),
                          sub_name='', plot_train=False, plot_test=False)
     print(xor_dataset_sanity_check(fixed_net))
