@@ -139,6 +139,7 @@ evaluating the network decision boundaries (by plot). Formula and plot shall be 
 ### Other modules and scripts
 - Main logic: `nnsynth` module
 - Dataset generation: `dataset_generator.py`
+- Dataset inspection: `inpsect_dataset.py`
 
 
 ### Reproduce thesis experiments
@@ -195,8 +196,8 @@ config-blobs-3.json
 
 # Experiments Results
 
-The raw experiments results are available at `./processed-results/combined-1.csv` for the first part of experiments 
-(comparing similarity heuristics) and `./processed-results/combined-2.csv` for the second part (repair `XOR-B` and 
+The raw experiments results are available at `./results/processed-results/combined-1.csv` for the first part of experiments 
+(comparing similarity heuristics) and `./results/processed-results/combined-2.csv` for the second part (repair `XOR-B` and 
 `Blobs` networks with the samples similarity heuristic). Finally, the **naive baseline** results are available under 
 `./results-sgd/`.
 
