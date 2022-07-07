@@ -18,7 +18,6 @@ Additional resources regarding the thesis work can be found on this [page](http:
 
 # Getting Started
 
-## Installation
 - Install Python and Z3
 - Install required Python packages:
 
@@ -26,7 +25,7 @@ Additional resources regarding the thesis work can be found on this [page](http:
 pip install requirements.txt
 ```
 
-## Main flow - usage example
+# Main flow - usage example
 
 The `main.py` module is used for development, it basically demonstrates a single repair example, it takes a config file
 for setting up and executing a single repair trial. It can also take command line arguments (config overrides).
@@ -60,7 +59,7 @@ the new (and old) weights values, and a plot with the original and repaired deci
 - `config-example-voronoi.json` - to run a demo repair with the voronoi similarity heuristic
 
 
-## Advanced usage examples
+# Advanced usage examples
 
 #### 1 - Running an experiment set (multiple repair trials)
 
@@ -136,13 +135,20 @@ python inspect_net_and_property.py --exp_config_path config-dev.json --plot_name
 This will result with loading the network and its property, generate a corresponding SMT formula and solve it, and 
 evaluating the network decision boundaries (by plot). Formula and plot shall be available at `./inspector_results/{timestamp}/`
 
-### Other modules and scripts
+# Other modules and scripts
 - Main logic: `nnsynth` module
 - Dataset generation: `dataset_generator.py`
 - Dataset inspection: `inpsect_dataset.py`
 
 
-### Reproduce thesis experiments
+# Results
+
+The raw experiments results are available at `./results/processed-results/combined-1.csv` for the first part of experiments 
+(comparing similarity heuristics) and `./results/processed-results/combined-2.csv` for the second part (repair `XOR-B` and 
+`Blobs` networks with the samples similarity heuristic). Finally, the **naive baseline** results are available under 
+`./results-sgd/`.
+
+# Reproduce Results
 To reproduce our reported experiments you should follow example (1) above, by running each of these experiment sets
 under `./exp_configs`:
 
@@ -193,13 +199,6 @@ config-blobs-1.json
 config-blobs-2.json
 config-blobs-3.json
 ```
-
-# Experiments Results
-
-The raw experiments results are available at `./results/processed-results/combined-1.csv` for the first part of experiments 
-(comparing similarity heuristics) and `./results/processed-results/combined-2.csv` for the second part (repair `XOR-B` and 
-`Blobs` networks with the samples similarity heuristic). Finally, the **naive baseline** results are available under 
-`./results-sgd/`.
 
 # Citation
 
