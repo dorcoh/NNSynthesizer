@@ -3,12 +3,12 @@
 This repository provides a novel framework to repair unsafe neural networks w.r.t. safety specification. It builds upon 
 methods from the field of formal verification. More concretely, it uses SMT solvers to search for the repaired network. 
 
-Practically, this framework takes as input a Neural Network and a safety specification plus a set of free weights, it 
+Practically, this framework takes as input a neural network and a safety specification plus a set of free weights, it 
 then searches for a new weights assignment (if exists) that will repair the neural network (i.e., generate a new, safe NN).
 
-The codebase is part of my **M.Sc. thesis**: `Automated Repair of Neural Networks`.
+The codebase is part of my **M.Sc. thesis** work: `Automated Repair of Neural Networks` - [Paper (preprint)](), [Slides](DorThesisPresentationSlides.pdf).
 
-Additional resources regarding the thesis work can be found on this [page](http://intractable.netlify.com/research).
+Additional resources regarding the thesis work can be found on my personal [web page](http://intractable.netlify.com/research).
 
 
 # Built With
@@ -79,7 +79,7 @@ weight configs and threshold values. In practice, the flow will try to generate 
 weight config and threshold (e.g., if we have 4 weights configs and 3 threshold values, the flow will execute a total
  of 12 repair trials). **Please note - this config is required in all of the following advanced use cases.** 
 
-Once the process is complete, the results should be available in `./results/{config_name}/{unix_timestamp}/{exp_i}` for
+Once the process is complete, the results should be available in `./results/{config_name}/{unix_timestamp}/exp_{i}` for
 each experiment id `i`. Aggregated results shall be available in `./results/{config_name}/{unix_timestamp}/general_stats.csv`.
 
 ##### Pre-compute experiment set configs (caching)
@@ -136,7 +136,7 @@ This will result with loading the network and its property, generate a correspon
 evaluating the network decision boundaries (by plot). Formula and plot shall be available at `./inspector_results/{timestamp}/`
 
 # Other modules and scripts
-- Main logic: `nnsynth` module
+- Main logic is stored in `nnsynth` module
 - Dataset generation: `dataset_generator.py`
 - Dataset inspection: `inpsect_dataset.py`
 
