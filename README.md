@@ -6,20 +6,17 @@ methods from the field of formal verification. More concretely, it uses SMT solv
 Practically, this framework takes as input a neural network and a safety specification plus a set of free weights, it 
 then searches for a new weights assignment (if exists) that will repair the neural network (i.e., generate a new, safe NN).
 
-The codebase is part of my **M.Sc. thesis** work: `Automated Repair of Neural Networks` - [Paper (preprint)](), [Slides](DorThesisPresentationSlides.pdf).
+The codebase is part of my **M.Sc. thesis** work: `Automated Repair of Neural Networks` - ([Paper](https://arxiv.org/abs/2207.08157), [Slides](misc/slides.pdf)).
 
-Additional resources regarding the thesis work can be found on my personal [web page](http://intractable.netlify.com/research).
+# Built with
+- `Python 3.7.10`
+- `Z3 SMT solver 4.8.12` (+ its `Python` wrapper)
+- `PyTorch 1.7.0`
 
+# Getting started
 
-# Built With
-- Python 3.7.10
-- Z3 SMT solver 4.8.12 (+ Python wrapper)
-- PyTorch 1.7.0
-
-# Getting Started
-
-- Install Python and Z3
-- Install required Python packages:
+- Install `Python` and `Z3`
+- Install required `Python` packages:
 
 ```bash
 pip install requirements.txt
@@ -44,7 +41,7 @@ The flow works as follows:
 5. Select similarity heuristic (controlled by `heuristic` argument)
 6. Generate an SMT formula according to: network topology and its original values, desired property and free weights
 7. Save the SMT formula (for debug purposes)
-8. Solve the formula (the Python wrapper executes Z3, timeout is controlled by `z3_timeout`)
+8. Solve the formula (the `Python` wrapper executes Z3, timeout is controlled by `z3_timeout`)
 9. In case repair has succeeded: save the fixed (serialized) network, evaluate its decision boundary and compute metrics.
 10. Otherwise (repair failed): exit the flow.
 
@@ -148,7 +145,7 @@ The raw experiments results are available at `./results/processed-results/combin
 `Blobs` networks with the samples similarity heuristic). Finally, the **naive baseline** results are available under 
 `./results-sgd/`.
 
-# Reproduce Results
+# Reproduce results
 To reproduce our reported experiments you should follow example (1) above, by running each of these experiment sets
 under `./exp_configs`:
 
@@ -202,8 +199,17 @@ config-blobs-3.json
 
 # Citation
 
-TODO
+If you find our work useful in your research, please consider citing:
 
-# Issues and contact
-
-Feel free to open issue threads, you can also connect with me on [LinkedIn](https://www.linkedin.com/in/dorcoh).
+```bibtex
+@misc{https://doi.org/10.48550/arxiv.2207.08157,
+  doi = {10.48550/ARXIV.2207.08157},
+  url = {https://arxiv.org/abs/2207.08157},
+  author = {Cohen, Dor and Strichman, Ofer},
+  keywords = {Machine Learning (cs.LG), Artificial Intelligence (cs.AI), FOS: Computer and information sciences, FOS: Computer and information sciences},
+  title = {Automated Repair of Neural Networks},
+  publisher = {arXiv},
+  year = {2022},
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+```
